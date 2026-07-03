@@ -1,0 +1,19 @@
+# Postgres local para desenvolvimento (opcional)
+# docker compose up -d
+# DATABASE_URL=postgresql://papirar:papirar@localhost:5432/papirar
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: papirar
+      POSTGRES_PASSWORD: papirar
+      POSTGRES_DB: papirar
+    ports:
+      - "5432:5432"
+    volumes:
+      - papirar_pg:/var/lib/postgresql/data
+
+volumes:
+  papirar_pg:
