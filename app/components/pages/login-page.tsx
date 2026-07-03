@@ -1,0 +1,138 @@
+"use client";
+
+import { Link, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
+
+export function LoginPage() {
+  const navigate = useNavigate();
+  const { login, isAuthenticated, isLoading } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      navigate("/conta", { replace: true });
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      const name = email.split("@")[0] ?? "Cliente";
+      login({
+        name: name.charAt(0).toUpperCase() + name.slice(1),
+        email,
+        memberSince: new Date().toISOString(),
+      });
+      setLoading(false);
+      navigate("/conta");
+    }, 800);
+  }
+
+  return (
+    <div className="min-h-screen bg-background flex">
+      <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-20 py-12">
+        <div className="max-w-md w-full mx-auto">
+          <Link
+            to="/store"
+            className="text-2xl font-semibold tracking-widest uppercase text-foreground mb-12 block"
+          >
+            Papirar
+          </Link>
+
+          <h1 className="text-3xl font-medium text-foreground mb-2">Bem-vindo de volta</h1>
+          <p className="text-muted-foreground mb-10">
+            Entre na sua conta para continuar comprando.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1.5">E-mail</label>
+              <div className="relative">
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border border-border rounded-md pl-10 pr-4 py-3 bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                  placeholder="seu@email.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-medium text-foreground">Senha</label>
+                <Link
+                  to="/suporte/contato"
+                  className="text-xs text-primary hover:text-primary/80 transition-colors"
+                >
+                  Esqueceu a senha?
+                </Link>
+              </div>
+              <div className="relative">
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border border-border rounded-md pl-10 pr-12 py-3 bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-medium hover:bg-primary/90 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+              ) : (
+                <>
+                  Entrar <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
+
+          <p className="text-center text-sm text-muted-foreground mt-10">
+            Não tem uma conta?{" "}
+            <Link to="/cadastro" className="text-primary font-medium hover:text-primary/80 transition-colors">
+              Criar conta
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      <div className="hidden lg:flex flex-1 bg-secondary relative items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5" />
+        <div className="relative z-10 text-center px-12 max-w-lg">
+          <div className="text-6xl mb-6">👋</div>
+          <h2 className="text-2xl font-medium text-foreground mb-3">Boas compras começam aqui</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Acesse sua conta para acompanhar pedidos, salvar seus favoritos e ter uma experiência personalizada.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
