@@ -2,7 +2,7 @@
 
 client_id = "a85f81a072591b0cbd99282724e06562"
 name = "papirar"
-application_url = "https://example.com"
+application_url = "https://papirar.onrender.com"
 embedded = true
 
 [access_scopes]
@@ -45,8 +45,11 @@ api_version = "2026-10"
   topics = [ "app/scopes_update" ]
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://papirar.onrender.com/auth/callback",
+  "https://papirar.onrender.com/auth/shopify/callback",
+  "https://papirar.onrender.com/api/auth/callback"
+]
 
 [build]
-include_config_on_deploy = true
 automatically_update_urls_on_dev = true
