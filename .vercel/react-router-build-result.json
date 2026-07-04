@@ -19,13 +19,16 @@
       "routes/suporte.contato": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte._index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.faq": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/suporte.$": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/_index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/conta": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store.product.$handle": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store.checkout": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store.checkout.sucesso": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "routes/store._index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+      "routes/store._index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/store.$": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/$": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
       "root": {
@@ -122,6 +125,15 @@
           "runtime": "nodejs"
         }
       },
+      "routes/suporte.$": {
+        "id": "routes/suporte.$",
+        "parentId": "routes/suporte",
+        "file": "app/routes/suporte.$.tsx",
+        "path": "*",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
       "routes/_index": {
         "id": "routes/_index",
         "parentId": "root",
@@ -186,6 +198,24 @@
         "parentId": "routes/store",
         "file": "app/routes/store._index.tsx",
         "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/store.$": {
+        "id": "routes/store.$",
+        "parentId": "routes/store",
+        "file": "app/routes/store.$.tsx",
+        "path": "*",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/$": {
+        "id": "routes/$",
+        "parentId": "root",
+        "file": "app/routes/$.tsx",
+        "path": "*",
         "config": {
           "runtime": "nodejs"
         }
@@ -271,6 +301,12 @@
         "file": "routes/suporte.faq.tsx",
         "path": "faq"
       },
+      "routes/suporte.$": {
+        "id": "routes/suporte.$",
+        "parentId": "routes/suporte",
+        "file": "routes/suporte.$.tsx",
+        "path": "*"
+      },
       "routes/_index": {
         "id": "routes/_index",
         "parentId": "root",
@@ -318,6 +354,18 @@
         "parentId": "routes/store",
         "file": "routes/store._index.tsx",
         "index": true
+      },
+      "routes/store.$": {
+        "id": "routes/store.$",
+        "parentId": "routes/store",
+        "file": "routes/store.$.tsx",
+        "path": "*"
+      },
+      "routes/$": {
+        "id": "routes/$",
+        "parentId": "root",
+        "file": "routes/$.tsx",
+        "path": "*"
       }
     },
     "routeDiscovery": {
@@ -384,6 +432,11 @@
                 "id": "routes/suporte.faq",
                 "file": "routes/suporte.faq.tsx",
                 "path": "faq"
+              },
+              {
+                "id": "routes/suporte.$",
+                "file": "routes/suporte.$.tsx",
+                "path": "*"
               }
             ]
           },
@@ -428,8 +481,18 @@
                 "id": "routes/store._index",
                 "file": "routes/store._index.tsx",
                 "index": true
+              },
+              {
+                "id": "routes/store.$",
+                "file": "routes/store.$.tsx",
+                "path": "*"
               }
             ]
+          },
+          {
+            "id": "routes/$",
+            "file": "routes/$.tsx",
+            "path": "*"
           }
         ]
       }
