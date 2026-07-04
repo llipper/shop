@@ -19,6 +19,7 @@ import {
   getVariantImageForColor,
 } from "@/lib/product-variants";
 import { cn } from "@/lib/utils";
+import { ProductShareDialog } from "@/components/product/product-share-dialog";
 import { Heart, Package, RefreshCw, ShieldCheck, Truck } from "lucide-react";
 import { useMemo } from "react";
 
@@ -227,6 +228,13 @@ export function ProductPurchasePanel({
         >
           {activeVariant?.availableForSale === false ? "Indisponível" : "Adicionar ao carrinho"}
         </button>
+        <ProductShareDialog
+          product={product}
+          shareImage={activeVariant?.image ?? product.image}
+          sharePrice={price}
+          selectedColor={selectedColor}
+          selectedSize={selectedSize}
+        />
         <button
           type="button"
           onClick={onToggleFavorite}

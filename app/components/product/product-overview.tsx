@@ -14,8 +14,8 @@ import {
   getVariantImageForColor,
 } from "@/lib/product-variants";
 import { ChevronRight } from "lucide-react";
-import { useMemo, useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router";
 import { toast } from "sonner";
 
 interface ProductOverviewProps {
@@ -25,12 +25,38 @@ interface ProductOverviewProps {
 export function ProductOverview({ product }: ProductOverviewProps) {
   const { addItem } = useCart();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const [searchParams] = useSearchParams();
   const variants = product.variants ?? [];
 
   const initial = getInitialSelection(product);
   const gallery = product.gallery ?? [product.image];
   const [selectedColor, setSelectedColor] = useState(initial.color);
   const [selectedSize, setSelectedSize] = useState(initial.size);
+
+  useEffect(() => {
+    const sharedColor = searchParams.get("cor");
+    const sharedSize = searchParams.get("tamanho");
+    if (!sharedColor && !sharedSize) return;
+
+    const resolvedColor =
+      sharedColor && variants.some((variant) => variant.color === sharedColor)
+        ? sharedColor
+        : null;
+
+    if (resolvedColor) {
+      setSelectedColor(resolvedColor);
+      const variantImage = getVariantImageForColor(variants, resolvedColor);
+      if (variantImage) setActiveGalleryImage(variantImage);
+    }
+
+    if (sharedSize) {
+      const colorForSize = resolvedColor ?? initial.color;
+      const sizesForColor = getSizesForColor(variants, colorForSize);
+      if (sizesForColor.includes(sharedSize)) {
+        setSelectedSize(sharedSize);
+      }
+    }
+  }, [searchParams, variants, initial.color]);
   const [activeGalleryImage, setActiveGalleryImage] = useState(
     getVariantImageForColor(variants, initial.color) ?? gallery[0] ?? product.image,
   );
