@@ -1,14 +1,15 @@
 import type { Product, ProductVariant } from "@/types/product";
+import { sortBrazilianSizes } from "@/lib/size-utils";
 
 export function getSizesForColor(
   variants: ProductVariant[],
   color: string,
 ): string[] {
-  return [
+  return sortBrazilianSizes([
     ...new Set(
       variants.filter((v) => v.color === color).map((v) => v.size),
     ),
-  ];
+  ]);
 }
 
 export function getColorsForSize(

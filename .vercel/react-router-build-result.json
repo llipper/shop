@@ -12,6 +12,7 @@
     "routeIdToServerBundleId": {
       "routes/favoritos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/cadastro": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/produtos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.trocas-e-devolucoes": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.envio-e-prazos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.rastreio": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -47,6 +48,15 @@
         "parentId": "root",
         "file": "app/routes/cadastro.tsx",
         "path": "cadastro",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/produtos": {
+        "id": "routes/produtos",
+        "parentId": "root",
+        "file": "app/routes/produtos.tsx",
+        "path": "produtos",
         "config": {
           "runtime": "nodejs"
         }
@@ -213,6 +223,12 @@
         "file": "routes/cadastro.tsx",
         "path": "cadastro"
       },
+      "routes/produtos": {
+        "id": "routes/produtos",
+        "parentId": "root",
+        "file": "routes/produtos.tsx",
+        "path": "produtos"
+      },
       "routes/suporte": {
         "id": "routes/suporte",
         "parentId": "root",
@@ -328,6 +344,11 @@
             "id": "routes/cadastro",
             "file": "routes/cadastro.tsx",
             "path": "cadastro"
+          },
+          {
+            "id": "routes/produtos",
+            "file": "routes/produtos.tsx",
+            "path": "produtos"
           },
           {
             "id": "routes/suporte",

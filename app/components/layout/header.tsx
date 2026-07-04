@@ -15,63 +15,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { menuData, novidadesHref, saleHref } from "@/lib/menu-data";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-
-const menuData = {
-  Masculino: {
-    featured: { title: "Essentials Collection", description: "O básico que todo homem precisa", image: "/product/camiseta_01.png", href: "#" },
-    columns: [
-      { title: "Roupas", links: [
-        { label: "Camisetas", href: "#" },
-        { label: "Camisas", href: "#" },
-        { label: "Calças", href: "#" },
-        { label: "Bermudas", href: "#" },
-        { label: "Moletons", href: "#" },
-      ]},
-      { title: "Acessórios", links: [
-        { label: "Bonés", href: "#" },
-        { label: "Meias", href: "#" },
-        { label: "Carteiras", href: "#" },
-        { label: "Cintos", href: "#" },
-      ]},
-    ],
-  },
-  Feminino: {
-    featured: { title: "Summer Vibes", description: "Peças leves e elegantes", image: "/product/camiseta_03.png", href: "#" },
-    columns: [
-      { title: "Roupas", links: [
-        { label: "Camisetas", href: "#" },
-        { label: "Blusas", href: "#" },
-        { label: "Vestidos", href: "#" },
-        { label: "Calças", href: "#" },
-        { label: "Saias", href: "#" },
-      ]},
-      { title: "Acessórios", links: [
-        { label: "Bolsas", href: "#" },
-        { label: "Bijuterias", href: "#" },
-        { label: "Lenços", href: "#" },
-        { label: "Óculos", href: "#" },
-      ]},
-    ],
-  },
-  Objetos: {
-    featured: { title: "Workspace Essentials", description: "Para um escritório minimalista", image: "/product/camiseta_05.png", href: "#" },
-    columns: [
-      { title: "Escritório", links: [
-        { label: "Cadernos", href: "#" },
-        { label: "Canetas", href: "#" },
-        { label: "Organizadores", href: "#" },
-        { label: "Mouse Pads", href: "#" },
-      ]},
-      { title: "Lifestyle", links: [
-        { label: "Canecas", href: "#" },
-        { label: "Garrafas", href: "#" },
-        { label: "Quadros", href: "#" },
-      ]},
-    ],
-  },
-};
 
 export function Header() {
   const { isAuthenticated } = useAuth();
@@ -159,12 +105,18 @@ export function Header() {
 
               {/* Simple links */}
               <NavigationMenuItem>
-                <Link to="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors px-2.5 py-1.5">
+                <Link
+                  to={novidadesHref}
+                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors px-2.5 py-1.5"
+                >
                   Novidades
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="#" className="text-sm font-medium text-red-500 hover:text-red-400 transition-colors px-2.5 py-1.5">
+                <Link
+                  to={saleHref}
+                  className="text-sm font-medium text-red-500 hover:text-red-400 transition-colors px-2.5 py-1.5"
+                >
                   Sale
                 </Link>
               </NavigationMenuItem>

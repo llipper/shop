@@ -1,3 +1,9 @@
+/**
+ * A cor (nome) vem da Shopify na opção Cor/Color de cada variante.
+ * A Shopify não envia código hex — só o texto ("Bordô", "Black", etc.).
+ * Este arquivo só ajuda a exibir um swatch quando não há imagem da variante.
+ * Não altera variantId, checkout nem estoque.
+ */
 const NAMED_COLORS: Record<string, string> = {
   preto: "#1a1a1a",
   black: "#1a1a1a",
@@ -8,9 +14,19 @@ const NAMED_COLORS: Record<string, string> = {
   azul: "#3b82f6",
   blue: "#3b82f6",
   verde: "#22c55e",
+  "verde escuro": "#1A2E2A",
   green: "#22c55e",
   vermelho: "#ef4444",
   red: "#ef4444",
+  bordô: "#4B242C",
+  bordo: "#4B242C",
+  bordeaux: "#4B242C",
+  osso: "#E8E6DF",
+  carvão: "#3A3D42",
+  carvao: "#3A3D42",
+  "índigo lavado": "#425C76",
+  "indigo lavado": "#425C76",
+  oliva: "#6B7C4C",
   amarelo: "#eab308",
   yellow: "#eab308",
   cinza: "#9ca3af",
@@ -28,6 +44,7 @@ const NAMED_COLORS: Record<string, string> = {
   purple: "#a855f7",
   lilás: "#c084fc",
   lilac: "#c084fc",
+  clear: "#f5f5f5",
 };
 
 function hashColor(value: string): string {
@@ -41,5 +58,12 @@ function hashColor(value: string): string {
 
 export function colorToHex(name: string): string {
   const key = name.toLowerCase().trim();
-  return NAMED_COLORS[key] ?? hashColor(name);
+  if (NAMED_COLORS[key]) return NAMED_COLORS[key];
+
+  const partial = Object.entries(NAMED_COLORS).find(([label]) =>
+    key.includes(label),
+  );
+  if (partial) return partial[1];
+
+  return hashColor(name);
 }

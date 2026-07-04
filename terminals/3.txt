@@ -3,7 +3,7 @@ pid: 3352
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run typecheck"
 started_at: 2026-07-04T00:13:13.283Z
-running_for_ms: 4934996  
+running_for_ms: 11724995 
 ---
 npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
 

@@ -14,6 +14,7 @@ export function CategoryFilter() {
       {categories.map((category) => (
         <button
           key={category}
+          type="button"
           onClick={() => setActive(category)}
           className={cn(
             "relative text-sm font-medium pb-1 transition-colors",

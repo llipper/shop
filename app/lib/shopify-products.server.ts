@@ -1,5 +1,6 @@
 import type { Product } from "../types/product";
 import { colorToHex } from "./color-utils";
+import { normalizeBrazilianSizes, toBrazilianSize } from "./size-utils";
 import {
   getShopDomain,
   getStorefrontClient,
@@ -163,11 +164,12 @@ function mapShopifyProduct(node: ShopifyProductNode): Product {
       COLOR_OPTION_NAMES,
       colorOption?.values[0] ?? "Único",
     );
-    const size = getOptionValue(
+    const rawSize = getOptionValue(
       variant.selectedOptions,
       SIZE_OPTION_NAMES,
       sizeOption?.values[0] ?? "Único",
     );
+    const size = toBrazilianSize(rawSize);
 
     const compareAtPrice = variant.compareAtPrice
       ? parseFloat(variant.compareAtPrice.amount)
@@ -189,7 +191,9 @@ function mapShopifyProduct(node: ShopifyProductNode): Product {
   });
 
   const colors = colorOption?.values ?? [...new Set(variants.map((v) => v.color))];
-  const sizes = sizeOption?.values ?? [...new Set(variants.map((v) => v.size))];
+  const sizes = normalizeBrazilianSizes(
+    sizeOption?.values ?? variants.map((v) => v.size),
+  );
   const firstVariant = variants[0];
 
   return {
