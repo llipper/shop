@@ -1,11 +1,18 @@
 "use client";
 
-import { Link } from "react-router";
-import { ArrowLeft, ExternalLink, Lock, ShieldCheck, Truck } from "lucide-react";
+import { Link, useFetcher } from "react-router";
+import { ArrowLeft, ExternalLink, Loader2, Lock, ShieldCheck, Truck } from "lucide-react";
 import Image from "@/components/ui/image";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/cart-context";
-import { buildShopifyCheckoutUrl } from "@/lib/shopify-cart";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
+type CheckoutActionData = {
+  checkoutUrl?: string | null;
+  error?: string;
+  warning?: string | null;
+};
 
 interface CheckoutContentProps {
   shop: string | null;
@@ -13,8 +20,51 @@ interface CheckoutContentProps {
 
 export function CheckoutContent({ shop }: CheckoutContentProps) {
   const { items, totalPrice, removeItem } = useCart();
-  const checkoutUrl = shop ? buildShopifyCheckoutUrl(shop, items) : null;
+  const fetcher = useFetcher<CheckoutActionData>();
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const isLoading = fetcher.state !== "idle";
+
+  const unavailableItems = items.filter(
+    (item) => item.availableForSale === false,
+  );
   const missingVariants = items.some((item) => !item.variantId);
+  const canCheckout =
+    items.length > 0 &&
+    !missingVariants &&
+    unavailableItems.length === 0 &&
+    Boolean(shop);
+
+  useEffect(() => {
+    if (fetcher.state !== "idle" || !fetcher.data) return;
+
+    if (fetcher.data.checkoutUrl) {
+      if (fetcher.data.warning) toast.message(fetcher.data.warning);
+      window.location.href = fetcher.data.checkoutUrl;
+      return;
+    }
+
+    if (fetcher.data.error) {
+      setCheckoutError(fetcher.data.error);
+      toast.error(fetcher.data.error);
+    }
+  }, [fetcher.state, fetcher.data]);
+
+  const handleCheckout = () => {
+    if (!canCheckout) return;
+
+    setCheckoutError(null);
+    fetcher.submit(
+      {
+        items: JSON.stringify(
+          items.map((item) => ({
+            variantId: item.variantId!,
+            quantity: item.quantity,
+          })),
+        ),
+      },
+      { method: "post" },
+    );
+  };
 
   if (items.length === 0) {
     return (
@@ -46,20 +96,13 @@ export function CheckoutContent({ shop }: CheckoutContentProps) {
 
       <div className="mb-8">
         <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
-          Passo 2 de 3 — Revisão
+          Passo 2 de 3 — Revisão no Papirar
         </p>
         <h1 className="text-3xl font-medium mb-3">Revisar pedido</h1>
         <p className="text-muted-foreground leading-relaxed">
-          Esta página só confere os itens do seu carrinho. O{" "}
-          <strong className="text-foreground">pagamento, endereço e frete</strong> são
-          preenchidos no checkout oficial da Shopify
-          {shop ? (
-            <>
-              {" "}
-              (<span className="text-foreground">{shop}</span>)
-            </>
-          ) : null}
-          .
+          Você revisa o pedido aqui no site Papirar. Na etapa final, a Shopify processa{" "}
+          <strong className="text-foreground">pagamento, endereço e frete</strong> de forma
+          segura.
         </p>
       </div>
 
@@ -73,9 +116,16 @@ export function CheckoutContent({ shop }: CheckoutContentProps) {
         </span>
         <span className="text-border">→</span>
         <span className="px-3 py-1.5 rounded-full bg-secondary whitespace-nowrap">
-          3. Pagamento na Shopify
+          3. Pagamento seguro
         </span>
       </div>
+
+      {unavailableItems.length > 0 && (
+        <div className="mb-6 rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          Alguns itens estão esgotados ({unavailableItems.map((i) => `${i.colorName} / ${i.size}`).join(", ")}).
+          Remova-os ou escolha outra variante na página do produto.
+        </div>
+      )}
 
       <div className="bg-secondary/30 border border-border rounded-xl p-6 md:p-8 space-y-6">
         <h2 className="text-lg font-medium">Itens do pedido</h2>
@@ -95,6 +145,9 @@ export function CheckoutContent({ shop }: CheckoutContentProps) {
                 <p className="font-medium text-sm line-clamp-1">{item.product.title}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {item.colorName} · {item.size} · Qtd {item.quantity}
+                  {item.availableForSale === false && (
+                    <span className="ml-2 text-destructive">· Esgotado</span>
+                  )}
                 </p>
                 <p className="text-sm font-medium mt-1">
                   R$ {(item.price * item.quantity).toFixed(2).replace(".", ",")}
@@ -137,25 +190,45 @@ export function CheckoutContent({ shop }: CheckoutContentProps) {
           </div>
         </div>
 
-        {checkoutUrl ? (
-          <Button asChild className="w-full h-12 text-base">
-            <a href={checkoutUrl}>
-              Continuar para pagamento na Shopify
+        <Button
+          type="button"
+          className="w-full h-12 text-base"
+          disabled={!canCheckout || isLoading}
+          onClick={handleCheckout}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Preparando pagamento...
+            </>
+          ) : (
+            <>
+              Finalizar compra
               <ExternalLink className="w-4 h-4 ml-2" />
-            </a>
-          </Button>
-        ) : (
+            </>
+          )}
+        </Button>
+
+        {!shop && (
           <p className="text-sm text-destructive text-center">
-            {missingVariants
-              ? "Alguns itens não têm variante Shopify. Remova e adicione novamente pela página do produto."
-              : "Loja não configurada. Rode shopify app dev com o app instalado na loja."}
+            Configure SHOP_STORE_DOMAIN no .env para finalizar a compra.
           </p>
         )}
 
-        <p className="text-xs text-muted-foreground text-center">
-          Você será redirecionado para{" "}
-          <strong className="text-foreground">{shop ?? "sua loja Shopify"}</strong> para
-          informar endereço, escolher frete e pagar.
+        {missingVariants && (
+          <p className="text-sm text-destructive text-center">
+            Alguns itens não têm variante Shopify. Remova e adicione novamente pela página do produto.
+          </p>
+        )}
+
+        {checkoutError && (
+          <p className="text-sm text-destructive text-center">{checkoutError}</p>
+        )}
+
+        <p className="text-xs text-muted-foreground text-center leading-relaxed">
+          No checkout, se clicar em <strong className="text-foreground">Papirar</strong> e cair na
+          loja demo da Shopify, configure o logo do checkout no admin para apontar ao seu site
+          (Vercel), não ao tema Online Store padrão.
         </p>
       </div>
     </div>

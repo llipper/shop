@@ -12,6 +12,7 @@ export interface CartItem {
   image: string;
   price: number;
   quantity: number;
+  availableForSale?: boolean;
 }
 
 interface CartContextType {
@@ -23,6 +24,7 @@ interface CartContextType {
     image: string,
     variantId?: string,
     price?: number,
+    availableForSale?: boolean,
   ) => void;
   removeItem: (id: string) => void;
   isCartOpen: boolean;
@@ -44,6 +46,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     image: string,
     variantId?: string,
     price?: number,
+    availableForSale?: boolean,
   ) => {
     const itemId = variantId ?? `${product.id}-${size}-${colorName}`;
     const unitPrice = price ?? product.price;
@@ -70,6 +73,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           image,
           price: unitPrice,
           quantity: 1,
+          availableForSale,
         },
       ];
     });

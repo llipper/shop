@@ -27,7 +27,7 @@ export default function StoreProductPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background font-sans text-foreground">
+    <main className="min-h-screen bg-background pb-24 font-sans text-foreground lg:pb-0">
       <Header />
       <ProductOverview product={product} />
     </main>

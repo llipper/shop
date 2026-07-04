@@ -1,0 +1,109 @@
+---
+pid: 18948
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run dev:storefront"
+started_at: 2026-07-04T00:32:23.712Z
+running_for_ms: 3785004  
+---
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> dev:storefront
+> react-router dev
+
+  ⚠️  Future Flag Warning: Route middleware support is changing in React Router v8.
+     You can use the `future.v8_middleware` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_middleware
+  ⚠️  Future Flag Warning: Route module splitting behavior is changing in React Router v8.
+     You can use the `future.v8_splitRouteModules` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_splitroutemodules
+  ⚠️  Future Flag Warning: Vite Environment API usage is changing in React Router v8.
+     You can use the `future.v8_viteEnvironmentApi` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_viteenvironmentapi
+  ⚠️  Future Flag Warning: Request handling behavior is changing in React Router v8.
+     You can use the `future.v8_passThroughRequests` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_passthroughrequests
+  ⚠️  Future Flag Warning: Data request URL formats are changing in React Router v8.
+     You can use the `future.v8_trailingSlashAwareDataRequests` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_trailingslashawaredatarequests
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+21:32:44 [vite] (ssr) Error when evaluating SSR module virtual:react-router/server-build: Detected an empty appUrl configuration, please make sure to set the necessary environment variables.
+If you're deploying your app, you can find more information at https://shopify.dev/docs/apps/launch/deployment/deploy-web-app/deploy-to-hosting-service#step-4-set-up-environment-variables
+      at deriveApi (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/@shopify/shopify-app-react-router/dist/esm/server/shopify-app.mjs:105:15)
+      at shopifyApp (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/@shopify/shopify-app-react-router/dist/esm/server/shopify-app.mjs:46:17)
+      at eval (eval at runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:19:53)
+      at ESModulesEvaluator.runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at SSRCompatModuleRunner.directRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1284:61)
+      at SSRCompatModuleRunner.directRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:25370:23)
+      at SSRCompatModuleRunner.cachedRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1180:76)
+      at eval (eval at runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:11:31)
+      at ESModulesEvaluator.runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at SSRCompatModuleRunner.directRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1284:61)
+Error obtaining session table: PrismaClientInitializationError: 
+Invalid `prisma.session.count()` invocation:
+
+
+error: Environment variable not found: DATABASE_URL.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider = "postgresql"
+10 |   url      = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+21:32:44 [vite] Internal server error: Detected an empty appUrl configuration, please make sure to set the necessary environment variables.
+If you're deploying your app, you can find more information at https://shopify.dev/docs/apps/launch/deployment/deploy-web-app/deploy-to-hosting-service#step-4-set-up-environment-variables
+      at deriveApi (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/@shopify/shopify-app-react-router/dist/esm/server/shopify-app.mjs:105:15)
+      at shopifyApp (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/@shopify/shopify-app-react-router/dist/esm/server/shopify-app.mjs:46:17)
+      at eval (eval at runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:19:53)
+      at ESModulesEvaluator.runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at SSRCompatModuleRunner.directRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1284:61)
+      at SSRCompatModuleRunner.directRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:25370:23)
+      at SSRCompatModuleRunner.cachedRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1180:76)
+      at eval (eval at runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:11:31)
+      at ESModulesEvaluator.runInlinedModule (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at SSRCompatModuleRunner.directRequest (file:///C:/Users/Duck%20Cipher/Desktop/shop/papirar/node_modules/vite/dist/node/module-runner.js:1284:61)
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+21:32:49 [vite] (ssr) page reload terminals/5.txt
+Error obtaining session table: PrismaClientInitializationError: 
+Invalid `prisma.session.count()` invocation:
+
+
+error: Environment variable not found: DATABASE_URL.
+  -->  schema.prisma:10
+   | 
+ 9 |   provider = "postgresql"
+10 |   url      = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:50 [vite] (ssr) page reload terminals/5.txt
+21:32:51 [vite] (ssr) page reload terminals/5.txt
+21:32:51 [vite] (ssr) page reload terminals/5.txt
+21:32:51 [vite] (ssr) page reload terminals/5.txt
+21:32:52 [vite] (ssr) page reload terminals/5.txt
+C:\Users\Duck Cipher\Desktop\shop\papirar\node_modules\@shopify\shopify-app-session-storage-prisma\dist\cjs\prisma.js:30
+            throw new MissingSessionTableError(`Prisma ${this.tableName} table does not exist. This could happen for a few reasons, see https://github.com/Shopify/shopify-app-js/tree/main/packages/apps/session-storage/shopify-app-session-storage-prisma#troubleshooting for more information`, cause);
+                  ^
+
+MissingSessionTableError: Prisma session table does not exist. This could happen for a few reasons, see https://github.com/Shopify/shopify-app-js/tree/main/packages/apps/session-storage/shopify-app-session-storage-prisma#troubleshooting for more information
+    at C:\Users\Duck Cipher\Desktop\shop\papirar\node_modules\@shopify\src\prisma.ts:55:15 {
+  cause: Error: The table `session` does not exist in the current database.
+      at PrismaSessionStorage.pollForTable (C:\Users\Duck Cipher\Desktop\shop\papirar\node_modules\@shopify\src\prisma.ts:162:11)
+}
+
+Node.js v26.3.0

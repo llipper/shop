@@ -1,0 +1,61 @@
+---
+pid: 3352
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run typecheck"
+started_at: 2026-07-04T00:13:13.283Z
+running_for_ms: 4934996  
+---
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> typecheck
+> react-router typegen && tsc --noEmit
+
+app/components/pages/account-page.tsx(372,27): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/alert-dialog.tsx(150,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/alert-dialog.tsx(168,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
+app/components/ui/attachment.tsx(153,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/button.tsx(46,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/calendar.tsx(7,8): error TS2307: Cannot find module 'react-day-picker' or its corresponding type declarations.
+app/components/ui/calendar.tsx(40,31): error TS7006: Parameter 'date' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(135,18): error TS7031: Binding element 'className' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(135,29): error TS7031: Binding element 'rootRef' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(145,21): error TS7031: Binding element 'className' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(145,32): error TS7031: Binding element 'orientation' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(165,24): error TS7031: Binding element 'children' implicitly has an 'any' type.
+app/components/ui/carousel.tsx(4,8): error TS2307: Cannot find module 'embla-carousel-react' or its corresponding type declarations.
+app/components/ui/carousel.tsx(174,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
+app/components/ui/carousel.tsx(204,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
+app/components/ui/chart.tsx(2,36): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
+app/components/ui/chart.tsx(3,39): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
+app/components/ui/chart.tsx(199,20): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(200,17): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(200,23): error TS7006: Parameter 'index' implicitly has an 'any' type.
+app/components/ui/chart.tsx(298,18): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(299,15): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(299,21): error TS7006: Parameter 'index' implicitly has an 'any' type.
+app/components/ui/combobox.tsx(2,47): error TS2307: Cannot find module '@base-ui/react' or its corresponding type declarations.
+app/components/ui/combobox.tsx(41,33): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/combobox.tsx(71,13): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/combobox.tsx(252,27): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/command.tsx(2,45): error TS2307: Cannot find module 'cmdk' or its corresponding type declarations.
+app/components/ui/dialog.tsx(71,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/dialog.tsx(116,19): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/drawer.tsx(2,43): error TS2307: Cannot find module 'vaul' or its corresponding type declarations.
+app/components/ui/input-group.tsx(87,3): error TS2322: Type '"ghost"' is not assignable to type 'null'.
+app/components/ui/input-otp.tsx(2,43): error TS2307: Cannot find module 'input-otp' or its corresponding type declarations.
+app/components/ui/input-otp.tsx(49,61): error TS2339: Property 'slots' does not exist on type '{}'.
+app/components/ui/message-scroller.tsx(7,8): error TS2307: Cannot find module '@shadcn/react/message-scroller' or its corresponding type declarations.
+app/components/ui/pagination.tsx(50,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/resizable.tsx(1,37): error TS2307: Cannot find module 'react-resizable-panels' or its corresponding type declarations.
+app/components/ui/sheet.tsx(72,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/sidebar.tsx(5,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+app/components/ui/sidebar.tsx(262,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/sidebar.tsx(491,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/toggle-group.tsx(59,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/toggle.tsx(31,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/lib/shopify-products.server.ts(219,17): error TS2339: Property 'length' does not exist on type 'ResponseErrors'.
+app/lib/shopify-products.server.ts(220,56): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'ResponseErrors'.
+  Property '0' does not exist on type 'ResponseErrors'.
+app/lib/shopify-products.server.ts(253,17): error TS2339: Property 'length' does not exist on type 'ResponseErrors'.
+app/lib/shopify-products.server.ts(254,44): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'ResponseErrors'.
+  Property '0' does not exist on type 'ResponseErrors'.

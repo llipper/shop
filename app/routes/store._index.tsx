@@ -26,9 +26,9 @@ export default function StoreHome() {
 
         {!error && shop && products.length === 0 && (
           <p className="mx-12 mb-6 text-sm text-muted-foreground">
-            Nenhum produto ativo na loja{" "}
+            Nenhum produto publicado na loja{" "}
             <strong className="text-foreground">{shop}</strong>. Cadastre
-            produtos no admin da Shopify.
+            produtos no canal de vendas Online Store no admin da Shopify.
           </p>
         )}
 

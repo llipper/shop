@@ -5,6 +5,7 @@ export interface ProductVariant {
   image: string;
   hex: string;
   price: number;
+  compareAtPrice?: number;
   availableForSale?: boolean;
 }
 
@@ -13,11 +14,15 @@ export interface Product {
   handle: string;
   title: string;
   price: number;
+  maxPrice?: number;
   currencyCode?: string;
   image: string;
   color: string;
   category: "Masculino" | "Feminino" | "Objetos";
+  productType?: string;
+  vendor?: string;
   description?: string;
+  descriptionHtml?: string;
   colors?: string[];
   sizes?: string[];
   gallery?: string[];

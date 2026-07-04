@@ -1,0 +1,247 @@
+---
+pid: 12624
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run dev:storefront"
+started_at: 2026-07-04T00:33:25.623Z
+running_for_ms: 3725003  
+---
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> dev:storefront
+> react-router dev
+
+  ⚠️  Future Flag Warning: Route middleware support is changing in React Router v8.
+     You can use the `future.v8_middleware` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_middleware
+  ⚠️  Future Flag Warning: Route module splitting behavior is changing in React Router v8.
+     You can use the `future.v8_splitRouteModules` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_splitroutemodules
+  ⚠️  Future Flag Warning: Vite Environment API usage is changing in React Router v8.
+     You can use the `future.v8_viteEnvironmentApi` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_viteenvironmentapi
+  ⚠️  Future Flag Warning: Request handling behavior is changing in React Router v8.
+     You can use the `future.v8_passThroughRequests` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_passthroughrequests
+  ⚠️  Future Flag Warning: Data request URL formats are changing in React Router v8.
+     You can use the `future.v8_trailingSlashAwareDataRequests` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_trailingslashawaredatarequests
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+21:33:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/.next-id
+21:33:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/.next-id
+21:33:56 [vite] (client) page reload terminals/.next-id
+21:33:56 [vite] (ssr) page reload terminals/.next-id
+21:34:01 [vite] (client) ✨ new dependencies optimized: radix-ui, lucide-react, sonner, clsx, tailwind-merge, class-variance-authority, framer-motion, @shopify/storefront-api-client
+21:34:01 [vite] (client) ✨ optimized dependencies changed. reloading
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload terminals/6.txt
+21:34:02 [vite] (ssr) page reload terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload terminals/6.txt
+21:34:02 [vite] (ssr) page reload terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload terminals/6.txt
+21:34:02 [vite] (ssr) page reload terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload terminals/6.txt
+21:34:02 [vite] (ssr) page reload terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:02 [vite] (client) page reload terminals/6.txt
+21:34:02 [vite] (ssr) page reload terminals/6.txt
+21:34:07 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:07 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:07 [vite] (client) page reload terminals/6.txt
+21:34:07 [vite] (ssr) page reload terminals/6.txt
+21:34:07 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:07 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:07 [vite] (client) page reload terminals/6.txt
+21:34:07 [vite] (ssr) page reload terminals/6.txt
+21:34:07 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:07 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:07 [vite] (client) page reload terminals/6.txt
+21:34:07 [vite] (ssr) page reload terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload terminals/6.txt
+21:34:08 [vite] (ssr) page reload terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload terminals/6.txt
+21:34:08 [vite] (ssr) page reload terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload terminals/6.txt
+21:34:08 [vite] (ssr) page reload terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:08 [vite] (client) page reload terminals/6.txt
+21:34:08 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:11 [vite] (client) page reload terminals/6.txt
+21:34:11 [vite] (ssr) page reload terminals/6.txt
+21:34:12 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:12 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:12 [vite] (client) page reload terminals/6.txt
+21:34:12 [vite] (ssr) page reload terminals/6.txt
+21:34:12 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:12 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:12 [vite] (client) page reload terminals/6.txt
+21:34:12 [vite] (ssr) page reload terminals/6.txt
+21:34:13 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:13 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:13 [vite] (client) page reload terminals/6.txt
+21:34:13 [vite] (ssr) page reload terminals/6.txt
+21:34:14 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:14 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:14 [vite] (client) page reload terminals/6.txt
+21:34:14 [vite] (ssr) page reload terminals/6.txt
+21:34:35 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:35 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:35 [vite] (client) page reload terminals/6.txt
+21:34:35 [vite] (ssr) page reload terminals/6.txt
+21:34:53 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:53 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:53 [vite] (client) page reload terminals/6.txt
+21:34:53 [vite] (ssr) page reload terminals/6.txt
+21:34:53 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:53 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:53 [vite] (client) page reload terminals/6.txt
+21:34:53 [vite] (ssr) page reload terminals/6.txt
+21:34:53 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:53 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:53 [vite] (client) page reload terminals/6.txt
+21:34:53 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:54 [vite] (client) page reload terminals/6.txt
+21:34:54 [vite] (ssr) page reload terminals/6.txt
+21:34:55 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:55 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:55 [vite] (client) page reload terminals/6.txt
+21:34:55 [vite] (ssr) page reload terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload terminals/6.txt
+21:34:56 [vite] (ssr) page reload terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload terminals/6.txt
+21:34:56 [vite] (ssr) page reload terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload terminals/6.txt
+21:34:56 [vite] (ssr) page reload terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload terminals/6.txt
+21:34:56 [vite] (ssr) page reload terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload terminals/6.txt
+21:34:56 [vite] (ssr) page reload terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:56 [vite] (client) page reload terminals/6.txt
+21:34:56 [vite] (ssr) page reload terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload terminals/6.txt
+21:34:57 [vite] (ssr) page reload terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload terminals/6.txt
+21:34:57 [vite] (ssr) page reload terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload terminals/6.txt
+21:34:57 [vite] (ssr) page reload terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload terminals/6.txt
+21:34:57 [vite] (ssr) page reload terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:57 [vite] (client) page reload terminals/6.txt
+21:34:57 [vite] (ssr) page reload terminals/6.txt
+21:34:59 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:59 [vite] (client) page reload C:/Users/Duck Cipher/Desktop/shop/papirar/terminals/6.txt
+21:34:59 [vite] (client) page reload terminals/6.txt
+21:34:59 [vite] (ssr) page reload terminals/6.txt

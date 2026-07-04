@@ -1,0 +1,47 @@
+---
+pid: 18284
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build 2>&1 | Select-Object -Last 25"
+started_at: 2026-07-04T01:21:36.981Z
+running_for_ms: 830005   
+---
+✓ 72 modules transformed.app/components/pages/support/faq-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
+
+rendering chunks...
+build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/.vite/manifest.json                 0.23 kB
+build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/assets/server-build-BKFtFy3J.css  198.50 kB
+build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js                          197.12 kB
+
+✓ 1 asset cleaned from React Router server build.
+build\server\nodejs_eyJydW50aW1lIjoibm9kZWpzIn0\assets\server-build-BKFtFy3J.css
+
+✓ built in 1.26s
+original location of error.
+app/components/pages/support/support-layout.tsx (1:0): Error when using sourcemap for reporting an error: Can't 
+resolve original location of error.
+app/components/home/product-grid.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/components/pages/login-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/components/pages/checkout-success-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
+original location of error.
+app/components/pages/account-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/components/pages/support/contact-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
+original location of error.
+app/components/layout/header.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/contexts/cart-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/components/product/product-purchase-panel.tsx (1:0): Error when using sourcemap for reporting an error: Can't 
+resolve original location of error.
+app/components/product/product-gallery.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
+original location of error.
+app/components/product/product-story-section.tsx (1:0): Error when using sourcemap for reporting an error: Can't 
+resolve original location of error.
+app/components/layout/cart-drawer.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/contexts/favorites-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/components/home/product-card.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.

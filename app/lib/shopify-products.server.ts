@@ -1,13 +1,20 @@
-import { unauthenticated } from "../shopify.server";
 import type { Product } from "../types/product";
 import { colorToHex } from "./color-utils";
-import { getInstalledShopDomain } from "./shop.server";
+import {
+  getShopDomain,
+  getStorefrontClient,
+  getStorefrontConfigError,
+} from "./shopify-storefront.server";
+
+type Money = { amount: string; currencyCode: string };
 
 type ShopifyProductNode = {
   id: string;
   title: string;
   handle: string;
   description: string;
+  descriptionHtml: string;
+  vendor: string;
   productType: string;
   tags: string[];
   featuredImage: { url: string } | null;
@@ -18,27 +25,31 @@ type ShopifyProductNode = {
       node: {
         id: string;
         title: string;
-        price: string;
+        price: Money;
+        compareAtPrice: Money | null;
         availableForSale: boolean;
         selectedOptions: Array<{ name: string; value: string }>;
         image: { url: string } | null;
       };
     }>;
   };
-  priceRangeV2: {
-    minVariantPrice: { amount: string; currencyCode: string };
+  priceRange: {
+    minVariantPrice: Money;
+    maxVariantPrice: Money;
   };
 };
 
 const PRODUCTS_QUERY = `#graphql
   query PapirarStoreProducts($first: Int!) {
-    products(first: $first, query: "status:active") {
+    products(first: $first) {
       edges {
         node {
           id
           title
           handle
           description
+          descriptionHtml
+          vendor
           productType
           tags
           featuredImage { url }
@@ -51,15 +62,17 @@ const PRODUCTS_QUERY = `#graphql
               node {
                 id
                 title
-                price
+                price { amount currencyCode }
+                compareAtPrice { amount currencyCode }
                 availableForSale
                 selectedOptions { name value }
                 image { url }
               }
             }
           }
-          priceRangeV2 {
+          priceRange {
             minVariantPrice { amount currencyCode }
+            maxVariantPrice { amount currencyCode }
           }
         }
       }
@@ -69,11 +82,13 @@ const PRODUCTS_QUERY = `#graphql
 
 const PRODUCT_BY_HANDLE_QUERY = `#graphql
   query PapirarStoreProduct($handle: String!) {
-    productByHandle(handle: $handle) {
+    product(handle: $handle) {
       id
       title
       handle
       description
+      descriptionHtml
+      vendor
       productType
       tags
       featuredImage { url }
@@ -86,15 +101,17 @@ const PRODUCT_BY_HANDLE_QUERY = `#graphql
           node {
             id
             title
-            price
+            price { amount currencyCode }
+            compareAtPrice { amount currencyCode }
             availableForSale
             selectedOptions { name value }
             image { url }
           }
         }
       }
-      priceRangeV2 {
+      priceRange {
         minVariantPrice { amount currencyCode }
+        maxVariantPrice { amount currencyCode }
       }
     }
   }
@@ -152,13 +169,21 @@ function mapShopifyProduct(node: ShopifyProductNode): Product {
       sizeOption?.values[0] ?? "Único",
     );
 
+    const compareAtPrice = variant.compareAtPrice
+      ? parseFloat(variant.compareAtPrice.amount)
+      : undefined;
+
     return {
       id: variant.id,
       color,
       size,
       image: variant.image?.url ?? featured,
       hex: colorToHex(color),
-      price: parseFloat(variant.price),
+      price: parseFloat(variant.price.amount),
+      compareAtPrice:
+        compareAtPrice && compareAtPrice > parseFloat(variant.price.amount)
+          ? compareAtPrice
+          : undefined,
       availableForSale: variant.availableForSale,
     };
   });
@@ -171,12 +196,16 @@ function mapShopifyProduct(node: ShopifyProductNode): Product {
     id: node.id,
     handle: node.handle,
     title: node.title,
-    price: parseFloat(node.priceRangeV2.minVariantPrice.amount),
-    currencyCode: node.priceRangeV2.minVariantPrice.currencyCode,
+    price: parseFloat(node.priceRange.minVariantPrice.amount),
+    maxPrice: parseFloat(node.priceRange.maxVariantPrice.amount),
+    currencyCode: node.priceRange.minVariantPrice.currencyCode,
     image: featured,
     color: firstVariant?.color ?? colors[0] ?? "",
     category: mapCategory(node.productType, node.tags),
+    productType: node.productType,
+    vendor: node.vendor,
     description: node.description,
+    descriptionHtml: node.descriptionHtml,
     colors,
     sizes,
     gallery: gallery.length > 0 ? gallery : [featured],
@@ -186,33 +215,40 @@ function mapShopifyProduct(node: ShopifyProductNode): Product {
   };
 }
 
-async function getAdminClient() {
-  const shop = await getInstalledShopDomain();
-  if (!shop) return { shop: null, admin: null };
-  const { admin } = await unauthenticated.admin(shop);
-  return { shop, admin };
-}
-
 export async function fetchShopifyProducts(limit = 24) {
-  const { shop, admin } = await getAdminClient();
-  if (!shop || !admin) {
+  const shop = getShopDomain();
+  const configError = getStorefrontConfigError();
+  if (configError || !shop) {
     return {
       shop: null,
       products: [] as Product[],
-      error:
-        "Instale o app na loja com shopify app dev para carregar produtos reais.",
+      error: configError ?? "Loja não configurada.",
+    };
+  }
+
+  const client = getStorefrontClient();
+  if (!client) {
+    return {
+      shop: null,
+      products: [] as Product[],
+      error: "Storefront API não configurada.",
     };
   }
 
   try {
-    const response = await admin.graphql(PRODUCTS_QUERY, {
+    const { data, errors } = await client.request(PRODUCTS_QUERY, {
       variables: { first: limit },
     });
-    const json = await response.json();
-    if (json.errors?.length) {
-      return { shop, products: [] as Product[], error: json.errors[0].message };
+
+    if (errors) {
+      const message =
+        errors.message ??
+        errors.graphQLErrors?.[0]?.message ??
+        "Erro na Storefront API.";
+      return { shop, products: [] as Product[], error: message };
     }
-    const products = (json.data?.products?.edges ?? []).map(
+
+    const products = (data?.products?.edges ?? []).map(
       (edge: { node: ShopifyProductNode }) => mapShopifyProduct(edge.node),
     );
     return { shop, products, error: null };
@@ -226,20 +262,31 @@ export async function fetchShopifyProducts(limit = 24) {
 }
 
 export async function fetchShopifyProductByHandle(handle: string) {
-  const { shop, admin } = await getAdminClient();
-  if (!shop || !admin) {
-    return { shop: null, product: null, error: "App não instalado na loja." };
+  const shop = getShopDomain();
+  const configError = getStorefrontConfigError();
+  if (configError || !shop) {
+    return { shop: null, product: null, error: configError ?? "Loja não configurada." };
+  }
+
+  const client = getStorefrontClient();
+  if (!client) {
+    return { shop: null, product: null, error: "Storefront API não configurada." };
   }
 
   try {
-    const response = await admin.graphql(PRODUCT_BY_HANDLE_QUERY, {
+    const { data, errors } = await client.request(PRODUCT_BY_HANDLE_QUERY, {
       variables: { handle },
     });
-    const json = await response.json();
-    if (json.errors?.length) {
-      return { shop, product: null, error: json.errors[0].message };
+
+    if (errors) {
+      const message =
+        errors.message ??
+        errors.graphQLErrors?.[0]?.message ??
+        "Erro na Storefront API.";
+      return { shop, product: null, error: message };
     }
-    const node = json.data?.productByHandle;
+
+    const node = data?.product;
     if (!node) return { shop, product: null, error: null };
     return { shop, product: mapShopifyProduct(node), error: null };
   } catch (error) {

@@ -1,0 +1,19 @@
+---
+pid: 12456
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build 2>&1 | Select-String -Pattern \"built|error|Error\" | Select-Object -Last 5"
+started_at: 2026-07-04T01:32:57.002Z
+running_for_ms: 149993   
+---
+
+app/components/product/product-gallery.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
+original location of error.
+app/components/product/product-story-section.tsx (1:0): Error when using sourcemap for reporting an error: Can't 
+resolve original location of error.
+app/components/home/product-card.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
+location of error.
+app/components/product/product-purchase-panel.tsx (1:0): Error when using sourcemap for reporting an error: Can't 
+resolve original location of error.
+✓ built in 1.19s
+
+

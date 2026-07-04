@@ -47,6 +47,15 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+.product-description-html ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+}
+
+.product-description-html li {
+    margin-bottom: 0.35rem;
+}
+
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
