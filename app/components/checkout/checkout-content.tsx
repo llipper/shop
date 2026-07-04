@@ -4,6 +4,7 @@ import { Link, useFetcher } from "react-router";
 import { ArrowLeft, ExternalLink, Loader2, Lock, ShieldCheck, Truck } from "lucide-react";
 import Image from "@/components/ui/image";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -16,9 +17,11 @@ type CheckoutActionData = {
 
 interface CheckoutContentProps {
   shop: string | null;
+  storefrontUrl: string;
 }
 
-export function CheckoutContent({ shop }: CheckoutContentProps) {
+export function CheckoutContent({ shop, storefrontUrl }: CheckoutContentProps) {
+  const { user } = useAuth();
   const { items, totalPrice, removeItem } = useCart();
   const fetcher = useFetcher<CheckoutActionData>();
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
@@ -55,12 +58,13 @@ export function CheckoutContent({ shop }: CheckoutContentProps) {
     setCheckoutError(null);
     fetcher.submit(
       {
-        items: JSON.stringify(
-          items.map((item) => ({
+        items: JSON.stringify({
+          items: items.map((item) => ({
             variantId: item.variantId!,
             quantity: item.quantity,
           })),
-        ),
+          buyerEmail: user?.email,
+        }),
       },
       { method: "post" },
     );
@@ -225,10 +229,32 @@ export function CheckoutContent({ shop }: CheckoutContentProps) {
           <p className="text-sm text-destructive text-center">{checkoutError}</p>
         )}
 
+        {user?.email ? (
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            Usaremos o e-mail <strong className="text-foreground">{user.email}</strong> no
+            pagamento. Se você já comprou na Shopify com esse e-mail, o checkout pode reconhecer
+            sua conta.
+          </p>
+        ) : (
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            <Link to="/login" className="underline hover:text-foreground">
+              Entre na sua conta
+            </Link>{" "}
+            antes de pagar para pré-preencher o e-mail no checkout seguro da Shopify.
+          </p>
+        )}
+
         <p className="text-xs text-muted-foreground text-center leading-relaxed">
-          No checkout, se clicar em <strong className="text-foreground">Papirar</strong> e cair na
-          loja demo da Shopify, configure o logo do checkout no admin para apontar ao seu site
-          (Vercel), não ao tema Online Store padrão.
+          No admin Shopify, o logo do checkout deve apontar para{" "}
+          <a
+            href={storefrontUrl}
+            className="font-medium text-foreground underline underline-offset-2"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {storefrontUrl}
+          </a>
+          .
         </p>
       </div>
     </div>

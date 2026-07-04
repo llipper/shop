@@ -10,6 +10,10 @@ export type CheckoutLine = {
   quantity: number;
 };
 
+export type CheckoutOptions = {
+  buyerEmail?: string;
+};
+
 const CART_CREATE_MUTATION = `#graphql
   mutation PapirarCartCreate($input: CartInput!) {
     cartCreate(input: $input) {
@@ -44,7 +48,11 @@ export function normalizeCheckoutUrl(url: string): string {
   }
 }
 
-function buildPermalinkCheckout(shop: string, lines: CheckoutLine[]): string | null {
+function buildPermalinkCheckout(
+  shop: string,
+  lines: CheckoutLine[],
+  buyerEmail?: string,
+): string | null {
   const parts = lines
     .map((line) => {
       const id = variantIdToNumeric(line.variantId);
@@ -54,10 +62,38 @@ function buildPermalinkCheckout(shop: string, lines: CheckoutLine[]): string | n
     .filter((part): part is string => Boolean(part));
 
   if (parts.length === 0) return null;
-  return `https://${shop}/cart/${parts.join(",")}?checkout`;
+
+  let url = `https://${shop}/cart/${parts.join(",")}?checkout`;
+  if (buyerEmail?.trim()) {
+    url += `&checkout[email]=${encodeURIComponent(buyerEmail.trim())}`;
+  }
+  return url;
 }
 
-export async function createStorefrontCheckout(lines: CheckoutLine[]) {
+function buildCartInput(
+  cartLines: Array<{ merchandiseId: string; quantity: number }>,
+  buyerEmail?: string,
+) {
+  const input: {
+    lines: Array<{ merchandiseId: string; quantity: number }>;
+    buyerIdentity?: { email: string; countryCode: string };
+  } = { lines: cartLines };
+
+  if (buyerEmail?.trim()) {
+    input.buyerIdentity = {
+      email: buyerEmail.trim(),
+      countryCode: "BR",
+    };
+  }
+
+  return input;
+}
+
+export async function createStorefrontCheckout(
+  lines: CheckoutLine[],
+  options: CheckoutOptions = {},
+) {
+  const buyerEmail = options.buyerEmail;
   const shop = getShopDomain();
   const configError = getStorefrontConfigError();
 
@@ -91,12 +127,12 @@ export async function createStorefrontCheckout(lines: CheckoutLine[]) {
     return { checkoutUrl: null, error: "Storefront API não configurada." };
   }
 
-  const permalink = buildPermalinkCheckout(shop, lines);
+  const permalink = buildPermalinkCheckout(shop, lines, buyerEmail);
 
   try {
     const { data, errors } = await client.request(CART_CREATE_MUTATION, {
       variables: {
-        input: { lines: cartLines },
+        input: buildCartInput(cartLines, buyerEmail),
       },
     });
 
