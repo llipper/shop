@@ -3,7 +3,7 @@ pid: 18284
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build 2>&1 | Select-Object -Last 25"
 started_at: 2026-07-04T01:21:36.981Z
-running_for_ms: 7619996  
+running_for_ms: 47724997 
 ---
 ✓ 72 modules transformed.app/components/pages/support/faq-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
 

@@ -42,12 +42,12 @@ export function LoginPage() {
             to="/store"
             className="text-2xl font-semibold tracking-widest uppercase text-foreground mb-12 block"
           >
-            Papirar
+            ROUHI
           </Link>
 
           <h1 className="text-3xl font-medium text-foreground mb-2">Bem-vindo de volta</h1>
           <p className="text-muted-foreground mb-10">
-            Entre na sua conta Papirar para favoritos e checkout mais rápido. O pagamento final
+            Entre na sua conta ROUHI para favoritos e checkout mais rápido. O pagamento final
             usa a conta segura da Shopify com o mesmo e-mail.
           </p>
 

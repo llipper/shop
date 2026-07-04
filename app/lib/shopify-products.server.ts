@@ -41,7 +41,7 @@ type ShopifyProductNode = {
 };
 
 const PRODUCTS_QUERY = `#graphql
-  query PapirarStoreProducts($first: Int!) {
+  query RouhiStoreProducts($first: Int!) {
     products(first: $first) {
       edges {
         node {
@@ -82,7 +82,7 @@ const PRODUCTS_QUERY = `#graphql
 `;
 
 const PRODUCT_BY_HANDLE_QUERY = `#graphql
-  query PapirarStoreProduct($handle: String!) {
+  query RouhiStoreProduct($handle: String!) {
     product(handle: $handle) {
       id
       title

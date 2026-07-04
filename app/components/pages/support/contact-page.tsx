@@ -106,7 +106,7 @@ export function ContactPage() {
             <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
               <Mail className="w-4 h-4" /> E-mail
             </h4>
-            <p className="break-all">suporte@papirar.com.br</p>
+            <p className="break-all">suporte@rouhi.com.br</p>
           </div>
           <div>
             <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">

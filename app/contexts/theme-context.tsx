@@ -28,7 +28,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const stored = localStorage.getItem("papirar-theme") as Theme | null;
+    const stored = localStorage.getItem("rouhi-theme") as Theme | null;
     if (stored) setThemeState(stored);
   }, []);
 
@@ -36,7 +36,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const resolved = theme === "system" ? getSystemTheme() : theme;
     setResolvedTheme(resolved);
     document.documentElement.classList.toggle("dark", resolved === "dark");
-    localStorage.setItem("papirar-theme", theme);
+    localStorage.setItem("rouhi-theme", theme);
   }, [theme]);
 
   const setTheme = (value: Theme) => setThemeState(value);

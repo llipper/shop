@@ -37,7 +37,7 @@ export function Footer() {
         {/* Brand */}
         <div className="flex flex-col">
           <Link to="/store" className="text-2xl font-semibold tracking-widest uppercase mb-6 text-foreground">
-            Papirar
+            ROUHI
           </Link>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6">
             Roupas minimalistas, essenciais e projetadas para durar. Feito com cuidado para o seu dia a dia.
@@ -98,7 +98,7 @@ export function Footer() {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} Papirar. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} ROUHI. Todos os direitos reservados.</p>
         <div className="flex gap-6">
           <Link to="#" className="hover:text-foreground transition-colors">Termos de Serviço</Link>
           <Link to="#" className="hover:text-foreground transition-colors">Política de Privacidade</Link>

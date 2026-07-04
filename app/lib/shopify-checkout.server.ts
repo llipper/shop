@@ -15,7 +15,7 @@ export type CheckoutOptions = {
 };
 
 const CART_CREATE_MUTATION = `#graphql
-  mutation PapirarCartCreate($input: CartInput!) {
+  mutation RouhiCartCreate($input: CartInput!) {
     cartCreate(input: $input) {
       cart {
         checkoutUrl

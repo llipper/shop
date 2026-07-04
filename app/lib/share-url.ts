@@ -50,5 +50,5 @@ export function getProductShareDescription(
   category: string,
   priceLabel: string,
 ): string {
-  return `${title} · ${priceLabel} · ${category}. Confira na Papirar.`;
+  return `${title} · ${priceLabel} · ${category}. Confira na ROUHI.`;
 }

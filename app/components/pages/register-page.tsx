@@ -58,7 +58,7 @@ export function RegisterPage() {
             to="/store"
             className="text-2xl font-semibold tracking-widest uppercase text-foreground mb-12 block"
           >
-            Papirar
+            ROUHI
           </Link>
 
           <h1 className="text-3xl font-medium text-foreground mb-2">Criar sua conta</h1>

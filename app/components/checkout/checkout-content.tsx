@@ -100,11 +100,11 @@ export function CheckoutContent({ shop, storefrontUrl }: CheckoutContentProps) {
 
       <div className="mb-8">
         <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
-          Passo 2 de 3 — Revisão no Papirar
+          Passo 2 de 3 — Revisão na ROUHI
         </p>
         <h1 className="text-3xl font-medium mb-3">Revisar pedido</h1>
         <p className="text-muted-foreground leading-relaxed">
-          Você revisa o pedido aqui no site Papirar. Na etapa final, a Shopify processa{" "}
+          Você revisa o pedido aqui no site ROUHI. Na etapa final, a Shopify processa{" "}
           <strong className="text-foreground">pagamento, endereço e frete</strong> de forma
           segura.
         </p>

@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a85f81a072591b0cbd99282724e06562"
-name = "papirar"
+name = "rouhi"
 application_url = "https://papirar.onrender.com"
 embedded = true
 

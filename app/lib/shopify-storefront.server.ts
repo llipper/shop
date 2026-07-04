@@ -25,7 +25,7 @@ export function getStorefrontClient() {
 
 export function getStorefrontConfigError(): string | null {
   if (!getShopDomain()) {
-    return "Defina SHOP_STORE_DOMAIN no .env (ex: papirar.myshopify.com).";
+    return "Defina SHOP_STORE_DOMAIN no .env (ex: sua-loja.myshopify.com).";
   }
   if (!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN?.trim()) {
     return "Defina SHOPIFY_STOREFRONT_ACCESS_TOKEN no .env (token da Storefront API).";

@@ -3,7 +3,7 @@ pid: 12456
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build 2>&1 | Select-String -Pattern \"built|error|Error\" | Select-Object -Last 5"
 started_at: 2026-07-04T01:32:57.002Z
-running_for_ms: 6939986  
+running_for_ms: 47044985 
 ---
 
 app/components/product/product-gallery.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 

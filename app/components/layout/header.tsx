@@ -45,7 +45,7 @@ export function Header() {
         {/* Left: Logo + Navigation */}
         <div className="flex items-center gap-10">
           <Link to="/store" className="text-2xl font-semibold tracking-widest uppercase text-foreground">
-            Papirar
+            ROUHI
           </Link>
 
           {/* Desktop Navigation Menu */}
@@ -170,7 +170,7 @@ export function Header() {
               <SheetContent side="left" className="w-full sm:w-[400px] bg-background p-0 overflow-y-auto">
                 <SheetHeader className="p-6 pb-0">
                   <SheetTitle className="text-left text-2xl font-semibold tracking-widest uppercase">
-                    Papirar
+                    ROUHI
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col p-6 pt-8">

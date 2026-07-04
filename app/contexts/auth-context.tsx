@@ -25,7 +25,7 @@ interface AuthContextType {
   logout: () => void;
 }
 
-const STORAGE_KEY = "papirar-user";
+const STORAGE_KEY = "rouhi-user";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

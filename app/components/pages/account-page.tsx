@@ -117,7 +117,7 @@ export function AccountPage() {
               </div>
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-muted-foreground">
                 <span className="px-2 py-1 rounded-full bg-background border border-border">
-                  Cliente Papirar
+                  Cliente ROUHI
                 </span>
               </div>
             </div>
@@ -180,7 +180,7 @@ export function AccountPage() {
                     Olá, {user.name.split(" ")[0]}.
                   </h2>
                   <p className="text-muted-foreground text-sm leading-relaxed max-w-xl">
-                    Bem-vindo à sua área exclusiva Papirar. Acompanhe pedidos, atualize seus dados
+                    Bem-vindo à sua área exclusiva ROUHI. Acompanhe pedidos, atualize seus dados
                     e acesse atalhos da sua conta.
                   </p>
                 </div>
@@ -367,7 +367,7 @@ export function AccountPage() {
                   <h3 className="font-medium mb-2">Nenhum endereço salvo</h3>
                   <p className="text-sm text-muted-foreground max-w-md mb-6 leading-relaxed">
                     No checkout da Shopify você informa o endereço de entrega. Em breve, endereços
-                    poderão ser salvos aqui na sua conta Papirar.
+                    poderão ser salvos aqui na sua conta ROUHI.
                   </p>
                   <Button variant="outline" asChild>
                     <Link to="/store/checkout">Ir para checkout</Link>

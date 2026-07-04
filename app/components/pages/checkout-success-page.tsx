@@ -10,7 +10,7 @@ export function CheckoutSuccessPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <div className="border-b border-border px-6 md:px-12 py-5 flex items-center justify-between">
         <Link to="/store" className="text-2xl font-semibold tracking-widest uppercase text-foreground">
-          Papirar
+          ROUHI
         </Link>
       </div>
 
