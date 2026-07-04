@@ -47,6 +47,7 @@ export function ProductsPage() {
   const paramCategory = searchParams.get("categoria") || "";
   const paramSubcategory = searchParams.get("subcategoria") || "";
   const paramTag = searchParams.get("tag") || "";
+  const paramQuery = searchParams.get("q") || "";
 
   const priceBounds = React.useMemo(
     () => getCatalogPriceBounds(catalog),
@@ -73,6 +74,7 @@ export function ProductsPage() {
       categoria: selectedCategory || undefined,
       subcategoria: selectedSubcategory || undefined,
       tag: paramTag || undefined,
+      q: paramQuery || undefined,
     });
 
     return urlFiltered.filter((product) => {
@@ -102,6 +104,7 @@ export function ProductsPage() {
     selectedCategory,
     selectedSubcategory,
     paramTag,
+    paramQuery,
     selectedSizes,
     selectedColors,
     priceRange,
@@ -143,11 +146,17 @@ export function ProductsPage() {
     navigate("/produtos");
   }
 
-  const pageTitle = paramTag === "novo"
-    ? "Novidades"
-    : paramTag === "sale"
-      ? "Sale"
-      : selectedCategory || "Todos os Produtos";
+  const pageTitle = paramQuery
+    ? `Busca: ${paramQuery}`
+    : paramTag === "novo"
+      ? "Novidades"
+      : paramTag === "sale"
+        ? "Sale"
+        : paramTag === "mais-vendido"
+          ? "Mais Vendidos"
+          : selectedSubcategory && selectedCategory
+            ? `${selectedSubcategory} · ${selectedCategory}`
+            : selectedCategory || "Todos os Produtos";
 
   const FilterSidebarContent = () => (
     <div className="space-y-8">

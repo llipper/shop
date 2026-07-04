@@ -1,16 +1,23 @@
 ---
-pid: 3352
+pid: 11572
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run typecheck"
-started_at: 2026-07-04T00:13:13.283Z
-running_for_ms: 57134988 
+started_at: 2026-07-04T16:00:42.131Z
+running_for_ms: 290007   
 ---
 npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
 
 > typecheck
 > react-router typegen && tsc --noEmit
 
+app/components/layout/cookie-consent.tsx(44,13): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/layout/cookie-consent.tsx(52,13): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
 app/components/pages/account-page.tsx(372,27): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/not-found-page.tsx(44,25): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/products-page.tsx(308,11): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/products-page.tsx(350,23): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/products-page.tsx(380,51): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/product/product-share-dialog.tsx(152,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
 app/components/ui/alert-dialog.tsx(150,3): error TS2322: Type '"default"' is not assignable to type 'null'.
 app/components/ui/alert-dialog.tsx(168,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
 app/components/ui/attachment.tsx(153,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
@@ -53,9 +60,14 @@ app/components/ui/sidebar.tsx(262,7): error TS2322: Type 'string' is not assigna
 app/components/ui/sidebar.tsx(491,3): error TS2322: Type '"default"' is not assignable to type 'null'.
 app/components/ui/toggle-group.tsx(59,3): error TS2322: Type '"default"' is not assignable to type 'null'.
 app/components/ui/toggle.tsx(31,3): error TS2322: Type '"default"' is not assignable to type 'null'.
-app/lib/shopify-products.server.ts(219,17): error TS2339: Property 'length' does not exist on type 'ResponseErrors'.
-app/lib/shopify-products.server.ts(220,56): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'ResponseErrors'.
-  Property '0' does not exist on type 'ResponseErrors'.
-app/lib/shopify-products.server.ts(253,17): error TS2339: Property 'length' does not exist on type 'ResponseErrors'.
-app/lib/shopify-products.server.ts(254,44): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'ResponseErrors'.
-  Property '0' does not exist on type 'ResponseErrors'.
+app/legacy-admin/routes/app._index.tsx(9,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/app.tsx(6,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/auth.$.tsx(3,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/auth.login/route.tsx(6,23): error TS2307: Cannot find module '../../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.scopes_update.tsx(2,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.scopes_update.tsx(3,16): error TS2307: Cannot find module '../db.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.uninstalled.tsx(2,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.uninstalled.tsx(3,16): error TS2307: Cannot find module '../db.server' or its corresponding type declarations.
+app/lib/product-filters.ts(116,5): error TS2322: Type 'boolean | undefined' is not assignable to type 'boolean'.
+  Type 'undefined' is not assignable to type 'boolean'.
+app/routes/sitemap[.]xml.tsx(33,21): error TS7006: Parameter 'product' implicitly has an 'any' type.

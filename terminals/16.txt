@@ -1,0 +1,181 @@
+---
+pid: 7624
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build"
+started_at: 2026-07-04T16:03:15.897Z
+running_for_ms: 134990   
+---
+
+> build
+> react-router build
+
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+vite v6.4.3 building for production...
+transforming...
+app/routes/conta.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/contexts/auth-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/not-found-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/contact-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/tracking-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/checkout-success-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/support-layout.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/faq-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/account-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/legal-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/store-catalog-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/login-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/register-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-overview.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/favorites-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/products-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/header.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/checkout/checkout-content.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/search-dialog.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/product-grid.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-story-section.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/hero.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/contexts/cart-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/contexts/favorites-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/cookie-consent.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/category-filter.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-purchase-panel.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/cart-drawer.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-gallery.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/product-card.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/newsletter-form.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-share-dialog.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+✓ 2411 modules transformed.
+Generated an empty chunk: "api.newsletter".
+Generated an empty chunk: "robots_._txt".
+rendering chunks...
+Generated an empty chunk: "sitemap_._xml".
+computing gzip size...
+build/client/.vite/manifest.json                              25.53 kB │ gzip:  2.53 kB
+build/client/assets/root-DPPX3RSU.css                        201.14 kB │ gzip: 29.40 kB
+build/client/assets/api.newsletter-l0sNRNKZ.js                 0.00 kB │ gzip:  0.02 kB
+build/client/assets/robots_._txt-l0sNRNKZ.js                   0.00 kB │ gzip:  0.02 kB
+build/client/assets/sitemap_._xml-l0sNRNKZ.js                  0.00 kB │ gzip:  0.02 kB
+build/client/assets/route-Ca7_kB4u.js                          0.11 kB │ gzip:  0.12 kB
+build/client/assets/image-Sk_S9Pih.js                          0.29 kB │ gzip:  0.20 kB
+build/client/assets/check-C4zWEWDu.js                          0.30 kB │ gzip:  0.25 kB
+build/client/assets/chevron-right-DPXJKEBs.js                  0.31 kB │ gzip:  0.25 kB
+build/client/assets/loader-circle-TelOKMo_.js                  0.32 kB │ gzip:  0.26 kB
+build/client/assets/arrow-right-S52TSjzK.js                    0.35 kB │ gzip:  0.27 kB
+build/client/assets/arrow-left-geFtYf_G.js                     0.35 kB │ gzip:  0.27 kB
+build/client/assets/search-DjiRY5vu.js                         0.35 kB │ gzip:  0.28 kB
+build/client/assets/circle-check-BtALKrM4.js                   0.36 kB │ gzip:  0.28 kB
+build/client/assets/user-CmTul5K7.js                           0.37 kB │ gzip:  0.29 kB
+build/client/assets/lock-W2xr8Ej8.js                           0.38 kB │ gzip:  0.30 kB
+build/client/assets/mail-B5jj41xw.js                           0.40 kB │ gzip:  0.31 kB
+build/client/assets/circle-question-mark-Dfxwiyb9.js           0.43 kB │ gzip:  0.31 kB
+build/client/assets/external-link-aY18MMV6.js                  0.43 kB │ gzip:  0.31 kB
+build/client/assets/map-pin-CAhqMWQw.js                        0.44 kB │ gzip:  0.33 kB
+build/client/assets/shield-check-Bk5hDZaR.js                   0.50 kB │ gzip:  0.36 kB
+build/client/assets/refresh-cw-B-0XEDii.js                     0.50 kB │ gzip:  0.33 kB
+build/client/assets/phone-PF0HJCvH.js                          0.51 kB │ gzip:  0.34 kB
+build/client/assets/store-Bc1H5J9c.js                          0.52 kB │ gzip:  0.32 kB
+build/client/assets/shopping-bag-D1-7NWJE.js                   0.52 kB │ gzip:  0.35 kB
+build/client/assets/package-k4M_uEdb.js                        0.56 kB │ gzip:  0.36 kB
+build/client/assets/truck-C7KXYiNa.js                          0.58 kB │ gzip:  0.37 kB
+build/client/assets/store._-D5xWvwCk.js                        0.61 kB │ gzip:  0.41 kB
+build/client/assets/suporte._-B_Drxkq7.js                      0.61 kB │ gzip:  0.40 kB
+build/client/assets/share-url-DcmtYJmw.js                      0.61 kB │ gzip:  0.41 kB
+build/client/assets/_-BV7Ug9yf.js                              0.84 kB │ gzip:  0.50 kB
+build/client/assets/legal-page-DgyzrKco.js                     0.93 kB │ gzip:  0.44 kB
+build/client/assets/root-DsHoWnfp.js                           0.95 kB │ gzip:  0.53 kB
+build/client/assets/seo-BP8pcQSr.js                            0.95 kB │ gzip:  0.51 kB
+build/client/assets/eye-CpdTHf7W.js                            0.99 kB │ gzip:  0.46 kB
+build/client/assets/jsx-runtime-D3iQAojM.js                    1.01 kB │ gzip:  0.63 kB
+build/client/assets/suporte.trocas-e-devolucoes-jjtBQxdP.js    1.65 kB │ gzip:  0.66 kB
+build/client/assets/chevron-down-Ctzr88na.js                   1.65 kB │ gzip:  0.86 kB
+build/client/assets/suporte.envio-e-prazos-Bpmqvhj1.js         1.71 kB │ gzip:  0.67 kB
+build/client/assets/favoritos-C2Ls5pOW.js                      2.05 kB │ gzip:  0.97 kB
+build/client/assets/suporte.faq-BtpNXY85.js                    2.09 kB │ gzip:  1.13 kB
+build/client/assets/termos-BkJHIxMG.js                         2.33 kB │ gzip:  1.23 kB
+build/client/assets/suporte-DjdtEyzQ.js                        2.54 kB │ gzip:  1.20 kB
+build/client/assets/not-found-page-CbJlOnki.js                 2.54 kB │ gzip:  1.15 kB
+build/client/assets/createLucideIcon-fLvluk5q.js               2.59 kB │ gzip:  0.90 kB
+build/client/assets/privacidade-BpRD3Wj5.js                    2.68 kB │ gzip:  1.34 kB
+build/client/assets/suporte._index-DWNYYQVT.js                 2.85 kB │ gzip:  1.21 kB
+build/client/assets/store.checkout.sucesso-CiAVSLgV.js         3.04 kB │ gzip:  0.99 kB
+build/client/assets/product-card-Dw3lyKZA.js                   3.06 kB │ gzip:  1.31 kB
+build/client/assets/store._index-C2DYSZZc.js                   3.62 kB │ gzip:  1.64 kB
+build/client/assets/suporte.rastreio-di7cSryp.js               4.52 kB │ gzip:  1.81 kB
+build/client/assets/suporte.contato-DmCsoUOe.js                4.54 kB │ gzip:  1.54 kB
+build/client/assets/login-jp9ZctsB.js                          5.05 kB │ gzip:  2.01 kB
+build/client/assets/cadastro-Dw4dXB-i.js                       5.56 kB │ gzip:  2.02 kB
+build/client/assets/entry.client-f-zvhMGg.js                   6.18 kB │ gzip:  2.46 kB
+build/client/assets/store.checkout-BEKyLp-0.js                 7.72 kB │ gzip:  2.67 kB
+build/client/assets/accordion-CQboCBZU.js                      7.78 kB │ gzip:  2.88 kB
+build/client/assets/index-BM2H-kUp.js                          7.93 kB │ gzip:  3.16 kB
+build/client/assets/conta-CGo8YVDI.js                         15.19 kB │ gzip:  4.65 kB
+build/client/assets/produtos-C8lA6bB1.js                      18.70 kB │ gzip:  6.67 kB
+build/client/assets/utils-DCADjnpI.js                         27.55 kB │ gzip:  8.70 kB
+build/client/assets/header-MbUSFyJ6.js                        28.54 kB │ gzip:  8.61 kB
+build/client/assets/store.product._handle-C18dMBjk.js         30.36 kB │ gzip:  9.89 kB
+build/client/assets/index-UkFlQC_l.js                         33.87 kB │ gzip:  9.59 kB
+build/client/assets/menu-data-CJRIFPxe.js                     41.05 kB │ gzip: 13.93 kB
+build/client/assets/storefront-shell-BeO6M0h9.js              51.78 kB │ gzip: 18.30 kB
+build/client/assets/proxy-fTCuYqlM.js                        124.78 kB │ gzip: 40.82 kB
+build/client/assets/chunk-KS7C4IRE-Be0TNuD7.js               130.06 kB │ gzip: 43.92 kB
+build/client/assets/index-C76WLM6K.js                        134.72 kB │ gzip: 43.26 kB
+✓ built in 12.04s
+  ⚠️  Future Flag Warning: Route middleware support is changing in React Router v8.
+     You can use the `future.v8_middleware` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_middleware
+  ⚠️  Future Flag Warning: Route module splitting behavior is changing in React Router v8.
+     You can use the `future.v8_splitRouteModules` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_splitroutemodules
+  ⚠️  Future Flag Warning: Vite Environment API usage is changing in React Router v8.
+     You can use the `future.v8_viteEnvironmentApi` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_viteenvironmentapi
+  ⚠️  Future Flag Warning: Request handling behavior is changing in React Router v8.
+     You can use the `future.v8_passThroughRequests` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_passthroughrequests
+  ⚠️  Future Flag Warning: Data request URL formats are changing in React Router v8.
+     You can use the `future.v8_trailingSlashAwareDataRequests` flag to opt in early.
+     -> https://reactrouter.com/v7/upgrading/future#futurev8_trailingslashawaredatarequests
+vite v6.4.3 building SSR bundle for production...
+transforming...
+app/routes/conta.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/not-found-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/contact-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/checkout-success-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/favorites-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/legal-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/faq-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/contexts/auth-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/support-layout.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/support/tracking-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/checkout/checkout-content.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/account-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/header.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/register-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/products-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/store-catalog-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/pages/login-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-overview.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/contexts/favorites-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/contexts/cart-context.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/search-dialog.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/cart-drawer.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/category-filter.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/product-grid.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/layout/cookie-consent.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-gallery.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/product-card.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/home/hero.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-story-section.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-purchase-panel.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+✓ 102 modules transformed.
+app/components/layout/newsletter-form.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+app/components/product/product-share-dialog.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+rendering chunks...
+build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/.vite/manifest.json                 0.23 kB
+build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/assets/server-build-DPPX3RSU.css  201.14 kB
+build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js                          284.31 kB
+
+✓ 1 asset cleaned from React Router server build.
+build\server\nodejs_eyJydW50aW1lIjoibm9kZWpzIn0\assets\server-build-DPPX3RSU.css
+
+✓ built in 1.26s

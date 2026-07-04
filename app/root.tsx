@@ -1,5 +1,14 @@
+import type { MetaFunction } from "react-router";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { buildMetaTags, SITE_NAME } from "@/lib/seo";
 import "./globals.css";
+
+export const meta: MetaFunction = () => [
+  ...buildMetaTags(),
+  { name: "application-name", content: SITE_NAME },
+  { name: "theme-color", content: "#111111" },
+  { charSet: "utf-8" },
+];
 
 export default function App() {
   return (

@@ -1,4 +1,6 @@
 import { Link } from "react-router";
+import { footerStoreLinks } from "@/lib/menu-data";
+import { NewsletterForm } from "@/components/layout/newsletter-form";
 
 function IconInstagram() {
   return (
@@ -33,8 +35,6 @@ export function Footer() {
   return (
     <footer className="bg-background border-t border-border pt-16 pb-8">
       <div className="max-w-[1440px] mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-        
-        {/* Brand */}
         <div className="flex flex-col">
           <Link to="/store" className="text-2xl font-semibold tracking-widest uppercase mb-6 text-foreground">
             ROUHI
@@ -50,19 +50,19 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Links 1 */}
         <div className="flex flex-col">
           <h4 className="font-medium text-foreground mb-6 uppercase tracking-wider text-sm">Loja</h4>
           <ul className="flex flex-col gap-4 text-sm text-muted-foreground">
-            <li><Link to="#" className="hover:text-foreground transition-colors">Masculino</Link></li>
-            <li><Link to="#" className="hover:text-foreground transition-colors">Feminino</Link></li>
-            <li><Link to="#" className="hover:text-foreground transition-colors">Objetos</Link></li>
-            <li><Link to="#" className="hover:text-foreground transition-colors">Novidades</Link></li>
-            <li><Link to="#" className="hover:text-foreground transition-colors">Mais Vendidos</Link></li>
+            {footerStoreLinks.map((link) => (
+              <li key={link.label}>
+                <Link to={link.href} className="hover:text-foreground transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Links 2 */}
         <div className="flex flex-col">
           <h4 className="font-medium text-foreground mb-6 uppercase tracking-wider text-sm">Suporte</h4>
           <ul className="flex flex-col gap-4 text-sm text-muted-foreground">
@@ -74,34 +74,20 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Newsletter */}
         <div className="flex flex-col">
           <h4 className="font-medium text-foreground mb-6 uppercase tracking-wider text-sm">Newsletter</h4>
           <p className="text-muted-foreground text-sm leading-relaxed mb-4">
             Assine para receber novidades, lançamentos antecipados e ofertas exclusivas.
           </p>
-          <form className="flex flex-col gap-3">
-            <input 
-              type="email" 
-              placeholder="Seu melhor e-mail" 
-              className="bg-secondary border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-foreground transition-all"
-            />
-            <button 
-              type="submit"
-              className="bg-primary text-primary-foreground font-medium rounded-md px-4 py-3 text-sm hover:bg-primary/90 transition-colors"
-            >
-              Assinar
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
-
       </div>
 
       <div className="max-w-[1440px] mx-auto px-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
         <p>&copy; {new Date().getFullYear()} ROUHI. Todos os direitos reservados.</p>
         <div className="flex gap-6">
-          <Link to="#" className="hover:text-foreground transition-colors">Termos de Serviço</Link>
-          <Link to="#" className="hover:text-foreground transition-colors">Política de Privacidade</Link>
+          <Link to="/termos" className="hover:text-foreground transition-colors">Termos de Serviço</Link>
+          <Link to="/privacidade" className="hover:text-foreground transition-colors">Política de Privacidade</Link>
         </div>
       </div>
     </footer>

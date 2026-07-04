@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/header";
 import { ProductOverview } from "@/components/product/product-overview";
 import { formatPrice } from "@/lib/format";
 import { fetchShopifyProductByHandle } from "@/lib/shopify-products.server";
+import { buildMetaTags } from "@/lib/seo";
 import {
   getProductShareDescription,
   getSiteOrigin,

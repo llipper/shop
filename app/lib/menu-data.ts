@@ -102,5 +102,14 @@ export const menuData: Record<string, MenuCategory> = {
   },
 };
 
-export const novidadesHref = "/produtos?tag=novo";
-export const saleHref = "/produtos?tag=sale";
+export const novidadesHref = buildProductsHref(undefined, undefined, "novo");
+export const saleHref = buildProductsHref(undefined, undefined, "sale");
+export const maisVendidosHref = buildProductsHref(undefined, undefined, "mais-vendido");
+
+export const footerStoreLinks = [
+  { label: "Masculino", href: buildProductsHref("Masculino") },
+  { label: "Feminino", href: buildProductsHref("Feminino") },
+  { label: "Objetos", href: buildProductsHref("Objetos") },
+  { label: "Novidades", href: novidadesHref },
+  { label: "Mais Vendidos", href: maisVendidosHref },
+] as const;

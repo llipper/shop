@@ -4,6 +4,7 @@ export type ProductFilters = {
   categoria?: string;
   subcategoria?: string;
   tag?: string;
+  q?: string;
 };
 
 export const productCategories = ["Masculino", "Feminino", "Objetos"] as const;
@@ -63,19 +64,81 @@ export function parseProductFilters(
     categoria: searchParams.get("categoria") ?? undefined,
     subcategoria: searchParams.get("subcategoria") ?? undefined,
     tag: searchParams.get("tag") ?? undefined,
+    q: searchParams.get("q") ?? undefined,
   };
 }
 
+function normalizeTag(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function searchProducts(products: Product[], query: string): Product[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return products;
+
+  return products.filter((product) => {
+    const fields = [
+      product.title,
+      product.category,
+      product.productType,
+      product.color,
+      product.handle,
+      product.badge,
+      ...(product.tags ?? []),
+    ]
+      .filter(Boolean)
+      .map((value) => value!.toLowerCase());
+
+    return fields.some((field) => field.includes(q));
+  });
+}
+
+function matchesProductTag(product: Product, tag: string): boolean {
+  const normalizedTag = normalizeTag(tag);
+
+  if (normalizedTag === "mais-vendido") {
+    return (
+      normalizeTag(product.badge ?? "").includes("mais-vendido") ||
+      (product.tags ?? []).some((value) =>
+        normalizeTag(value).includes("mais-vendido"),
+      )
+    );
+  }
+
+  if (normalizedTag === "novo") {
+    return (
+      normalizeTag(product.badge ?? "").includes("novo") ||
+      (product.tags ?? []).some((value) => normalizeTag(value).includes("novo"))
+    );
+  }
+
+  if (normalizedTag === "sale") {
+    return (
+      (product.tags ?? []).some((value) => normalizeTag(value).includes("sale")) ||
+      (product.variants?.some((variant) => variant.compareAtPrice != null) ?? false)
+    );
+  }
+
+  return (
+    (product.tags ?? []).some((value) =>
+      normalizeTag(value).includes(normalizedTag),
+    ) || normalizeTag(product.badge ?? "").includes(normalizedTag)
+  );
+}
+
 export function buildProductsHref(
-  categoria: string,
+  categoria?: string,
   subcategoria?: string,
   tag?: string,
+  q?: string,
 ): string {
   const params = new URLSearchParams();
-  params.set("categoria", categoria);
+  if (categoria) params.set("categoria", categoria);
   if (subcategoria) params.set("subcategoria", subcategoria);
   if (tag) params.set("tag", tag);
-  return `/produtos?${params.toString()}`;
+  if (q) params.set("q", q);
+  const query = params.toString();
+  return query ? `/produtos?${query}` : "/produtos";
 }
 
 export function filterProducts(
@@ -95,12 +158,11 @@ export function filterProducts(
   }
 
   if (filters.tag) {
-    const tag = filters.tag.toLowerCase();
-    result = result.filter(
-      (product) =>
-        product.tags?.some((value) => value.toLowerCase().includes(tag)) ||
-        product.badge?.toLowerCase().includes(tag),
-    );
+    result = result.filter((product) => matchesProductTag(product, filters.tag!));
+  }
+
+  if (filters.q) {
+    result = searchProducts(result, filters.q);
   }
 
   return result;
@@ -113,5 +175,7 @@ export function getFilterTitle(filters: ProductFilters): string {
   if (filters.categoria) return filters.categoria;
   if (filters.tag === "novo") return "Novidades";
   if (filters.tag === "sale") return "Sale";
+  if (filters.tag === "mais-vendido") return "Mais Vendidos";
+  if (filters.q) return `Busca: ${filters.q}`;
   return "Todos os produtos";
 }

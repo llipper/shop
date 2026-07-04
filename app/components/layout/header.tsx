@@ -15,7 +15,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { menuData, novidadesHref, saleHref } from "@/lib/menu-data";
+import { SearchDialog } from "@/components/layout/search-dialog";
+import { buildProductsHref } from "@/lib/product-filters";
+import { menuData, maisVendidosHref, novidadesHref, saleHref } from "@/lib/menu-data";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +27,7 @@ export function Header() {
   const { totalFavorites } = useFavorites();
   const accountHref = isAuthenticated ? "/conta" : "/login";
   const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -126,9 +129,15 @@ export function Header() {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-5">
-          <button className="hidden md:flex hover:text-foreground/70 transition-colors text-foreground">
+          <button
+            type="button"
+            aria-label="Buscar produtos"
+            onClick={() => setSearchOpen(true)}
+            className="hidden md:flex hover:text-foreground/70 transition-colors text-foreground"
+          >
             <Search className="w-[18px] h-[18px]" />
           </button>
+          <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
           <Link to="/favoritos" className="hidden md:flex relative hover:text-foreground/70 transition-colors text-foreground">
             <Heart className="w-[18px] h-[18px]" />
             {totalFavorites > 0 && (
@@ -176,9 +185,14 @@ export function Header() {
                 <div className="flex flex-col p-6 pt-8">
                   {Object.entries(menuData).map(([category, data]) => (
                     <div key={category} className="mb-6">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">{category}</p>
+                      <Link
+                        to={buildProductsHref(category)}
+                        className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 block hover:text-foreground"
+                      >
+                        {category}
+                      </Link>
                       <div className="flex flex-col">
-                        {data.columns.flatMap(col => col.links).map((link) => (
+                        {data.columns.flatMap((col) => col.links).map((link) => (
                           <Link key={link.label} to={link.href} className="text-base text-foreground/80 hover:text-foreground py-2 transition-colors">
                             {link.label}
                           </Link>
@@ -187,15 +201,29 @@ export function Header() {
                     </div>
                   ))}
                   <div className="h-px bg-border my-4" />
+                  <Link to={novidadesHref} className="text-base text-foreground/80 hover:text-foreground py-2 transition-colors">
+                    Novidades
+                  </Link>
+                  <Link to={maisVendidosHref} className="text-base text-foreground/80 hover:text-foreground py-2 transition-colors">
+                    Mais Vendidos
+                  </Link>
+                  <Link to={saleHref} className="text-base text-red-500 hover:text-red-400 py-2 transition-colors">
+                    Sale
+                  </Link>
+                  <div className="h-px bg-border my-4" />
                   <Link to="/favoritos" className="flex items-center gap-3 text-base text-foreground/80 hover:text-foreground py-2 transition-colors">
                     <Heart className="w-5 h-5" /> Favoritos {totalFavorites > 0 && `(${totalFavorites})`}
                   </Link>
                   <Link to={accountHref} className="flex items-center gap-3 text-base text-foreground/80 hover:text-foreground py-2 transition-colors">
                     <User className="w-5 h-5" /> {isAuthenticated ? "Minha conta" : "Entrar"}
                   </Link>
-                  <Link to="#" className="flex items-center gap-3 text-base text-foreground/80 hover:text-foreground py-2 transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => setSearchOpen(true)}
+                    className="flex items-center gap-3 text-base text-foreground/80 hover:text-foreground py-2 transition-colors"
+                  >
                     <Search className="w-5 h-5" /> Buscar
-                  </Link>
+                  </button>
                 </div>
               </SheetContent>
             </Sheet>

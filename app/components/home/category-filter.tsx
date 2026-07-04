@@ -1,26 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { productCategories } from "@/lib/product-filters";
 
-const categories = ["Masculino", "Feminino", "Objetos"];
+interface CategoryFilterProps {
+  active: string;
+  onChange: (category: string) => void;
+}
 
-export function CategoryFilter() {
-  const [active, setActive] = useState("Masculino");
-
+export function CategoryFilter({ active, onChange }: CategoryFilterProps) {
   return (
     <div className="flex items-center justify-center gap-12 py-12">
-      {categories.map((category) => (
+      {productCategories.map((category) => (
         <button
           key={category}
           type="button"
-          onClick={() => setActive(category)}
+          onClick={() => onChange(category)}
           className={cn(
             "relative text-sm font-medium pb-1 transition-colors",
             active === category
               ? "text-foreground"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-foreground",
           )}
         >
           {category}

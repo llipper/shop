@@ -10,6 +10,10 @@
       }
     },
     "routeIdToServerBundleId": {
+      "routes/api.newsletter": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/sitemap[.]xml": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/robots[.]txt": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/privacidade": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/favoritos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/cadastro": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/produtos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -20,6 +24,7 @@
       "routes/suporte._index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.faq": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.$": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/termos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/_index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/conta": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -36,6 +41,42 @@
         "file": "app/root.tsx",
         "path": "",
         "config": {}
+      },
+      "routes/api.newsletter": {
+        "id": "routes/api.newsletter",
+        "parentId": "root",
+        "file": "app/routes/api.newsletter.tsx",
+        "path": "api/newsletter",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/sitemap[.]xml": {
+        "id": "routes/sitemap[.]xml",
+        "parentId": "root",
+        "file": "app/routes/sitemap[.]xml.tsx",
+        "path": "sitemap.xml",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/robots[.]txt": {
+        "id": "routes/robots[.]txt",
+        "parentId": "root",
+        "file": "app/routes/robots[.]txt.tsx",
+        "path": "robots.txt",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/privacidade": {
+        "id": "routes/privacidade",
+        "parentId": "root",
+        "file": "app/routes/privacidade.tsx",
+        "path": "privacidade",
+        "config": {
+          "runtime": "nodejs"
+        }
       },
       "routes/favoritos": {
         "id": "routes/favoritos",
@@ -130,6 +171,15 @@
         "parentId": "routes/suporte",
         "file": "app/routes/suporte.$.tsx",
         "path": "*",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/termos": {
+        "id": "routes/termos",
+        "parentId": "root",
+        "file": "app/routes/termos.tsx",
+        "path": "termos",
         "config": {
           "runtime": "nodejs"
         }
@@ -241,6 +291,30 @@
         "file": "root.tsx",
         "path": ""
       },
+      "routes/api.newsletter": {
+        "id": "routes/api.newsletter",
+        "parentId": "root",
+        "file": "routes/api.newsletter.tsx",
+        "path": "api/newsletter"
+      },
+      "routes/sitemap[.]xml": {
+        "id": "routes/sitemap[.]xml",
+        "parentId": "root",
+        "file": "routes/sitemap[.]xml.tsx",
+        "path": "sitemap.xml"
+      },
+      "routes/robots[.]txt": {
+        "id": "routes/robots[.]txt",
+        "parentId": "root",
+        "file": "routes/robots[.]txt.tsx",
+        "path": "robots.txt"
+      },
+      "routes/privacidade": {
+        "id": "routes/privacidade",
+        "parentId": "root",
+        "file": "routes/privacidade.tsx",
+        "path": "privacidade"
+      },
       "routes/favoritos": {
         "id": "routes/favoritos",
         "parentId": "root",
@@ -306,6 +380,12 @@
         "parentId": "routes/suporte",
         "file": "routes/suporte.$.tsx",
         "path": "*"
+      },
+      "routes/termos": {
+        "id": "routes/termos",
+        "parentId": "root",
+        "file": "routes/termos.tsx",
+        "path": "termos"
       },
       "routes/_index": {
         "id": "routes/_index",
@@ -384,6 +464,26 @@
         "file": "root.tsx",
         "children": [
           {
+            "id": "routes/api.newsletter",
+            "file": "routes/api.newsletter.tsx",
+            "path": "api/newsletter"
+          },
+          {
+            "id": "routes/sitemap[.]xml",
+            "file": "routes/sitemap[.]xml.tsx",
+            "path": "sitemap.xml"
+          },
+          {
+            "id": "routes/robots[.]txt",
+            "file": "routes/robots[.]txt.tsx",
+            "path": "robots.txt"
+          },
+          {
+            "id": "routes/privacidade",
+            "file": "routes/privacidade.tsx",
+            "path": "privacidade"
+          },
+          {
             "id": "routes/favoritos",
             "file": "routes/favoritos.tsx",
             "path": "favoritos"
@@ -439,6 +539,11 @@
                 "path": "*"
               }
             ]
+          },
+          {
+            "id": "routes/termos",
+            "file": "routes/termos.tsx",
+            "path": "termos"
           },
           {
             "id": "routes/_index",

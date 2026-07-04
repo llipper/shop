@@ -1,10 +1,12 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router";
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/home/hero";
 import { CategoryFilter } from "@/components/home/category-filter";
 import { ProductGrid } from "@/components/home/product-grid";
+import { filterProducts } from "@/lib/product-filters";
 import type { Product } from "@/types/product";
 
 export type StoreCatalogLoaderData = {
@@ -15,6 +17,12 @@ export type StoreCatalogLoaderData = {
 
 export function StoreCatalogPage() {
   const { catalog, shop, error } = useLoaderData<StoreCatalogLoaderData>();
+  const [activeCategory, setActiveCategory] = useState("Masculino");
+
+  const visibleProducts = useMemo(
+    () => filterProducts(catalog, { categoria: activeCategory }),
+    [catalog, activeCategory],
+  );
 
   return (
     <main className="min-h-screen bg-background font-sans text-foreground">
@@ -35,8 +43,14 @@ export function StoreCatalogPage() {
           </p>
         )}
 
-        <CategoryFilter />
-        <ProductGrid products={catalog} />
+        <CategoryFilter active={activeCategory} onChange={setActiveCategory} />
+        {visibleProducts.length === 0 ? (
+          <p className="mx-12 mb-24 text-center text-sm text-muted-foreground">
+            Nenhum produto em <strong className="text-foreground">{activeCategory}</strong> no momento.
+          </p>
+        ) : (
+          <ProductGrid products={visibleProducts} />
+        )}
       </div>
     </main>
   );

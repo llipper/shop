@@ -3,7 +3,7 @@ pid: 15416
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm install -D @vercel/react-router"
 started_at: 2026-07-04T00:02:54.920Z
-running_for_ms: 52444998 
+running_for_ms: 57754993 
 ---
 npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
 
