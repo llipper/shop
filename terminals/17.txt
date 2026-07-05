@@ -3,7 +3,7 @@ pid: 8880
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build"
 started_at: 2026-07-04T23:33:42.187Z
-running_for_ms: 7454990  
+running_for_ms: 11499993 
 ---
 npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
 

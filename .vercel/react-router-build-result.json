@@ -10,8 +10,9 @@
       }
     },
     "routeIdToServerBundleId": {
-      "routes/api.mercadopago.payment": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/api.mercadopago.webhook": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.mercadopago.config": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.mercadopago.order": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/api.checkout.prepare": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/api.auth.register": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/api.auth.profile": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -26,6 +27,7 @@
       "routes/favoritos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/cadastro": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/produtos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.cep": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.trocas-e-devolucoes": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.envio-e-prazos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/suporte.rastreio": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -51,20 +53,29 @@
         "path": "",
         "config": {}
       },
-      "routes/api.mercadopago.payment": {
-        "id": "routes/api.mercadopago.payment",
-        "parentId": "root",
-        "file": "app/routes/api.mercadopago.payment.tsx",
-        "path": "api/mercadopago/payment",
-        "config": {
-          "runtime": "nodejs"
-        }
-      },
       "routes/api.mercadopago.webhook": {
         "id": "routes/api.mercadopago.webhook",
         "parentId": "root",
         "file": "app/routes/api.mercadopago.webhook.tsx",
         "path": "api/mercadopago/webhook",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.mercadopago.config": {
+        "id": "routes/api.mercadopago.config",
+        "parentId": "root",
+        "file": "app/routes/api.mercadopago.config.tsx",
+        "path": "api/mercadopago/config",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.mercadopago.order": {
+        "id": "routes/api.mercadopago.order",
+        "parentId": "root",
+        "file": "app/routes/api.mercadopago.order.tsx",
+        "path": "api/mercadopago/order",
         "config": {
           "runtime": "nodejs"
         }
@@ -191,6 +202,15 @@
         "parentId": "root",
         "file": "app/routes/produtos.tsx",
         "path": "produtos",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.cep": {
+        "id": "routes/api.cep",
+        "parentId": "root",
+        "file": "app/routes/api.cep.tsx",
+        "path": "api/cep",
         "config": {
           "runtime": "nodejs"
         }
@@ -381,17 +401,23 @@
         "file": "root.tsx",
         "path": ""
       },
-      "routes/api.mercadopago.payment": {
-        "id": "routes/api.mercadopago.payment",
-        "parentId": "root",
-        "file": "routes/api.mercadopago.payment.tsx",
-        "path": "api/mercadopago/payment"
-      },
       "routes/api.mercadopago.webhook": {
         "id": "routes/api.mercadopago.webhook",
         "parentId": "root",
         "file": "routes/api.mercadopago.webhook.tsx",
         "path": "api/mercadopago/webhook"
+      },
+      "routes/api.mercadopago.config": {
+        "id": "routes/api.mercadopago.config",
+        "parentId": "root",
+        "file": "routes/api.mercadopago.config.tsx",
+        "path": "api/mercadopago/config"
+      },
+      "routes/api.mercadopago.order": {
+        "id": "routes/api.mercadopago.order",
+        "parentId": "root",
+        "file": "routes/api.mercadopago.order.tsx",
+        "path": "api/mercadopago/order"
       },
       "routes/api.checkout.prepare": {
         "id": "routes/api.checkout.prepare",
@@ -476,6 +502,12 @@
         "parentId": "root",
         "file": "routes/produtos.tsx",
         "path": "produtos"
+      },
+      "routes/api.cep": {
+        "id": "routes/api.cep",
+        "parentId": "root",
+        "file": "routes/api.cep.tsx",
+        "path": "api/cep"
       },
       "routes/suporte": {
         "id": "routes/suporte",
@@ -608,14 +640,19 @@
         "file": "root.tsx",
         "children": [
           {
-            "id": "routes/api.mercadopago.payment",
-            "file": "routes/api.mercadopago.payment.tsx",
-            "path": "api/mercadopago/payment"
-          },
-          {
             "id": "routes/api.mercadopago.webhook",
             "file": "routes/api.mercadopago.webhook.tsx",
             "path": "api/mercadopago/webhook"
+          },
+          {
+            "id": "routes/api.mercadopago.config",
+            "file": "routes/api.mercadopago.config.tsx",
+            "path": "api/mercadopago/config"
+          },
+          {
+            "id": "routes/api.mercadopago.order",
+            "file": "routes/api.mercadopago.order.tsx",
+            "path": "api/mercadopago/order"
           },
           {
             "id": "routes/api.checkout.prepare",
@@ -686,6 +723,11 @@
             "id": "routes/produtos",
             "file": "routes/produtos.tsx",
             "path": "produtos"
+          },
+          {
+            "id": "routes/api.cep",
+            "file": "routes/api.cep.tsx",
+            "path": "api/cep"
           },
           {
             "id": "routes/suporte",

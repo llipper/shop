@@ -3,7 +3,7 @@ pid: 18784
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "cmd /c \"cd /d C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar && npm install cmdk\""
 started_at: 2026-07-05T00:35:29.551Z
-running_for_ms: 3749999  
+running_for_ms: 7790003  
 ---
 npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
 

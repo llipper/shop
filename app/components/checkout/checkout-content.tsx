@@ -244,10 +244,11 @@ export function CheckoutContent({
   };
 
   const handleApproved = (result: { orderName?: string | null; email?: string | null }) => {
+    toast.success("Pagamento aprovado! Redirecionando...");
     const params = new URLSearchParams();
     if (result.orderName) params.set("order", result.orderName);
     if (result.email) params.set("email", result.email);
-    navigate(`/store/checkout/sucesso?${params.toString()}`);
+    void navigate(`/store/checkout/sucesso?${params.toString()}`);
   };
 
   if (items.length === 0) {

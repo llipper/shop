@@ -63,7 +63,12 @@ export function CheckoutPaymentForm({
       return;
     }
 
-    if (result.status === "approved") {
+    const paymentSucceeded =
+      result.status === "approved" ||
+      result.status === "processed" ||
+      result.status === "accredited";
+
+    if (paymentSucceeded) {
       onApproved({ orderName: result.orderName, email: result.email ?? shipping.email });
       return;
     }
