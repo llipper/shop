@@ -3,15 +3,17 @@
 import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 import { useAuth } from "@/contexts/auth-context";
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { login, isAuthenticated, isLoading } = useAuth();
+  const { loginWithPassword, recoverPassword, isAuthenticated, isLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [recovering, setRecovering] = useState(false);
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
@@ -19,19 +21,37 @@ export function LoginPage() {
     }
   }, [isAuthenticated, isLoading, navigate]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      const name = email.split("@")[0] ?? "Cliente";
-      login({
-        name: name.charAt(0).toUpperCase() + name.slice(1),
-        email,
-        memberSince: new Date().toISOString(),
-      });
-      setLoading(false);
-      navigate("/conta");
-    }, 800);
+
+    const result = await loginWithPassword(email, password);
+    setLoading(false);
+
+    if (!result.ok) {
+      toast.error(result.message ?? "Não foi possível entrar.");
+      return;
+    }
+
+    toast.success("Bem-vindo de volta!");
+    navigate("/conta");
+  }
+
+  async function handleRecoverPassword() {
+    if (!email.trim()) {
+      toast.error("Informe seu e-mail para recuperar a senha.");
+      return;
+    }
+
+    setRecovering(true);
+    const result = await recoverPassword(email);
+    setRecovering(false);
+
+    if (result.ok) {
+      toast.success(result.message);
+    } else {
+      toast.error(result.message ?? "Não foi possível enviar o e-mail.");
+    }
   }
 
   return (
@@ -47,8 +67,8 @@ export function LoginPage() {
 
           <h1 className="text-3xl font-medium text-foreground mb-2">Bem-vindo de volta</h1>
           <p className="text-muted-foreground mb-10">
-            Entre na sua conta ROUHI para favoritos e checkout mais rápido. O pagamento final
-            usa a conta segura da Shopify com o mesmo e-mail.
+            Entre com sua conta Shopify da ROUHI para acompanhar pedidos, favoritos e checkout
+            mais rápido.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -70,12 +90,14 @@ export function LoginPage() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="block text-sm font-medium text-foreground">Senha</label>
-                <Link
-                  to="/suporte/contato"
-                  className="text-xs text-primary hover:text-primary/80 transition-colors"
+                <button
+                  type="button"
+                  onClick={handleRecoverPassword}
+                  disabled={recovering}
+                  className="text-xs text-primary hover:text-primary/80 transition-colors disabled:opacity-60"
                 >
-                  Esqueceu a senha?
-                </Link>
+                  {recovering ? "Enviando..." : "Esqueceu a senha?"}
+                </button>
               </div>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -102,16 +124,7 @@ export function LoginPage() {
               disabled={loading}
               className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-medium hover:bg-primary/90 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? (
-                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-              ) : (
-                <>
-                  Entrar <ArrowRight className="w-4 h-4" />
-                </>
-              )}
+              {loading ? "Entrando..." : <>Entrar <ArrowRight className="w-4 h-4" /></>}
             </button>
           </form>
 

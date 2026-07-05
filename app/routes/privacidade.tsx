@@ -3,13 +3,14 @@ import { StorefrontShell } from "@/components/layout/storefront-shell";
 import { LegalPage } from "@/components/pages/legal-page";
 import { buildMetaTags } from "@/lib/seo";
 
-export const meta: MetaFunction = () =>
+export const meta: MetaFunction = ({ matches }) =>
   buildMetaTags({
     title: "Política de Privacidade",
     description:
       "Saiba como a ROUHI coleta, usa e protege seus dados pessoais em conformidade com a LGPD.",
     path: "/privacidade",
     noIndex: true,
+    matches,
   });
 
 export default function PrivacidadeRoute() {

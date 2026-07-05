@@ -3,12 +3,13 @@ import { StorefrontShell } from "@/components/layout/storefront-shell";
 import { LegalPage } from "@/components/pages/legal-page";
 import { buildMetaTags } from "@/lib/seo";
 
-export const meta: MetaFunction = () =>
+export const meta: MetaFunction = ({ matches }) =>
   buildMetaTags({
     title: "Termos de Serviço",
     description: "Termos de uso do site e loja online da ROUHI.",
     path: "/termos",
     noIndex: true,
+    matches,
   });
 
 export default function TermosRoute() {

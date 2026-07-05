@@ -2,6 +2,7 @@
 
 import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { useAuth } from "@/contexts/auth-context";
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,7 @@ const passwordRules = [
 
 export function RegisterPage() {
   const navigate = useNavigate();
-  const { login, isAuthenticated, isLoading } = useAuth();
+  const { registerAccount, isAuthenticated, isLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,14 +28,21 @@ export function RegisterPage() {
     }
   }, [isAuthenticated, isLoading, navigate]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (passwordStrength < 3) return;
+
     setLoading(true);
-    setTimeout(() => {
-      login({ name, email, memberSince: new Date().toISOString() });
-      setLoading(false);
-      navigate("/conta");
-    }, 800);
+    const result = await registerAccount({ name, email, password });
+    setLoading(false);
+
+    if (!result.ok) {
+      toast.error(result.message ?? "Não foi possível criar a conta.");
+      return;
+    }
+
+    toast.success("Conta criada com sucesso!");
+    navigate("/conta");
   }
 
   const passwordStrength = passwordRules.filter((r) => r.test(password)).length;

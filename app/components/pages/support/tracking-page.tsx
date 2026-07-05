@@ -1,59 +1,61 @@
 "use client";
 
-import { useState } from "react";
-import { Search, CheckCircle2, Box } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useMemo, useState } from "react";
+import { Link } from "react-router";
+import { Search, CheckCircle2, Box, ExternalLink } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
 
-interface TrackingStep {
-  title: string;
-  description: string;
-  date: string;
+function getCorreiosTrackingUrl(code: string) {
+  return `https://rastreamento.correios.com.br/app/index.php?objetos=${encodeURIComponent(code)}`;
 }
 
-const mockTrackingResults: Record<string, TrackingStep[]> = {
-  PAP123456789BR: [
-    { title: "Objeto entregue ao destinatário", description: "São Paulo - SP", date: "Hoje às 14:32" },
-    { title: "Objeto saiu para entrega", description: "São Paulo - SP", date: "Hoje às 08:15" },
-    { title: "Objeto encaminhado", description: "Cajamar - SP para São Paulo", date: "Ontem às 22:10" },
-    { title: "Objeto postado", description: "São Paulo - SP", date: "2 dias atrás às 10:00" },
-  ],
-  PAP987654321BR: [
-    { title: "Objeto saiu para entrega", description: "Rio de Janeiro - RJ", date: "Hoje às 09:20" },
-    { title: "Objeto encaminhado", description: "Cajamar - SP para Rio de Janeiro", date: "Ontem às 18:45" },
-    { title: "Objeto postado", description: "São Paulo - SP", date: "Ontem às 11:30" },
-  ],
-};
+function isLikelyTrackingCode(code: string) {
+  const normalized = code.trim().toUpperCase();
+  return /^[A-Z]{2}\d{9}[A-Z]{2}$/.test(normalized) || /^\d{10,14}$/.test(normalized);
+}
 
 export function TrackingPage() {
+  const { isAuthenticated, orders, isLoading } = useAuth();
   const [code, setCode] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<TrackingStep[] | null>(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const trackingFromOrders = useMemo(
+    () =>
+      orders.flatMap((order) =>
+        order.tracking.map((item) => ({
+          orderName: order.name,
+          statusUrl: order.statusUrl,
+          ...item,
+        })),
+      ),
+    [orders],
+  );
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    if (!code) return;
+    const normalized = code.trim().toUpperCase();
+    setError(null);
 
-    setLoading(true);
-    setError(false);
-    setResult(null);
+    if (!normalized) {
+      setError("Informe um código de rastreio.");
+      return;
+    }
 
-    setTimeout(() => {
-      setLoading(false);
-      const trackingResult = mockTrackingResults[code.toUpperCase().trim()];
-      if (trackingResult) {
-        setResult(trackingResult);
-      } else {
-        setError(true);
-      }
-    }, 1000);
+    if (!isLikelyTrackingCode(normalized)) {
+      setError("Código inválido. Use o formato dos Correios (ex: AA123456789BR).");
+      return;
+    }
+
+    window.open(getCorreiosTrackingUrl(normalized), "_blank", "noopener,noreferrer");
   }
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-medium text-foreground mb-2">Rastrear Pedido</h1>
-        <p className="text-muted-foreground">Insira seu código de rastreamento para acompanhar a sua entrega.</p>
+        <p className="text-muted-foreground">
+          Consulte o rastreio pelos Correios ou veja seus pedidos na conta ROUHI.
+        </p>
       </div>
 
       <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
@@ -64,63 +66,83 @@ export function TrackingPage() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             className="w-full border border-border rounded-md pl-10 pr-4 py-3 bg-background text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
-            placeholder="Ex: PAP123456789BR"
+            placeholder="Ex: AA123456789BR"
             required
           />
         </div>
         <button
           type="submit"
-          disabled={loading}
-          className="bg-primary text-primary-foreground py-3 px-6 rounded-md text-sm font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-75"
+          className="bg-primary text-primary-foreground py-3 px-6 rounded-md text-sm font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2"
         >
-          <Search className="w-4 h-4" /> Buscar
+          <Search className="w-4 h-4" /> Consultar nos Correios
         </button>
       </form>
 
-      {!result && !error && !loading && (
-        <div className="bg-secondary/40 border border-border rounded-lg p-4 text-xs text-muted-foreground">
-          <p className="font-medium text-foreground mb-1">Códigos de teste:</p>
-          <ul className="list-disc pl-4 mt-1.5 space-y-1 font-mono">
-            <li>PAP123456789BR</li>
-            <li>PAP987654321BR</li>
-          </ul>
-        </div>
-      )}
-
-      {result && (
-        <div className="border border-border rounded-lg p-6 space-y-8 bg-secondary/10">
-          <div className="flex items-center justify-between border-b border-border pb-4">
-            <span className="text-sm font-medium text-foreground">Código: {code.toUpperCase()}</span>
-            <span className="text-xs text-green-500 font-semibold flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4" /> Em andamento
-            </span>
-          </div>
-
-          <div className="relative pl-6 space-y-8 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-border">
-            {result.map((step, idx) => (
-              <div key={idx} className="relative flex gap-4">
-                <div
-                  className={cn(
-                    "absolute -left-[20px] top-1 w-3 h-3 rounded-full border-2 bg-background",
-                    idx === 0 ? "border-primary scale-125" : "border-muted-foreground/60",
-                  )}
-                />
-                <div>
-                  <h4 className={cn("text-sm font-medium", idx === 0 ? "text-foreground" : "text-muted-foreground")}>
-                    {step.title}
-                  </h4>
-                  <p className="text-xs text-muted-foreground mt-0.5">{step.description}</p>
-                  <span className="text-[10px] text-muted-foreground/80 block mt-1">{step.date}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
       {error && (
         <div className="p-4 border border-red-200 bg-red-500/10 text-red-500 text-sm rounded-md">
-          Nenhuma encomenda encontrada com o código informado.
+          {error}
+        </div>
+      )}
+
+      <div className="rounded-lg border border-border bg-secondary/20 p-5 text-sm text-muted-foreground">
+        O código de rastreio é enviado por e-mail quando o pedido for despachado. Você também
+        pode acompanhar pelo status do pedido na sua conta.
+      </div>
+
+      {!isLoading && isAuthenticated && trackingFromOrders.length > 0 && (
+        <div className="border border-border rounded-lg p-6 space-y-4 bg-secondary/10">
+          <h2 className="text-lg font-medium text-foreground">Seus rastreios recentes</h2>
+          {trackingFromOrders.map((item, index) => (
+            <div
+              key={`${item.orderName}-${item.number}-${index}`}
+              className="flex flex-col gap-3 border border-border rounded-lg p-4 md:flex-row md:items-center md:justify-between"
+            >
+              <div>
+                <p className="text-sm font-medium text-foreground">{item.orderName}</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {item.company}: <span className="font-mono">{item.number}</span>
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <a
+                  href={item.url ?? getCorreiosTrackingUrl(item.number)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                >
+                  Rastrear <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href={item.statusUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Status do pedido
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {!isLoading && !isAuthenticated && (
+        <div className="border border-border rounded-lg p-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-foreground">Tem conta ROUHI?</p>
+              <p className="text-sm text-muted-foreground">
+                Entre para ver pedidos e rastreios sincronizados com a Shopify.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/login"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          >
+            Entrar na conta
+          </Link>
         </div>
       )}
     </div>

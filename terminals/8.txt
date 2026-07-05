@@ -3,7 +3,7 @@ pid: 18284
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build 2>&1 | Select-Object -Last 25"
 started_at: 2026-07-04T01:21:36.981Z
-running_for_ms: 53035003 
+running_for_ms: 86400003 
 ---
 ✓ 72 modules transformed.app/components/pages/support/faq-page.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve 
 
@@ -45,3 +45,9 @@ app/contexts/favorites-context.tsx (1:0): Error when using sourcemap for reporti
 location of error.
 app/components/home/product-card.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original 
 location of error.
+
+---
+exit_code: -1
+elapsed_ms: 86400003
+ended_at: 2026-07-05T01:21:52.166Z
+---

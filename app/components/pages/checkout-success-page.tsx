@@ -1,10 +1,28 @@
 "use client";
 
+import { useEffect } from "react";
 import { Link } from "react-router";
 import { CheckCircle2, Package, ShoppingBag } from "lucide-react";
+import { useCart } from "@/contexts/cart-context";
 
-export function CheckoutSuccessPage() {
-  const orderNumber = Math.floor(Math.random() * 900000 + 100000);
+type CheckoutSuccessPageProps = {
+  orderName?: string | null;
+  orderId?: string | null;
+  email?: string | null;
+};
+
+export function CheckoutSuccessPage({
+  orderName,
+  orderId,
+  email,
+}: CheckoutSuccessPageProps) {
+  const { clearCart } = useCart();
+
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
+
+  const hasOrderReference = Boolean(orderName || orderId);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -21,11 +39,25 @@ export function CheckoutSuccessPage() {
 
         <h1 className="text-3xl md:text-4xl font-medium text-foreground mb-3">Pedido confirmado!</h1>
         <p className="text-muted-foreground mb-2 max-w-md">
-          Seu pedido foi recebido com sucesso. Em breve você receberá um e-mail com a confirmação e o código de rastreio.
+          {hasOrderReference
+            ? "Recebemos seu pedido com sucesso. Você também receberá a confirmação por e-mail."
+            : "Seu pagamento foi processado com sucesso. Em instantes você receberá a confirmação por e-mail."}
         </p>
-        <p className="text-sm text-muted-foreground mb-10">
-          Número do pedido: <span className="font-medium text-foreground">#{orderNumber}</span>
-        </p>
+
+        {hasOrderReference && (
+          <p className="text-sm text-muted-foreground mb-10">
+            Referência:{" "}
+            <span className="font-medium text-foreground">
+              {orderName ?? orderId}
+            </span>
+          </p>
+        )}
+
+        {email && (
+          <p className="text-sm text-muted-foreground mb-10">
+            Confirmação enviada para <span className="font-medium text-foreground">{email}</span>
+          </p>
+        )}
 
         <div className="flex items-center gap-3 mb-12">
           <div className="flex flex-col items-center gap-2">
@@ -58,10 +90,10 @@ export function CheckoutSuccessPage() {
             Continuar comprando
           </Link>
           <Link
-            to="/suporte/rastreio"
+            to="/conta"
             className="px-8 py-4 border border-border rounded-md font-medium hover:bg-secondary transition-colors text-foreground"
           >
-            Rastrear pedido
+            Ver meus pedidos
           </Link>
         </div>
       </div>

@@ -1,0 +1,74 @@
+---
+pid: 16320
+cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
+command: "cd \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run typecheck"
+started_at: 2026-07-05T01:03:48.936Z
+running_for_ms: 2049999  
+---
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> typecheck
+> react-router typegen && tsc --noEmit
+
+app/components/checkout/checkout-content.tsx(525,19): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/checkout/checkout-content.tsx(589,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/checkout/pix-payment.tsx(108,17): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/checkout/state-select.tsx(39,11): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/layout/cookie-consent.tsx(44,13): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/layout/cookie-consent.tsx(52,13): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/account-page.tsx(310,35): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/account-page.tsx(414,29): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/not-found-page.tsx(44,25): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/products-page.tsx(308,11): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/products-page.tsx(350,23): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/pages/products-page.tsx(380,51): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/product/product-share-dialog.tsx(152,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/alert-dialog.tsx(150,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/alert-dialog.tsx(168,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
+app/components/ui/attachment.tsx(153,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/button.tsx(46,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/calendar.tsx(7,8): error TS2307: Cannot find module 'react-day-picker' or its corresponding type declarations.
+app/components/ui/calendar.tsx(40,31): error TS7006: Parameter 'date' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(135,18): error TS7031: Binding element 'className' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(135,29): error TS7031: Binding element 'rootRef' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(145,21): error TS7031: Binding element 'className' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(145,32): error TS7031: Binding element 'orientation' implicitly has an 'any' type.
+app/components/ui/calendar.tsx(165,24): error TS7031: Binding element 'children' implicitly has an 'any' type.
+app/components/ui/carousel.tsx(4,8): error TS2307: Cannot find module 'embla-carousel-react' or its corresponding type declarations.
+app/components/ui/carousel.tsx(174,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
+app/components/ui/carousel.tsx(204,3): error TS2322: Type '"outline"' is not assignable to type 'null'.
+app/components/ui/chart.tsx(2,36): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
+app/components/ui/chart.tsx(3,39): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
+app/components/ui/chart.tsx(199,20): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(200,17): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(200,23): error TS7006: Parameter 'index' implicitly has an 'any' type.
+app/components/ui/chart.tsx(298,18): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(299,15): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/components/ui/chart.tsx(299,21): error TS7006: Parameter 'index' implicitly has an 'any' type.
+app/components/ui/combobox.tsx(2,47): error TS2307: Cannot find module '@base-ui/react' or its corresponding type declarations.
+app/components/ui/combobox.tsx(41,33): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/combobox.tsx(71,13): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/combobox.tsx(252,27): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/dialog.tsx(71,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/dialog.tsx(116,19): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/drawer.tsx(2,43): error TS2307: Cannot find module 'vaul' or its corresponding type declarations.
+app/components/ui/input-group.tsx(87,3): error TS2322: Type '"ghost"' is not assignable to type 'null'.
+app/components/ui/input-otp.tsx(2,43): error TS2307: Cannot find module 'input-otp' or its corresponding type declarations.
+app/components/ui/input-otp.tsx(49,61): error TS2339: Property 'slots' does not exist on type '{}'.
+app/components/ui/message-scroller.tsx(7,8): error TS2307: Cannot find module '@shadcn/react/message-scroller' or its corresponding type declarations.
+app/components/ui/pagination.tsx(50,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/resizable.tsx(1,37): error TS2307: Cannot find module 'react-resizable-panels' or its corresponding type declarations.
+app/components/ui/sheet.tsx(72,15): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/sidebar.tsx(5,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+app/components/ui/sidebar.tsx(262,7): error TS2322: Type 'string' is not assignable to type 'null | undefined'.
+app/components/ui/sidebar.tsx(491,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/toggle-group.tsx(59,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/components/ui/toggle.tsx(31,3): error TS2322: Type '"default"' is not assignable to type 'null'.
+app/legacy-admin/routes/app._index.tsx(9,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/app.tsx(6,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/auth.$.tsx(3,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/auth.login/route.tsx(6,23): error TS2307: Cannot find module '../../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.scopes_update.tsx(2,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.scopes_update.tsx(3,16): error TS2307: Cannot find module '../db.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.uninstalled.tsx(2,30): error TS2307: Cannot find module '../shopify.server' or its corresponding type declarations.
+app/legacy-admin/routes/webhooks.app.uninstalled.tsx(3,16): error TS2307: Cannot find module '../db.server' or its corresponding type declarations.

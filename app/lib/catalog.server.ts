@@ -1,14 +1,37 @@
 import { mockProducts } from "@/data/products";
 import { fetchShopifyProducts } from "@/lib/shopify-products.server";
 
+function allowMockCatalog() {
+  return process.env.ALLOW_MOCK_CATALOG === "true";
+}
+
 export async function fetchStoreCatalog(limit = 48) {
   const { products, shop, error } = await fetchShopifyProducts(limit);
-  const usingMockData = products.length === 0;
+
+  if (products.length > 0) {
+    return {
+      catalog: products,
+      shop,
+      error: null,
+      usingMockData: false,
+    };
+  }
+
+  if (allowMockCatalog()) {
+    return {
+      catalog: mockProducts,
+      shop,
+      error: null,
+      usingMockData: true,
+    };
+  }
 
   return {
-    catalog: usingMockData ? mockProducts : products,
+    catalog: [],
     shop,
-    error: usingMockData ? null : error,
-    usingMockData,
+    error:
+      error ??
+      "Nenhum produto publicado na loja Shopify. Cadastre produtos no canal Online Store.",
+    usingMockData: false,
   };
 }

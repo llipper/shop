@@ -26,11 +26,11 @@ export function StorefrontShell({
         <CartProvider>
           <FavoritesProvider>
             <TooltipProvider>
-            {children ?? <Outlet />}
-            {showCart && <CartDrawer />}
-            {showFooter && <Footer />}
-            <CookieConsent />
-            <Toaster position="top-right" />
+              {children ?? <Outlet />}
+              {showCart && <CartDrawer />}
+              {showFooter && <Footer />}
+              <CookieConsent />
+              <Toaster position="top-right" />
             </TooltipProvider>
           </FavoritesProvider>
         </CartProvider>

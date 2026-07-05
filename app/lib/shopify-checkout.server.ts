@@ -1,3 +1,4 @@
+import { getPublicStorefrontOrigin } from "./storefront-url.server";
 import {
   getShopDomain,
   getStorefrontClient,
@@ -42,6 +43,13 @@ export function normalizeCheckoutUrl(url: string): string {
   try {
     const parsed = new URL(url);
     parsed.searchParams.delete("preview_theme_id");
+
+    const origin = getPublicStorefrontOrigin();
+    if (origin) {
+      const returnTo = `${origin}/store/checkout/sucesso`;
+      parsed.searchParams.set("return_to", returnTo);
+    }
+
     return parsed.toString();
   } catch {
     return url;

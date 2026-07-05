@@ -10,9 +10,18 @@
       }
     },
     "routeIdToServerBundleId": {
+      "routes/api.mercadopago.payment": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.mercadopago.webhook": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.checkout.prepare": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.auth.register": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.auth.profile": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.auth.recover": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.auth.session": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.auth.login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/api.newsletter": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/sitemap[.]xml": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/robots[.]txt": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.contact": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/privacidade": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/favoritos": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/cadastro": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -42,6 +51,78 @@
         "path": "",
         "config": {}
       },
+      "routes/api.mercadopago.payment": {
+        "id": "routes/api.mercadopago.payment",
+        "parentId": "root",
+        "file": "app/routes/api.mercadopago.payment.tsx",
+        "path": "api/mercadopago/payment",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.mercadopago.webhook": {
+        "id": "routes/api.mercadopago.webhook",
+        "parentId": "root",
+        "file": "app/routes/api.mercadopago.webhook.tsx",
+        "path": "api/mercadopago/webhook",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.checkout.prepare": {
+        "id": "routes/api.checkout.prepare",
+        "parentId": "root",
+        "file": "app/routes/api.checkout.prepare.tsx",
+        "path": "api/checkout/prepare",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.auth.register": {
+        "id": "routes/api.auth.register",
+        "parentId": "root",
+        "file": "app/routes/api.auth.register.tsx",
+        "path": "api/auth/register",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.auth.profile": {
+        "id": "routes/api.auth.profile",
+        "parentId": "root",
+        "file": "app/routes/api.auth.profile.tsx",
+        "path": "api/auth/profile",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.auth.recover": {
+        "id": "routes/api.auth.recover",
+        "parentId": "root",
+        "file": "app/routes/api.auth.recover.tsx",
+        "path": "api/auth/recover",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.auth.session": {
+        "id": "routes/api.auth.session",
+        "parentId": "root",
+        "file": "app/routes/api.auth.session.tsx",
+        "path": "api/auth/session",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.auth.login": {
+        "id": "routes/api.auth.login",
+        "parentId": "root",
+        "file": "app/routes/api.auth.login.tsx",
+        "path": "api/auth/login",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
       "routes/api.newsletter": {
         "id": "routes/api.newsletter",
         "parentId": "root",
@@ -65,6 +146,15 @@
         "parentId": "root",
         "file": "app/routes/robots[.]txt.tsx",
         "path": "robots.txt",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.contact": {
+        "id": "routes/api.contact",
+        "parentId": "root",
+        "file": "app/routes/api.contact.tsx",
+        "path": "api/contact",
         "config": {
           "runtime": "nodejs"
         }
@@ -291,6 +381,54 @@
         "file": "root.tsx",
         "path": ""
       },
+      "routes/api.mercadopago.payment": {
+        "id": "routes/api.mercadopago.payment",
+        "parentId": "root",
+        "file": "routes/api.mercadopago.payment.tsx",
+        "path": "api/mercadopago/payment"
+      },
+      "routes/api.mercadopago.webhook": {
+        "id": "routes/api.mercadopago.webhook",
+        "parentId": "root",
+        "file": "routes/api.mercadopago.webhook.tsx",
+        "path": "api/mercadopago/webhook"
+      },
+      "routes/api.checkout.prepare": {
+        "id": "routes/api.checkout.prepare",
+        "parentId": "root",
+        "file": "routes/api.checkout.prepare.tsx",
+        "path": "api/checkout/prepare"
+      },
+      "routes/api.auth.register": {
+        "id": "routes/api.auth.register",
+        "parentId": "root",
+        "file": "routes/api.auth.register.tsx",
+        "path": "api/auth/register"
+      },
+      "routes/api.auth.profile": {
+        "id": "routes/api.auth.profile",
+        "parentId": "root",
+        "file": "routes/api.auth.profile.tsx",
+        "path": "api/auth/profile"
+      },
+      "routes/api.auth.recover": {
+        "id": "routes/api.auth.recover",
+        "parentId": "root",
+        "file": "routes/api.auth.recover.tsx",
+        "path": "api/auth/recover"
+      },
+      "routes/api.auth.session": {
+        "id": "routes/api.auth.session",
+        "parentId": "root",
+        "file": "routes/api.auth.session.tsx",
+        "path": "api/auth/session"
+      },
+      "routes/api.auth.login": {
+        "id": "routes/api.auth.login",
+        "parentId": "root",
+        "file": "routes/api.auth.login.tsx",
+        "path": "api/auth/login"
+      },
       "routes/api.newsletter": {
         "id": "routes/api.newsletter",
         "parentId": "root",
@@ -308,6 +446,12 @@
         "parentId": "root",
         "file": "routes/robots[.]txt.tsx",
         "path": "robots.txt"
+      },
+      "routes/api.contact": {
+        "id": "routes/api.contact",
+        "parentId": "root",
+        "file": "routes/api.contact.tsx",
+        "path": "api/contact"
       },
       "routes/privacidade": {
         "id": "routes/privacidade",
@@ -464,6 +608,46 @@
         "file": "root.tsx",
         "children": [
           {
+            "id": "routes/api.mercadopago.payment",
+            "file": "routes/api.mercadopago.payment.tsx",
+            "path": "api/mercadopago/payment"
+          },
+          {
+            "id": "routes/api.mercadopago.webhook",
+            "file": "routes/api.mercadopago.webhook.tsx",
+            "path": "api/mercadopago/webhook"
+          },
+          {
+            "id": "routes/api.checkout.prepare",
+            "file": "routes/api.checkout.prepare.tsx",
+            "path": "api/checkout/prepare"
+          },
+          {
+            "id": "routes/api.auth.register",
+            "file": "routes/api.auth.register.tsx",
+            "path": "api/auth/register"
+          },
+          {
+            "id": "routes/api.auth.profile",
+            "file": "routes/api.auth.profile.tsx",
+            "path": "api/auth/profile"
+          },
+          {
+            "id": "routes/api.auth.recover",
+            "file": "routes/api.auth.recover.tsx",
+            "path": "api/auth/recover"
+          },
+          {
+            "id": "routes/api.auth.session",
+            "file": "routes/api.auth.session.tsx",
+            "path": "api/auth/session"
+          },
+          {
+            "id": "routes/api.auth.login",
+            "file": "routes/api.auth.login.tsx",
+            "path": "api/auth/login"
+          },
+          {
             "id": "routes/api.newsletter",
             "file": "routes/api.newsletter.tsx",
             "path": "api/newsletter"
@@ -477,6 +661,11 @@
             "id": "routes/robots[.]txt",
             "file": "routes/robots[.]txt.tsx",
             "path": "robots.txt"
+          },
+          {
+            "id": "routes/api.contact",
+            "file": "routes/api.contact.tsx",
+            "path": "api/contact"
           },
           {
             "id": "routes/privacidade",

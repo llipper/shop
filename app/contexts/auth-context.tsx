@@ -1,5 +1,6 @@
 "use client";
 
+import type { CustomerAddress, CustomerOrder } from "@/types/customer";
 import {
   createContext,
   useCallback,
@@ -16,86 +17,215 @@ export interface StoreUser {
   memberSince?: string;
 }
 
+type AuthSession = {
+  accessToken: string;
+  expiresAt: string;
+  user: StoreUser;
+  orders: CustomerOrder[];
+  addresses: CustomerAddress[];
+};
+
+type AuthActionResponse = {
+  ok: boolean;
+  message?: string;
+  accessToken?: string;
+  expiresAt?: string;
+  user?: StoreUser;
+  orders?: CustomerOrder[];
+  addresses?: CustomerAddress[];
+};
+
 interface AuthContextType {
   user: StoreUser | null;
+  orders: CustomerOrder[];
+  addresses: CustomerAddress[];
+  accessToken: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (user: StoreUser) => void;
-  updateUser: (data: Partial<StoreUser>) => void;
+  loginWithPassword: (email: string, password: string) => Promise<AuthActionResponse>;
+  registerAccount: (input: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<AuthActionResponse>;
+  updateProfile: (input: { name: string; phone?: string }) => Promise<AuthActionResponse>;
+  recoverPassword: (email: string) => Promise<AuthActionResponse>;
+  refreshSession: () => Promise<void>;
   logout: () => void;
 }
 
-const STORAGE_KEY = "rouhi-user";
+const STORAGE_KEY = "rouhi-session";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-function readStoredUser(): StoreUser | null {
+function readStoredSession(): AuthSession | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as StoreUser;
-    if (parsed?.email) return parsed;
+    const parsed = JSON.parse(raw) as AuthSession;
+    if (parsed?.accessToken && parsed?.user?.email) return parsed;
   } catch {
     localStorage.removeItem(STORAGE_KEY);
   }
   return null;
 }
 
+function persistSession(session: AuthSession | null) {
+  if (!session) {
+    localStorage.removeItem(STORAGE_KEY);
+    return;
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+}
+
+async function postAuthAction(
+  action: string,
+  payload: Record<string, string>,
+): Promise<AuthActionResponse> {
+  const body = new FormData();
+  for (const [key, value] of Object.entries(payload)) {
+    body.set(key, value);
+  }
+
+  const response = await fetch(action, { method: "POST", body });
+  return (await response.json()) as AuthActionResponse;
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<StoreUser | null>(null);
+  const [session, setSession] = useState<AuthSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const applySession = useCallback((next: AuthSession | null) => {
+    setSession(next);
+    persistSession(next);
+  }, []);
+
+  const hydrateFromResponse = useCallback(
+    (result: AuthActionResponse) => {
+      if (
+        !result.ok ||
+        !result.accessToken ||
+        !result.expiresAt ||
+        !result.user
+      ) {
+        return result;
+      }
+
+      const nextSession: AuthSession = {
+        accessToken: result.accessToken,
+        expiresAt: result.expiresAt,
+        user: result.user,
+        orders: result.orders ?? [],
+        addresses: result.addresses ?? [],
+      };
+      applySession(nextSession);
+      return result;
+    },
+    [applySession],
+  );
+
+  const refreshSession = useCallback(async () => {
+    const stored = readStoredSession();
+    if (!stored?.accessToken) {
+      applySession(null);
+      return;
+    }
+
+    const result = await postAuthAction("/api/auth/session", {
+      accessToken: stored.accessToken,
+    });
+
+    if (!result.ok || !result.user) {
+      applySession(null);
+      return;
+    }
+
+    applySession({
+      accessToken: stored.accessToken,
+      expiresAt: stored.expiresAt,
+      user: result.user,
+      orders: result.orders ?? [],
+      addresses: result.addresses ?? [],
+    });
+  }, [applySession]);
+
   useEffect(() => {
-    setUser(readStoredUser());
-    setIsLoading(false);
-  }, []);
+    const stored = readStoredSession();
+    if (!stored) {
+      setIsLoading(false);
+      return;
+    }
 
-  const persistUser = useCallback((nextUser: StoreUser) => {
-    setUser(nextUser);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextUser));
-  }, []);
+    setSession(stored);
+    void refreshSession().finally(() => setIsLoading(false));
+  }, [refreshSession]);
 
-  const login = useCallback(
-    (nextUser: StoreUser) => {
-      const existing = readStoredUser();
-      persistUser({
-        ...nextUser,
-        phone: nextUser.phone ?? existing?.phone,
-        memberSince:
-          existing?.memberSince ??
-          nextUser.memberSince ??
-          new Date().toISOString(),
-      });
+  const loginWithPassword = useCallback(
+    async (email: string, password: string) => {
+      const result = await postAuthAction("/api/auth/login", { email, password });
+      return hydrateFromResponse(result);
     },
-    [persistUser],
+    [hydrateFromResponse],
   );
 
-  const updateUser = useCallback(
-    (data: Partial<StoreUser>) => {
-      setUser((current) => {
-        if (!current) return current;
-        const updated = { ...current, ...data };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        return updated;
-      });
+  const registerAccount = useCallback(
+    async (input: { name: string; email: string; password: string }) => {
+      const result = await postAuthAction("/api/auth/register", input);
+      return hydrateFromResponse(result);
     },
-    [],
+    [hydrateFromResponse],
   );
+
+  const updateProfile = useCallback(
+    async (input: { name: string; phone?: string }) => {
+      if (!session?.accessToken) {
+        return { ok: false, message: "Sessão inválida." };
+      }
+
+      const result = await postAuthAction("/api/auth/profile", {
+        accessToken: session.accessToken,
+        name: input.name,
+        phone: input.phone ?? "",
+      });
+
+      if (result.ok && result.user) {
+        applySession({
+          accessToken: session.accessToken,
+          expiresAt: session.expiresAt,
+          user: result.user,
+          orders: result.orders ?? session.orders,
+          addresses: result.addresses ?? session.addresses,
+        });
+      }
+
+      return result;
+    },
+    [applySession, session],
+  );
+
+  const recoverPassword = useCallback(async (email: string) => {
+    return postAuthAction("/api/auth/recover", { email });
+  }, []);
 
   const logout = useCallback(() => {
-    setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
-  }, []);
+    applySession(null);
+  }, [applySession]);
 
   return (
     <AuthContext.Provider
       value={{
-        user,
-        isAuthenticated: Boolean(user),
+        user: session?.user ?? null,
+        orders: session?.orders ?? [],
+        addresses: session?.addresses ?? [],
+        accessToken: session?.accessToken ?? null,
+        isAuthenticated: Boolean(session?.accessToken && session?.user),
         isLoading,
-        login,
-        updateUser,
+        loginWithPassword,
+        registerAccount,
+        updateProfile,
+        recoverPassword,
+        refreshSession,
         logout,
       }}
     >

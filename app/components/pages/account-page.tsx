@@ -48,7 +48,7 @@ function formatMemberSince(iso?: string) {
 }
 
 export function AccountPage() {
-  const { user, updateUser, logout } = useAuth();
+  const { user, orders, addresses, updateProfile, logout } = useAuth();
   const navigate = useNavigate();
   const [section, setSection] = useState<AccountSection>("overview");
   const [name, setName] = useState(user?.name ?? "");
@@ -78,14 +78,18 @@ export function AccountPage() {
     navigate("/store");
   }
 
-  function handleSaveProfile(e: React.FormEvent) {
+  async function handleSaveProfile(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    setTimeout(() => {
-      updateUser({ name, email, phone });
-      setSaving(false);
-      toast.success("Dados atualizados com sucesso.");
-    }, 600);
+    const result = await updateProfile({ name, phone });
+    setSaving(false);
+
+    if (!result.ok) {
+      toast.error(result.message ?? "Não foi possível salvar.");
+      return;
+    }
+
+    toast.success("Dados atualizados na Shopify.");
   }
 
   return (
@@ -263,19 +267,56 @@ export function AccountPage() {
                   </Link>
                 </div>
 
-                <div className="flex flex-col items-center justify-center py-16 text-center border border-dashed border-border rounded-xl bg-secondary/10">
-                  <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center mb-5">
-                    <ShoppingBag className="w-6 h-6 text-muted-foreground" />
+                {orders.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-16 text-center border border-dashed border-border rounded-xl bg-secondary/10">
+                    <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center mb-5">
+                      <ShoppingBag className="w-6 h-6 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-medium text-foreground mb-2">Nenhum pedido registrado</h3>
+                    <p className="text-sm text-muted-foreground max-w-sm mb-6 leading-relaxed">
+                      Após finalizar uma compra com este e-mail, seus pedidos aparecerão aqui
+                      automaticamente.
+                    </p>
+                    <Button asChild>
+                      <Link to="/store">Ir para a loja</Link>
+                    </Button>
                   </div>
-                  <h3 className="font-medium text-foreground mb-2">Nenhum pedido registrado</h3>
-                  <p className="text-sm text-muted-foreground max-w-sm mb-6 leading-relaxed">
-                    Após finalizar uma compra na Shopify, você receberá a confirmação por e-mail.
-                    O histórico completo estará disponível quando a conta for integrada à Shopify.
-                  </p>
-                  <Button asChild>
-                    <Link to="/store">Ir para a loja</Link>
-                  </Button>
-                </div>
+                ) : (
+                  <div className="space-y-4">
+                    {orders.map((order) => (
+                      <div
+                        key={order.id}
+                        className="border border-border rounded-xl p-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+                      >
+                        <div>
+                          <p className="font-medium text-foreground">{order.name}</p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {new Intl.DateTimeFormat("pt-BR", {
+                              dateStyle: "medium",
+                              timeStyle: "short",
+                            }).format(new Date(order.processedAt))}
+                          </p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {order.totalLabel} · {order.fulfillmentStatus}
+                          </p>
+                          {order.tracking.length > 0 && (
+                            <p className="text-xs text-muted-foreground mt-2">
+                              Rastreio:{" "}
+                              {order.tracking.map((item) => item.number).join(", ")}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant="outline" asChild>
+                            <a href={order.statusUrl} target="_blank" rel="noreferrer">
+                              Ver pedido <ExternalLink className="w-3.5 h-3.5 ml-1" />
+                            </a>
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -305,7 +346,7 @@ export function AccountPage() {
                         type="email"
                         className="pl-9"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        readOnly
                         required
                       />
                     </div>
@@ -341,7 +382,8 @@ export function AccountPage() {
                     <div>
                       <p className="text-sm font-medium text-foreground">Segurança da conta</p>
                       <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                        Para alterar senha ou recuperar acesso, entre em contato com nosso suporte.
+                        Para alterar senha, use &quot;Esqueceu a senha?&quot; na tela de login. A
+                        Shopify enviará o link de recuperação para seu e-mail.
                       </p>
                       <Link
                         to="/suporte/contato"
@@ -362,17 +404,35 @@ export function AccountPage() {
                   Endereços informados no checkout Shopify são usados na entrega dos pedidos.
                 </p>
 
-                <div className="flex flex-col items-center justify-center py-14 text-center border border-dashed border-border rounded-xl bg-secondary/10">
-                  <MapPin className="w-8 h-8 text-muted-foreground mb-4" />
-                  <h3 className="font-medium mb-2">Nenhum endereço salvo</h3>
-                  <p className="text-sm text-muted-foreground max-w-md mb-6 leading-relaxed">
-                    No checkout da Shopify você informa o endereço de entrega. Em breve, endereços
-                    poderão ser salvos aqui na sua conta ROUHI.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link to="/store/checkout">Ir para checkout</Link>
-                  </Button>
-                </div>
+                {addresses.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-14 text-center border border-dashed border-border rounded-xl bg-secondary/10">
+                    <MapPin className="w-8 h-8 text-muted-foreground mb-4" />
+                    <h3 className="font-medium mb-2">Nenhum endereço salvo</h3>
+                    <p className="text-sm text-muted-foreground max-w-md mb-6 leading-relaxed">
+                      Endereços informados no checkout da Shopify aparecerão aqui na sua conta.
+                    </p>
+                    <Button variant="outline" asChild>
+                      <Link to="/store">Ir para a loja</Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {addresses.map((address) => (
+                      <div key={address.id} className="border border-border rounded-xl p-5">
+                        <p className="font-medium text-foreground">
+                          {address.firstName} {address.lastName}
+                        </p>
+                        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                          {address.address1}
+                          <br />
+                          {address.city} - {address.province}, {address.zip}
+                          <br />
+                          {address.country}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -1,31 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useFetcher } from "react-router";
 import { Mail, Send, Phone, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
+type ContactActionData = {
+  ok: boolean;
+  message: string;
+};
+
 export function ContactPage() {
+  const fetcher = useFetcher<ContactActionData>();
+  const lastHandled = useRef<ContactActionData | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const isSubmitting = fetcher.state !== "idle";
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
+  useEffect(() => {
+    if (fetcher.state !== "idle" || !fetcher.data) return;
+    if (lastHandled.current === fetcher.data) return;
+    lastHandled.current = fetcher.data;
 
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Mensagem enviada com sucesso!", {
-        description: "Responderemos seu contato em até 24 horas úteis.",
-      });
+    if (fetcher.data.ok) {
+      toast.success(fetcher.data.message);
       setName("");
       setEmail("");
       setSubject("");
       setMessage("");
-    }, 1500);
-  }
+    } else {
+      toast.error(fetcher.data.message);
+    }
+  }, [fetcher.state, fetcher.data]);
 
   return (
     <div className="space-y-8">
@@ -35,12 +43,13 @@ export function ContactPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-10">
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <fetcher.Form method="post" action="/api/contact" className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Nome</label>
               <input
                 type="text"
+                name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full border border-border rounded-md px-4 py-3 bg-background text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
@@ -52,6 +61,7 @@ export function ContactPage() {
               <label className="block text-sm font-medium text-foreground mb-1.5">E-mail</label>
               <input
                 type="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-border rounded-md px-4 py-3 bg-background text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
@@ -65,6 +75,7 @@ export function ContactPage() {
             <label className="block text-sm font-medium text-foreground mb-1.5">Assunto</label>
             <input
               type="text"
+              name="subject"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               className="w-full border border-border rounded-md px-4 py-3 bg-background text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
@@ -76,6 +87,7 @@ export function ContactPage() {
           <div>
             <label className="block text-sm font-medium text-foreground mb-1.5">Mensagem</label>
             <textarea
+              name="message"
               rows={5}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -87,12 +99,12 @@ export function ContactPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={isSubmitting}
             className="w-full bg-primary text-primary-foreground py-3.5 rounded-md font-medium hover:bg-primary/90 transition-all active:scale-[0.98] disabled:opacity-75 flex items-center justify-center gap-2"
           >
-            <Send className="w-4 h-4" /> Enviar Mensagem
+            <Send className="w-4 h-4" /> {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
           </button>
-        </form>
+        </fetcher.Form>
 
         <div className="space-y-6 text-sm text-muted-foreground">
           <div>

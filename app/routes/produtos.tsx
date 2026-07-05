@@ -9,7 +9,7 @@ export const loader = async (_args: LoaderFunctionArgs) => {
   return fetchStoreCatalog(48);
 };
 
-export const meta: MetaFunction<typeof loader> = ({ location }) => {
+export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
   const filters = parseProductFilters(new URLSearchParams(location.search));
   const title = getFilterTitle(filters);
 
@@ -17,6 +17,7 @@ export const meta: MetaFunction<typeof loader> = ({ location }) => {
     title,
     description: `Explore ${title.toLowerCase()} na ROUHI. Moda minimalista, essencial e feita para durar.`,
     path: `${location.pathname}${location.search}`,
+    matches,
   });
 };
 

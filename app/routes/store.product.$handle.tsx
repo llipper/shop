@@ -4,12 +4,8 @@ import { Header } from "@/components/layout/header";
 import { ProductOverview } from "@/components/product/product-overview";
 import { formatPrice } from "@/lib/format";
 import { fetchShopifyProductByHandle } from "@/lib/shopify-products.server";
-import { buildMetaTags } from "@/lib/seo";
-import {
-  getProductShareDescription,
-  getSiteOrigin,
-  toAbsoluteUrl,
-} from "@/lib/share-url";
+import { buildMetaTags, resolveSiteOrigin } from "@/lib/seo";
+import { getProductShareDescription, toAbsoluteUrl } from "@/lib/share-url";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const handle = params.handle;
@@ -19,9 +15,9 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return fetchShopifyProductByHandle(handle);
 };
 
-export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) => {
   const product = data?.product;
-  const origin = getSiteOrigin();
+  const origin = resolveSiteOrigin({ matches });
   const pageUrl = toAbsoluteUrl(location.pathname, origin);
 
   if (!product) {

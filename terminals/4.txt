@@ -3,7 +3,7 @@ pid: 12888
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build"
 started_at: 2026-07-04T00:16:18.425Z
-running_for_ms: 56949991 
+running_for_ms: 86400003 
 ---
 
 > build
@@ -147,3 +147,9 @@ build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js                        
 build\server\nodejs_eyJydW50aW1lIjoibm9kZWpzIn0\assets\server-build-DabWfr65.css
 
 ✓ built in 1.73s
+
+---
+exit_code: -1
+elapsed_ms: 86400003
+ended_at: 2026-07-05T00:16:33.546Z
+---

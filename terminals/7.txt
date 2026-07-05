@@ -3,6 +3,12 @@ pid: 2780
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/store\" -UseBasicParsing; \"Status: $($r.StatusCode)\" } catch { $_.Exception.Message }"
 started_at: 2026-07-04T00:33:40.864Z
-running_for_ms: 55910001 
+running_for_ms: 86400001 
 ---
 Status: 200
+
+---
+exit_code: -1
+elapsed_ms: 86400001
+ended_at: 2026-07-05T00:33:56.284Z
+---

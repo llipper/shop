@@ -1,7 +1,10 @@
-export function getSiteOrigin(request?: Request): string {
-  const envOrigin = process.env.PUBLIC_STOREFRONT_URL?.trim().replace(/\/$/, "");
-  if (envOrigin) return envOrigin;
+function readPublicStorefrontUrl(): string | null {
+  if (typeof process === "undefined") return null;
+  const value = process.env.PUBLIC_STOREFRONT_URL?.trim().replace(/\/$/, "");
+  return value || null;
+}
 
+export function getSiteOrigin(request?: Request): string {
   if (request) {
     return new URL(request.url).origin;
   }
@@ -9,6 +12,9 @@ export function getSiteOrigin(request?: Request): string {
   if (typeof window !== "undefined") {
     return window.location.origin;
   }
+
+  const envOrigin = readPublicStorefrontUrl();
+  if (envOrigin) return envOrigin;
 
   return "http://localhost:3000";
 }

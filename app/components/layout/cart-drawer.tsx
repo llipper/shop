@@ -2,12 +2,13 @@
 
 import { useCart } from "@/contexts/cart-context";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { X, Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "@/components/ui/image";
 import { Link } from "react-router";
 
 export function CartDrawer() {
-  const { isCartOpen, setIsCartOpen, items, removeItem, totalPrice } = useCart();
+  const { isCartOpen, setIsCartOpen, items, removeItem, updateItemQuantity, totalPrice } =
+    useCart();
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
@@ -63,9 +64,30 @@ export function CartDrawer() {
                       </button>
                     </div>
                     <div className="flex justify-between items-end mt-2">
-                      <span className="text-sm text-muted-foreground">Qtd: {item.quantity}</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
+                          className="w-8 h-8 rounded-md border border-border flex items-center justify-center text-foreground hover:bg-secondary transition-colors"
+                          aria-label="Diminuir quantidade"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <span className="w-8 text-center text-sm font-medium tabular-nums">
+                          {item.quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                          disabled={item.availableForSale === false}
+                          className="w-8 h-8 rounded-md border border-border flex items-center justify-center text-foreground hover:bg-secondary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+                          aria-label="Aumentar quantidade"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                       <span className="font-medium text-foreground">
-                        R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}
+                        R$ {(item.price * item.quantity).toFixed(2).replace(".", ",")}
                       </span>
                     </div>
                   </div>
@@ -91,7 +113,7 @@ export function CartDrawer() {
               Revisar pedido
             </Link>
             <p className="text-center text-xs text-muted-foreground mt-4">
-              Frete e impostos calculados no checkout.
+              Frete grátis acima de R$ 200 · pagamento no site ROUHI.
             </p>
           </div>
         )}

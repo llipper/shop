@@ -3,7 +3,7 @@ pid: 4260
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm install"
 started_at: 2026-07-04T00:10:43.842Z
-running_for_ms: 57285002 
+running_for_ms: 86400013 
 ---
 npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
 
@@ -33,3 +33,9 @@ npm warn allow-scripts   prisma@6.19.3 (install: (install scripts present))
 npm warn allow-scripts   unrs-resolver@1.12.2 (install: (install scripts present))
 npm warn allow-scripts
 npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+
+---
+exit_code: -1
+elapsed_ms: 86400013
+ended_at: 2026-07-05T00:10:58.961Z
+---

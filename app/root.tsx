@@ -1,10 +1,17 @@
-import type { MetaFunction } from "react-router";
+import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import { buildMetaTags, SITE_NAME } from "@/lib/seo";
+import { buildMetaTags, ROOT_SITE_ORIGIN_KEY, SITE_NAME } from "@/lib/seo";
 import "./globals.css";
 
-export const meta: MetaFunction = () => [
-  ...buildMetaTags(),
+export const loader = ({ request }: LoaderFunctionArgs) => ({
+  [ROOT_SITE_ORIGIN_KEY]: new URL(request.url).origin,
+});
+
+export const meta: MetaFunction<typeof loader> = ({ data, matches }) => [
+  ...buildMetaTags({
+    origin: data?.siteOrigin,
+    matches,
+  }),
   { name: "application-name", content: SITE_NAME },
   { name: "theme-color", content: "#111111" },
   { charSet: "utf-8" },

@@ -7,12 +7,13 @@ export const loader = async (_args: LoaderFunctionArgs) => {
   return fetchStoreCatalog(24);
 };
 
-export const meta: MetaFunction = () =>
+export const meta: MetaFunction = ({ matches }) =>
   buildMetaTags({
     title: "Loja",
     description: SITE_DESCRIPTION,
     path: "/store",
     image: "/banner.png",
+    matches,
   });
 
 export default function StoreHome() {

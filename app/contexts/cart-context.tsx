@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { Product } from "@/types/product";
 
 export interface CartItem {
@@ -27,17 +33,77 @@ interface CartContextType {
     availableForSale?: boolean,
   ) => void;
   removeItem: (id: string) => void;
+  updateItemQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
   totalItems: number;
   totalPrice: number;
 }
 
+const STORAGE_KEY = "rouhi-cart";
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
+
+function isValidCartItem(value: unknown): value is CartItem {
+  if (!value || typeof value !== "object") return false;
+  const item = value as CartItem;
+  return (
+    typeof item.id === "string" &&
+    typeof item.size === "string" &&
+    typeof item.colorName === "string" &&
+    typeof item.image === "string" &&
+    typeof item.price === "number" &&
+    typeof item.quantity === "number" &&
+    item.quantity > 0 &&
+    item.product != null &&
+    typeof item.product.id === "string" &&
+    typeof item.product.title === "string"
+  );
+}
+
+function readStoredCart(): CartItem[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed.filter(isValidCartItem);
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+    return [];
+  }
+}
+
+function persistCart(items: CartItem[]) {
+  if (typeof window === "undefined") return;
+
+  if (items.length === 0) {
+    localStorage.removeItem(STORAGE_KEY);
+    return;
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartReady, setIsCartReady] = useState(false);
+
+  useEffect(() => {
+    setItems(readStoredCart());
+    setIsCartReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isCartReady) return;
+    persistCart(items);
+  }, [items, isCartReady]);
 
   const addItem = (
     product: Product,
@@ -82,7 +148,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeItem = (id: string) => {
-    setItems((currentItems) => currentItems.filter(item => item.id !== id));
+    setItems((currentItems) => currentItems.filter((item) => item.id !== id));
+  };
+
+  const updateItemQuantity = (id: string, quantity: number) => {
+    setItems((currentItems) => {
+      if (quantity <= 0) {
+        return currentItems.filter((item) => item.id !== id);
+      }
+
+      return currentItems.map((item) =>
+        item.id === id ? { ...item, quantity } : item,
+      );
+    });
+  };
+
+  const clearCart = () => {
+    setItems([]);
+    setIsCartOpen(false);
   };
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
@@ -92,7 +175,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, isCartOpen, setIsCartOpen, totalItems, totalPrice }}>
+    <CartContext.Provider
+      value={{
+        items,
+        addItem,
+        removeItem,
+        updateItemQuantity,
+        clearCart,
+        isCartOpen,
+        setIsCartOpen,
+        totalItems,
+        totalPrice,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
