@@ -21,8 +21,12 @@ import {
 import { getCpfDigits } from "@/lib/br-format";
 import { getMercadoPagoClientErrorMessage } from "@/lib/mercadopago-error";
 import {
+  createMercadoPagoClient,
+  getCardBin,
   loadMercadoPagoSdk,
+  parseCardTokenResult,
   parseInstallmentOptions,
+  resolvePaymentMethodId,
   type MercadoPagoInstallmentOption,
 } from "@/lib/mercadopago-sdk";
 
@@ -63,7 +67,7 @@ export function CheckoutCardPayment({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const cardBin = useMemo(() => getCardDigits(cardNumber).slice(0, 6), [cardNumber]);
+  const cardBin = useMemo(() => getCardBin(cardNumber), [cardNumber]);
 
   useEffect(() => {
     let cancelled = false;
@@ -82,7 +86,7 @@ export function CheckoutCardPayment({
   }, []);
 
   useEffect(() => {
-    if (!sdkReady || cardBin.length < 6) {
+    if (!sdkReady || cardBin.length < 8) {
       setInstallmentOptions([]);
       setPaymentMethodId("");
       setInstallments("1");
@@ -94,9 +98,7 @@ export function CheckoutCardPayment({
     async function fetchInstallments() {
       setLoadingInstallments(true);
       try {
-        if (!window.MercadoPago) return;
-
-        const mp = new window.MercadoPago(publicKey, { locale: "pt-BR" });
+        const mp = createMercadoPagoClient(publicKey);
         const rows = await mp.getInstallments({
           amount: amount.toFixed(2),
           bin: cardBin,
@@ -105,11 +107,20 @@ export function CheckoutCardPayment({
         if (cancelled) return;
 
         const parsed = parseInstallmentOptions(rows);
-        setPaymentMethodId(parsed.paymentMethodId);
+        const resolvedMethodId = await resolvePaymentMethodId(mp, cardBin, parsed.paymentMethodId);
+        setPaymentMethodId(resolvedMethodId);
         setInstallmentOptions(parsed.options);
         setInstallments(String(parsed.options[0]?.installments ?? 1));
       } catch {
         if (!cancelled) {
+          try {
+            const mp = createMercadoPagoClient(publicKey);
+            const resolvedMethodId = await resolvePaymentMethodId(mp, cardBin);
+            setPaymentMethodId(resolvedMethodId);
+          } catch {
+            setPaymentMethodId("");
+          }
+
           setInstallmentOptions([
             {
               installments: 1,
@@ -165,27 +176,31 @@ export function CheckoutCardPayment({
     setError(null);
 
     try {
-      if (!window.MercadoPago) {
-        throw new Error("Mercado Pago indisponível.");
-      }
-
-      const mp = new window.MercadoPago(publicKey, { locale: "pt-BR" });
+      const mp = createMercadoPagoClient(publicKey);
       const tokenResult = await mp.createCardToken({
         cardNumber: digits,
         cardholderName: cardholderName.trim(),
         cardExpirationMonth: parsedExpiry.month,
-        cardExpirationYear: parsedExpiry.year,
+        cardExpirationYear: parsedExpiry.fullYear,
         securityCode,
         identificationType: "CPF",
         identificationNumber: documentDigits,
         cardholderEmail: payerEmail,
       });
 
-      const token = tokenResult.id;
-      const methodId = tokenResult.payment_method_id || paymentMethodId;
+      const { token, paymentMethodId: tokenMethodId } = parseCardTokenResult(tokenResult);
+      const methodId = await resolvePaymentMethodId(
+        mp,
+        getCardBin(cardNumber),
+        tokenMethodId || paymentMethodId,
+      );
 
-      if (!token || !methodId) {
-        throw new Error("Não foi possível validar o cartão. Confira os dados.");
+      if (!token) {
+        throw tokenResult;
+      }
+
+      if (!methodId) {
+        throw new Error("Bandeira do cartão não identificada. Confira o número do cartão.");
       }
 
       await onSubmitCard({
@@ -201,8 +216,8 @@ export function CheckoutCardPayment({
   };
 
   const installmentsHint =
-    cardBin.length < 6
-      ? "Digite os 6 primeiros dígitos do cartão para ver as parcelas."
+    cardBin.length < 8
+      ? "Digite os 8 primeiros dígitos do cartão para ver as parcelas."
       : loadingInstallments
         ? "Buscando parcelas..."
         : installmentOptions.length

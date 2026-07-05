@@ -1,6 +1,12 @@
+import { getCardDigits } from "@/lib/card-format";
+
 const MP_SDK_URL = "https://sdk.mercadopago.com/js/v2";
 
 let sdkPromise: Promise<void> | null = null;
+
+export function getCardBin(cardNumber: string) {
+  return getCardDigits(cardNumber).slice(0, 8);
+}
 
 export function loadMercadoPagoSdk() {
   if (typeof window === "undefined") {
@@ -40,10 +46,15 @@ export type MercadoPagoInstallmentOption = {
 };
 
 export type MercadoPagoCardTokenResult = {
-  id: string;
+  id?: string;
+  token?: string;
   payment_method_id?: string;
   first_six_digits?: string;
   last_four_digits?: string;
+};
+
+type PaymentMethodsApiResponse = {
+  results?: Array<{ id?: string }>;
 };
 
 type CreateCardTokenInput = {
@@ -75,12 +86,62 @@ type InstallmentsApiRow = {
 export type MercadoPagoSdk = {
   createCardToken: (input: CreateCardTokenInput) => Promise<MercadoPagoCardTokenResult>;
   getInstallments: (input: GetInstallmentsInput) => Promise<InstallmentsApiRow[]>;
+  getPaymentMethods: (input: { bin: string }) => Promise<PaymentMethodsApiResponse>;
+};
+
+type MercadoPagoClientOptions = {
+  locale: string;
+  advancedFraudPrevention: boolean;
+  trackingDisabled: boolean;
 };
 
 declare global {
   interface Window {
-    MercadoPago?: new (publicKey: string, options?: { locale: string }) => MercadoPagoSdk;
+    MercadoPago?: new (publicKey: string, options?: MercadoPagoClientOptions) => MercadoPagoSdk;
   }
+}
+
+export function createMercadoPagoClient(publicKey: string) {
+  if (!window.MercadoPago) {
+    throw new Error("Mercado Pago indisponível.");
+  }
+
+  return new window.MercadoPago(publicKey, {
+    locale: "pt-BR",
+    advancedFraudPrevention: false,
+    trackingDisabled: true,
+  });
+}
+
+export function parseCardTokenResult(result: MercadoPagoCardTokenResult | null | undefined) {
+  const token = String(result?.id ?? result?.token ?? "").trim();
+  const paymentMethodId = String(result?.payment_method_id ?? "").trim();
+  return { token, paymentMethodId };
+}
+
+export async function resolvePaymentMethodId(
+  mp: MercadoPagoSdk,
+  bin: string,
+  currentId = "",
+) {
+  if (currentId) return currentId;
+
+  const normalizedBin = bin.slice(0, 8);
+  if (normalizedBin.length < 6) return "";
+
+  try {
+    const methods = await mp.getPaymentMethods({ bin: normalizedBin });
+    const methodId = methods.results?.[0]?.id?.trim();
+    if (methodId) return methodId;
+  } catch {
+    // Fall through to BIN heuristics.
+  }
+
+  if (normalizedBin.startsWith("4")) return "visa";
+  if (normalizedBin.startsWith("5")) return "master";
+  if (normalizedBin.startsWith("3")) return "amex";
+
+  return "";
 }
 
 function formatBRL(value: number) {
