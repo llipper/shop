@@ -63,6 +63,12 @@ export function parsePaymentReference(reference: string | null | undefined) {
   return null;
 }
 
+function normalizeExternalReference(reference: string) {
+  const draftOrderId = parsePaymentReference(reference);
+  if (!draftOrderId) return reference;
+  return buildPaymentReference(draftOrderId);
+}
+
 function isMercadoPagoTestMode() {
   if (process.env.MERCADOPAGO_TEST_MODE === "true") return true;
   if (process.env.MERCADOPAGO_TEST_MODE === "false") return false;
@@ -195,12 +201,13 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
   const notificationUrl = origin ? `${origin}/api/mercadopago/webhook` : undefined;
   const amount = formatOrderAmount(input.amount);
 
+  const externalReference = normalizeExternalReference(input.reference);
+
   const body = {
     type: "online",
-    external_reference: input.reference,
+    external_reference: externalReference,
     processing_mode: "automatic",
     total_amount: amount,
-    description: "Pedido ROUHI",
     payer: buildPayer(input.payer),
     items: input.items.map((item) => ({
       title: item.title,

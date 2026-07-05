@@ -3,7 +3,7 @@ pid: 8756
 cwd: "C:\Users\Duck Cipher\Desktop\shop\papirar"
 command: "Set-Location \"C:\\Users\\Duck Cipher\\Desktop\\shop\\papirar\"; npm run build"
 started_at: 2026-07-05T00:00:25.007Z
-running_for_ms: 5855008  
+running_for_ms: 7319999  
 ---
 
 > build
