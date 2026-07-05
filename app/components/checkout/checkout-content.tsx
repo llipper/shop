@@ -248,7 +248,7 @@ export function CheckoutContent({
     const params = new URLSearchParams();
     if (result.orderName) params.set("order", result.orderName);
     if (result.email) params.set("email", result.email);
-    void navigate(`/store/checkout/sucesso?${params.toString()}`);
+    void navigate(`/store/checkout/sucesso?${params.toString()}`, { replace: true });
   };
 
   if (items.length === 0) {

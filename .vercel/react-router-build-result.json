@@ -39,9 +39,9 @@
       "routes/_index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/conta": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/store.checkout_.sucesso": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store.product.$handle": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store.checkout": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "routes/store.checkout.sucesso": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store._index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/store.$": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/$": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
@@ -328,6 +328,15 @@
         "path": "store",
         "config": {}
       },
+      "routes/store.checkout_.sucesso": {
+        "id": "routes/store.checkout_.sucesso",
+        "parentId": "routes/store",
+        "file": "app/routes/store.checkout_.sucesso.tsx",
+        "path": "checkout/sucesso",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
       "routes/store.product.$handle": {
         "id": "routes/store.product.$handle",
         "parentId": "routes/store",
@@ -345,13 +354,6 @@
         "config": {
           "runtime": "nodejs"
         }
-      },
-      "routes/store.checkout.sucesso": {
-        "id": "routes/store.checkout.sucesso",
-        "parentId": "routes/store.checkout",
-        "file": "app/routes/store.checkout.sucesso.tsx",
-        "path": "sucesso",
-        "config": {}
       },
       "routes/store._index": {
         "id": "routes/store._index",
@@ -587,6 +589,12 @@
         "file": "routes/store.tsx",
         "path": "store"
       },
+      "routes/store.checkout_.sucesso": {
+        "id": "routes/store.checkout_.sucesso",
+        "parentId": "routes/store",
+        "file": "routes/store.checkout_.sucesso.tsx",
+        "path": "checkout/sucesso"
+      },
       "routes/store.product.$handle": {
         "id": "routes/store.product.$handle",
         "parentId": "routes/store",
@@ -598,12 +606,6 @@
         "parentId": "routes/store",
         "file": "routes/store.checkout.tsx",
         "path": "checkout"
-      },
-      "routes/store.checkout.sucesso": {
-        "id": "routes/store.checkout.sucesso",
-        "parentId": "routes/store.checkout",
-        "file": "routes/store.checkout.sucesso.tsx",
-        "path": "sucesso"
       },
       "routes/store._index": {
         "id": "routes/store._index",
@@ -797,6 +799,11 @@
             "path": "store",
             "children": [
               {
+                "id": "routes/store.checkout_.sucesso",
+                "file": "routes/store.checkout_.sucesso.tsx",
+                "path": "checkout/sucesso"
+              },
+              {
                 "id": "routes/store.product.$handle",
                 "file": "routes/store.product.$handle.tsx",
                 "path": "product/:handle"
@@ -804,14 +811,7 @@
               {
                 "id": "routes/store.checkout",
                 "file": "routes/store.checkout.tsx",
-                "path": "checkout",
-                "children": [
-                  {
-                    "id": "routes/store.checkout.sucesso",
-                    "file": "routes/store.checkout.sucesso.tsx",
-                    "path": "sucesso"
-                  }
-                ]
+                "path": "checkout"
               },
               {
                 "id": "routes/store._index",

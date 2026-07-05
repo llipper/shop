@@ -18,9 +18,10 @@ export function CheckoutSuccessPage({
 }: CheckoutSuccessPageProps) {
   const { clearCart } = useCart();
 
+  // Run once on mount — do not depend on clearCart identity (avoids infinite re-render loop).
   useEffect(() => {
     clearCart();
-  }, [clearCart]);
+  }, []);
 
   const hasOrderReference = Boolean(orderName || orderId);
 
