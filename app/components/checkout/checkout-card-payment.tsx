@@ -312,7 +312,7 @@ export function CheckoutCardPayment({
             <SelectTrigger className="h-10 w-full">
               <SelectValue placeholder="Selecione as parcelas" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent position="popper" className="z-[200]">
               {installmentOptions.map((option) => (
                 <SelectItem key={option.installments} value={String(option.installments)}>
                   {option.label}

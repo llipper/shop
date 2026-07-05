@@ -39,13 +39,66 @@ export function getMercadoPagoConfigError(): string | null {
   return null;
 }
 
+function extractDraftOrderNumericId(draftOrderId: string) {
+  const match = draftOrderId.match(/(\d+)$/);
+  return match?.[1] ?? draftOrderId.replace(/\W+/g, "-");
+}
+
 export function buildPaymentReference(draftOrderId: string) {
-  return `draft:${draftOrderId}`;
+  return `draft-${extractDraftOrderNumericId(draftOrderId)}`;
 }
 
 export function parsePaymentReference(reference: string | null | undefined) {
-  if (!reference?.startsWith("draft:")) return null;
-  return reference.slice("draft:".length);
+  if (!reference) return null;
+
+  if (reference.startsWith("draft-")) {
+    const id = reference.slice("draft-".length);
+    return id.startsWith("gid://") ? id : `gid://shopify/DraftOrder/${id}`;
+  }
+
+  if (reference.startsWith("draft:")) {
+    return reference.slice("draft:".length);
+  }
+
+  return null;
+}
+
+function isMercadoPagoTestMode() {
+  if (process.env.MERCADOPAGO_TEST_MODE === "true") return true;
+  if (process.env.MERCADOPAGO_TEST_MODE === "false") return false;
+  return process.env.NODE_ENV !== "production";
+}
+
+function normalizeSandboxPayerEmail(email: string) {
+  const trimmed = email.trim();
+  if (!trimmed) return trimmed;
+  if (trimmed.endsWith("@testuser.com")) return trimmed;
+
+  const localPart = trimmed.split("@")[0] || "buyer";
+  const sanitized = localPart.replace(/[^a-zA-Z0-9._-]/g, "").slice(0, 40) || "buyer";
+  return `${sanitized}@testuser.com`;
+}
+
+function formatMercadoPagoApiErrors(payload: Record<string, unknown>) {
+  const errors = payload.errors as
+    | Array<{ message?: string; details?: string[] }>
+    | undefined;
+
+  if (errors?.length) {
+    return errors
+      .map((error) => {
+        const detail = error.details?.[0];
+        return detail ? `${error.message}: ${detail}` : error.message;
+      })
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  return (
+    (payload.message as string | undefined) ??
+    (payload.error as string | undefined) ??
+    "Não foi possível processar o pagamento."
+  );
 }
 
 function formatOrderAmount(value: number) {
@@ -60,8 +113,11 @@ function buildPayer(input: {
   phone?: string;
 }) {
   const phoneDigits = input.phone ? getPhoneDigits(input.phone) : "";
+  const email = isMercadoPagoTestMode()
+    ? normalizeSandboxPayerEmail(input.email)
+    : input.email;
   const payer: Record<string, unknown> = {
-    email: input.email,
+    email,
     entity_type: "individual",
     first_name: input.firstName,
     last_name: input.lastName,
@@ -150,7 +206,6 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
       title: item.title,
       unit_price: formatOrderAmount(item.unitPrice),
       quantity: item.quantity,
-      unit_measure: "unit",
     })),
     transactions: {
       payments: [
@@ -177,13 +232,7 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
     const payload = (await response.json()) as Record<string, unknown>;
 
     if (!response.ok) {
-      const errors = payload.errors as Array<{ message?: string }> | undefined;
-      const message =
-        errors?.[0]?.message ??
-        (payload.message as string | undefined) ??
-        (payload.error as string | undefined) ??
-        "Não foi possível processar o pagamento.";
-      return { ok: false as const, message };
+      return { ok: false as const, message: formatMercadoPagoApiErrors(payload) };
     }
 
     return {

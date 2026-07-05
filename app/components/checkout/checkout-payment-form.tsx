@@ -132,7 +132,7 @@ export function CheckoutPaymentForm({
   };
 
   return (
-    <Card className="gap-0 overflow-hidden border-border/80 py-0 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.35)]">
+    <Card className="gap-0 border-border/80 py-0 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.35)]">
       <CardHeader className="space-y-4 border-b border-border/60 px-4 py-4 md:px-6 md:py-5">
         <div className="flex items-center justify-between gap-4">
           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
