@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { Check, Copy, ExternalLink, Loader2, QrCode } from "lucide-react";
 import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/cart-context";
+import {
+  buildCheckoutSuccessSnapshot,
+  saveCheckoutSuccessSnapshot,
+} from "@/lib/checkout-success-snapshot";
 import { cn } from "@/lib/utils";
 
 type PixPaymentProps = {
@@ -28,6 +33,7 @@ export function PixPayment({
   email,
 }: PixPaymentProps) {
   const navigate = useNavigate();
+  const { items } = useCart();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -41,10 +47,13 @@ export function PixPayment({
         };
 
         if (payload.status === "approved") {
+          if (items.length > 0) {
+            saveCheckoutSuccessSnapshot(buildCheckoutSuccessSnapshot(items));
+          }
           const params = new URLSearchParams();
           if (payload.orderName) params.set("order", payload.orderName);
           params.set("email", email);
-          navigate(`/store/checkout/sucesso?${params.toString()}`);
+          navigate(`/store/checkout/sucesso?${params.toString()}`, { replace: true });
         }
       } catch {
         // polling silencioso
@@ -52,7 +61,7 @@ export function PixPayment({
     }, 4000);
 
     return () => window.clearInterval(interval);
-  }, [email, navigate, orderId]);
+  }, [email, items, navigate, orderId]);
 
   const handleCopy = async () => {
     if (!qrCode) return;

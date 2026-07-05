@@ -25,6 +25,10 @@ import {
   isValidCpf,
 } from "@/lib/br-format";
 import { formatZipInput, getZipDigits, isValidZip } from "@/lib/cep";
+import {
+  buildCheckoutSuccessSnapshot,
+  saveCheckoutSuccessSnapshot,
+} from "@/lib/checkout-success-snapshot";
 import { calculateShipping } from "@/lib/shipping";
 import type { CheckoutPrepareResult, CheckoutShippingAddress } from "@/types/checkout";
 import { useEffect, useState } from "react";
@@ -245,6 +249,7 @@ export function CheckoutContent({
 
   const handleApproved = (result: { orderName?: string | null; email?: string | null }) => {
     toast.success("Pagamento aprovado! Redirecionando...");
+    saveCheckoutSuccessSnapshot(buildCheckoutSuccessSnapshot(items));
     const params = new URLSearchParams();
     if (result.orderName) params.set("order", result.orderName);
     if (result.email) params.set("email", result.email);
