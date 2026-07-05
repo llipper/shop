@@ -42,6 +42,9 @@ export function verifyMercadoPagoWebhookSignature(input: {
   const secret = getMercadoPagoWebhookSecret();
   if (!secret) return { ok: true as const, skipped: true as const };
 
+  // Navegador ou teste de URL do painel MP (sem x-signature) — só confirma que o endpoint existe.
+  if (!input.signatureHeader) return { ok: true as const, skipped: true as const };
+
   const signature = parseSignatureHeader(input.signatureHeader);
   if (!signature || !input.requestIdHeader || !input.dataId) {
     return { ok: false as const, skipped: false as const };
