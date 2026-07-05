@@ -45,6 +45,10 @@ export function getMercadoPagoAccessToken(): string | null {
 
 export function getMercadoPagoPaymentErrorMessage(statusDetail: string): string {
   const messages: Record<string, string> = {
+    invalid_card_token:
+      "Token do cartão expirou ou já foi usado. Preencha os dados do cartão novamente e tente de novo.",
+    processing_error:
+      "Falha ao processar o cartão. Gere um novo pagamento (não clique duas vezes) e use Visa de teste com titular APRO.",
     cc_rejected_insufficient_amount: "Saldo insuficiente no cartão.",
     cc_rejected_bad_filled_card_number: "Número do cartão inválido.",
     cc_rejected_bad_filled_date: "Data de vencimento inválida.",
@@ -56,9 +60,48 @@ export function getMercadoPagoPaymentErrorMessage(statusDetail: string): string 
     cc_rejected_other_reason: "Cartão recusado. Tente outro cartão ou Pix.",
     rejected_by_bank: "Pagamento recusado pelo banco.",
     rejected_insufficient_data: "Dados do pagamento incompletos.",
+    failed: "Pagamento não concluído. Tente novamente com um novo token de cartão.",
   };
 
   return messages[statusDetail] ?? "Pagamento recusado. Tente outro método.";
+}
+
+let sandboxAccountCache: boolean | null = null;
+
+export async function isMercadoPagoSandboxAccount() {
+  if (process.env.MERCADOPAGO_TEST_MODE === "true") return true;
+  if (process.env.MERCADOPAGO_TEST_MODE === "false") return false;
+  if (sandboxAccountCache !== null) return sandboxAccountCache;
+
+  const accessToken = getMercadoPagoAccessToken();
+  if (!accessToken) {
+    sandboxAccountCache = process.env.NODE_ENV !== "production";
+    return sandboxAccountCache;
+  }
+
+  try {
+    const response = await fetch("https://api.mercadopago.com/users/me", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (!response.ok) {
+      sandboxAccountCache = process.env.NODE_ENV !== "production";
+      return sandboxAccountCache;
+    }
+
+    const user = (await response.json()) as { nickname?: string };
+    sandboxAccountCache = String(user.nickname ?? "").toUpperCase().includes("TESTUSER");
+    return sandboxAccountCache;
+  } catch {
+    sandboxAccountCache = process.env.NODE_ENV !== "production";
+    return sandboxAccountCache;
+  }
+}
+
+function parseTransactionFailureDetail(detail: string) {
+  const match = detail.match(/^[A-Z0-9]+:\s*(.+)$/i);
+  if (!match) return detail;
+  return getMercadoPagoPaymentErrorMessage(match[1].trim());
 }
 
 export function getMercadoPagoConfigError(): string | null {
@@ -112,12 +155,6 @@ function normalizeExternalReference(reference: string) {
   return buildPaymentReference(draftOrderId);
 }
 
-function isMercadoPagoTestMode() {
-  if (process.env.MERCADOPAGO_TEST_MODE === "true") return true;
-  if (process.env.MERCADOPAGO_TEST_MODE === "false") return false;
-  return process.env.NODE_ENV !== "production";
-}
-
 function normalizeSandboxPayerEmail(email: string) {
   const trimmed = email.trim();
   if (!trimmed) return trimmed;
@@ -134,13 +171,20 @@ function formatMercadoPagoApiErrors(payload: Record<string, unknown>) {
     | undefined;
 
   if (errors?.length) {
-    return errors
-      .map((error) => {
-        const detail = error.details?.[0];
-        return detail ? `${error.message}: ${detail}` : error.message;
-      })
-      .filter(Boolean)
-      .join(" ");
+    const messages = errors.flatMap((error) => {
+      if (error.details?.length) {
+        return error.details.map((detail) => parseTransactionFailureDetail(detail));
+      }
+      return error.message ? [error.message] : [];
+    });
+
+    if (messages.length) return messages.join(" ");
+  }
+
+  const failedOrder = payload.data as Record<string, unknown> | undefined;
+  if (failedOrder) {
+    const orderMessage = getOrderFailureMessage(failedOrder);
+    if (orderMessage) return orderMessage;
   }
 
   return (
@@ -150,21 +194,40 @@ function formatMercadoPagoApiErrors(payload: Record<string, unknown>) {
   );
 }
 
+export function getOrderFailureMessage(order: Record<string, unknown>) {
+  const payment = getOrderPrimaryPayment(order);
+  const paymentDetail = String(payment?.status_detail ?? "").trim();
+  if (paymentDetail) return getMercadoPagoPaymentErrorMessage(paymentDetail);
+
+  const orderDetail = String(order.status_detail ?? "").trim();
+  if (orderDetail && orderDetail !== "failed") {
+    return getMercadoPagoPaymentErrorMessage(orderDetail);
+  }
+
+  const orderStatus = String(order.status ?? "");
+  if (orderStatus === "failed") {
+    return getMercadoPagoPaymentErrorMessage("failed");
+  }
+
+  return null;
+}
+
 function formatOrderAmount(value: number) {
   return value.toFixed(2);
 }
 
-function buildPayer(input: {
-  email: string;
-  firstName: string;
-  lastName: string;
-  document: string;
-  phone?: string;
-}) {
+function buildPayer(
+  input: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    document: string;
+    phone?: string;
+  },
+  sandbox: boolean,
+) {
   const phoneDigits = input.phone ? getPhoneDigits(input.phone) : "";
-  const email = isMercadoPagoTestMode()
-    ? normalizeSandboxPayerEmail(input.email)
-    : input.email;
+  const email = sandbox ? normalizeSandboxPayerEmail(input.email) : input.email;
   const payer: Record<string, unknown> = {
     email,
     entity_type: "individual",
@@ -241,7 +304,7 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
   }
 
   const amount = formatOrderAmount(input.amount);
-
+  const sandbox = await isMercadoPagoSandboxAccount();
   const externalReference = normalizeExternalReference(input.reference);
 
   // API Orders: notificações são configuradas no painel MP (Webhook → Order).
@@ -251,7 +314,7 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
     external_reference: externalReference,
     processing_mode: "automatic",
     total_amount: amount,
-    payer: buildPayer(input.payer),
+    payer: buildPayer(input.payer, sandbox),
     items: input.items.map((item) => ({
       title: item.title,
       unit_price: formatOrderAmount(item.unitPrice),

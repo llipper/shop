@@ -4,6 +4,7 @@ import {
   createMercadoPagoOrder,
   fetchMercadoPagoOrder,
   getMercadoPagoPaymentErrorMessage,
+  getOrderFailureMessage,
   getOrderId,
   getOrderPixData,
   getOrderStatusDetail,
@@ -77,8 +78,9 @@ function buildOrderResponse(
     });
   }
 
-  const statusDetail = getOrderStatusDetail(order);
-  const message = getMercadoPagoPaymentErrorMessage(statusDetail);
+  const message =
+    getOrderFailureMessage(order) ??
+    getMercadoPagoPaymentErrorMessage(getOrderStatusDetail(order));
 
   return Promise.resolve({
     ok: false as const,

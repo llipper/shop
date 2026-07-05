@@ -49,9 +49,16 @@ export function CheckoutPaymentForm({
   const [method, setMethod] = useState<CheckoutPaymentMethod>("card");
   const [submitting, setSubmitting] = useState(false);
   const [ticketUrl, setTicketUrl] = useState<string | null>(null);
+  const [cardFormKey, setCardFormKey] = useState(0);
 
-  const processOrderResult = (result: Awaited<ReturnType<typeof submitMercadoPagoOrder>>) => {
+  const processOrderResult = (
+    result: Awaited<ReturnType<typeof submitMercadoPagoOrder>>,
+    options?: { resetCardForm?: boolean },
+  ) => {
     if (!result.ok) {
+      if (options?.resetCardForm) {
+        setCardFormKey((current) => current + 1);
+      }
       onError(result.message ?? "Não foi possível processar o pagamento.");
       return;
     }
@@ -99,7 +106,7 @@ export function CheckoutPaymentForm({
         payer: shipping,
         items,
       });
-      processOrderResult(result);
+      processOrderResult(result, { resetCardForm: false });
     } catch {
       onError("Erro ao processar pagamento.");
     } finally {
@@ -123,8 +130,9 @@ export function CheckoutPaymentForm({
         items,
         card,
       });
-      processOrderResult(result);
+      processOrderResult(result, { resetCardForm: true });
     } catch {
+      setCardFormKey((current) => current + 1);
       onError("Erro ao processar pagamento.");
     } finally {
       setSubmitting(false);
@@ -150,7 +158,7 @@ export function CheckoutPaymentForm({
       <CardContent className="px-4 py-6 md:px-6 md:py-7">
         {method === "card" ? (
           <CheckoutCardPayment
-            key={`${reference}-card`}
+            key={`${reference}-card-${cardFormKey}`}
             publicKey={publicKey}
             amount={amount}
             payerEmail={shipping.email}
