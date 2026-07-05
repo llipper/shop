@@ -100,7 +100,7 @@ function buildAddress(shipping: CheckoutShippingAddress) {
 }
 
 const DRAFT_ORDER_CREATE = `#graphql
-  mutation RouhiDraftOrderCreate($input: DraftOrderInput!) {
+  mutation ROCCIUSDraftOrderCreate($input: DraftOrderInput!) {
     draftOrderCreate(input: $input) {
       draftOrder {
         id
@@ -113,7 +113,7 @@ const DRAFT_ORDER_CREATE = `#graphql
 `;
 
 const DRAFT_ORDER_COMPLETE = `#graphql
-  mutation RouhiDraftOrderComplete($id: ID!) {
+  mutation ROCCIUSDraftOrderComplete($id: ID!) {
     draftOrderComplete(id: $id, paymentPending: false) {
       draftOrder {
         id
@@ -158,7 +158,7 @@ export async function createDraftOrder(
         email: shipping.email,
         phone: formatPhoneForShopify(shipping.phone),
         note: `Pagamento Mercado Pago · CPF ${shipping.document}`,
-        tags: ["rouhi", "mercadopago"],
+        tags: ["roccius", "mercadopago"],
         shippingAddress: buildAddress(shipping),
         billingAddress: buildAddress(shipping),
         lineItems,

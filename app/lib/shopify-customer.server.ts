@@ -12,7 +12,7 @@ type CustomerUserError = {
 };
 
 const CUSTOMER_CREATE = `#graphql
-  mutation RouhiCustomerCreate($input: CustomerCreateInput!) {
+  mutation ROCCIUSCustomerCreate($input: CustomerCreateInput!) {
     customerCreate(input: $input) {
       customer { id email firstName lastName }
       customerUserErrors { code field message }
@@ -21,7 +21,7 @@ const CUSTOMER_CREATE = `#graphql
 `;
 
 const CUSTOMER_ACCESS_TOKEN_CREATE = `#graphql
-  mutation RouhiCustomerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+  mutation ROCCIUSCustomerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
     customerAccessTokenCreate(input: $input) {
       customerAccessToken { accessToken expiresAt }
       customerUserErrors { code field message }
@@ -30,7 +30,7 @@ const CUSTOMER_ACCESS_TOKEN_CREATE = `#graphql
 `;
 
 const CUSTOMER_UPDATE = `#graphql
-  mutation RouhiCustomerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+  mutation ROCCIUSCustomerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
     customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
       customer { id firstName lastName email phone }
       customerUserErrors { field message }
@@ -39,7 +39,7 @@ const CUSTOMER_UPDATE = `#graphql
 `;
 
 const CUSTOMER_RECOVER = `#graphql
-  mutation RouhiCustomerRecover($email: String!) {
+  mutation ROCCIUSCustomerRecover($email: String!) {
     customerRecover(email: $email) {
       customerUserErrors { field message }
     }
@@ -47,7 +47,7 @@ const CUSTOMER_RECOVER = `#graphql
 `;
 
 const CUSTOMER_QUERY = `#graphql
-  query RouhiCustomer($customerAccessToken: String!) {
+  query ROCCIUSCustomer($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
       id
       firstName
@@ -99,10 +99,10 @@ function getFirstUserError(errors: CustomerUserError[] | undefined) {
 function splitFullName(fullName: string) {
   const parts = fullName.trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) {
-    return { firstName: "Cliente", lastName: "ROUHI" };
+    return { firstName: "Cliente", lastName: "ROCCIUS" };
   }
   if (parts.length === 1) {
-    return { firstName: parts[0], lastName: "ROUHI" };
+    return { firstName: parts[0], lastName: "ROCCIUS" };
   }
   return {
     firstName: parts[0],

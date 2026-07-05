@@ -1,7 +1,7 @@
 import type { CartItem } from "@/contexts/cart-context";
 import { calculateShipping } from "@/lib/shipping";
 
-const STORAGE_KEY = "rouhi-checkout-success";
+const STORAGE_KEY = "roccius-checkout-success";
 
 export type CheckoutSuccessSnapshot = {
   items: Array<{

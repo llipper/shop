@@ -19,7 +19,7 @@ export function getPremiumHighlights(product: Product): string[] {
   }
 
   return [
-    "Curadoria exclusiva ROUHI",
+    "Curadoria exclusiva ROCCIUS",
     "Acabamento refinado em cada detalhe",
     "Produção limitada por lote",
   ];
@@ -28,7 +28,7 @@ export function getPremiumHighlights(product: Product): string[] {
 export function getPremiumFallbackDescription(product: Product): string[] {
   return [
     `${product.title} foi pensada para elevar o essencial do seu guarda-roupa. Cada peça combina conforto, presença visual e qualidade de construção — sem excessos, com identidade.`,
-    `Desenvolvida para o dia a dia com estética contemporânea, esta peça traduz o DNA da ROUHI: minimalismo sofisticado, materiais selecionados e caimento impecável.`,
+    `Desenvolvida para o dia a dia com estética contemporânea, esta peça traduz o DNA da ROCCIUS: minimalismo sofisticado, materiais selecionados e caimento impecável.`,
     "Ideal para composições casuais e looks urbanos. Combine com calças estruturadas, jaquetas leves ou acessórios discretos para um visual completo.",
   ];
 }

@@ -1,6 +1,6 @@
 export type CookieConsentValue = "accepted" | "rejected" | "essential";
 
-const STORAGE_KEY = "rouhi-cookie-consent";
+const STORAGE_KEY = "roccius-cookie-consent";
 
 export function getCookieConsent(): CookieConsentValue | null {
   if (typeof window === "undefined") return null;

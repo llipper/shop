@@ -6,7 +6,7 @@ type ContactPayload = {
 };
 
 export async function sendContactMessage(payload: ContactPayload) {
-  const to = process.env.CONTACT_TO_EMAIL?.trim() ?? "suporte@rouhi.com.br";
+  const to = process.env.CONTACT_TO_EMAIL?.trim() ?? "suporte@roccius.com.br";
   const from =
     process.env.CONTACT_FROM_EMAIL?.trim() ?? "onboarding@resend.dev";
   const apiKey = process.env.RESEND_API_KEY?.trim();
@@ -15,7 +15,7 @@ export async function sendContactMessage(payload: ContactPayload) {
     return {
       ok: false as const,
       message:
-        "Canal de contato não configurado. Envie um e-mail para suporte@rouhi.com.br.",
+        "Canal de contato não configurado. Envie um e-mail para suporte@roccius.com.br.",
     };
   }
 
@@ -35,10 +35,10 @@ export async function sendContactMessage(payload: ContactPayload) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `ROUHI <${from}>`,
+        from: `ROCCIUS <${from}>`,
         to: [to],
         reply_to: payload.email,
-        subject: `[ROUHI Contato] ${payload.subject}`,
+        subject: `[ROCCIUS Contato] ${payload.subject}`,
         text: body,
       }),
     });

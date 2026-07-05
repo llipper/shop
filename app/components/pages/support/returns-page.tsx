@@ -27,7 +27,7 @@ export function ReturnsPage() {
           <h2 className="text-lg font-medium text-foreground">Como Iniciar?</h2>
           <p>
             Entre em contato pela página <strong>Fale Conosco</strong> ou envie e-mail para{" "}
-            <strong className="text-foreground">suporte@rouhi.com.br</strong> com o número do pedido.
+            <strong className="text-foreground">suporte@roccius.com.br</strong> com o número do pedido.
           </p>
         </section>
       </div>

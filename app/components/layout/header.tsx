@@ -19,6 +19,7 @@ import { SearchDialog } from "@/components/layout/search-dialog";
 import { buildProductsHref } from "@/lib/product-filters";
 import { menuData, maisVendidosHref, novidadesHref, saleHref } from "@/lib/menu-data";
 import { useEffect, useState } from "react";
+import { SITE_NAME } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -48,7 +49,7 @@ export function Header() {
         {/* Left: Logo + Navigation */}
         <div className="flex items-center gap-10">
           <Link to="/store" className="text-2xl font-semibold tracking-widest uppercase text-foreground">
-            ROUHI
+            {SITE_NAME}
           </Link>
 
           {/* Desktop Navigation Menu */}
@@ -179,7 +180,7 @@ export function Header() {
               <SheetContent side="left" className="w-full sm:w-[400px] bg-background p-0 overflow-y-auto">
                 <SheetHeader className="p-6 pb-0">
                   <SheetTitle className="text-left text-2xl font-semibold tracking-widest uppercase">
-                    ROUHI
+                    {SITE_NAME}
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col p-6 pt-8">

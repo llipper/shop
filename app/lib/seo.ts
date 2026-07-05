@@ -2,11 +2,11 @@ import { getSiteOrigin, toAbsoluteUrl } from "@/lib/share-url";
 
 export const ROOT_SITE_ORIGIN_KEY = "siteOrigin";
 
-export const SITE_NAME = "ROUHI";
+export const SITE_NAME = "ROCCIUS";
 export const SITE_TAGLINE =
   "Roupas minimalistas, essenciais e projetadas para durar.";
 export const SITE_DESCRIPTION =
-  "ROUHI é uma marca de moda e lifestyle com peças minimalistas, materiais selecionados e estética contemporânea para o dia a dia urbano.";
+  "ROCCIUS é uma marca de moda e lifestyle com peças minimalistas, materiais selecionados e estética contemporânea para o dia a dia urbano.";
 
 type MetaMatch = {
   data?: unknown;

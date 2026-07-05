@@ -15,7 +15,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 
   return buildMetaTags({
     title,
-    description: `Explore ${title.toLowerCase()} na ROUHI. Moda minimalista, essencial e feita para durar.`,
+    description: `Explore ${title.toLowerCase()} na ROCCIUS. Moda minimalista, essencial e feita para durar.`,
     path: `${location.pathname}${location.search}`,
     matches,
   });

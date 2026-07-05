@@ -20,7 +20,7 @@ export function LegalPage({ title, intro, sections }: LegalPageProps) {
 
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32 md:px-12">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
-          ROUHI
+          ROCCIUS
         </p>
         <h1 className="mb-4 text-3xl font-medium md:text-4xl">{title}</h1>
         <p className="mb-10 text-muted-foreground leading-relaxed">{intro}</p>

@@ -113,7 +113,7 @@ export function CartDrawer() {
               Revisar pedido
             </Link>
             <p className="text-center text-xs text-muted-foreground mt-4">
-              Frete grátis acima de R$ 200 · pagamento no site ROUHI.
+              Frete grátis acima de R$ 200 · pagamento no site ROCCIUS.
             </p>
           </div>
         )}

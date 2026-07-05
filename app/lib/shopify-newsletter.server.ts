@@ -5,7 +5,7 @@ import {
 } from "./shopify-storefront.server";
 
 const CUSTOMER_CREATE_MUTATION = `#graphql
-  mutation RouhiNewsletterSubscribe($input: CustomerCreateInput!) {
+  mutation ROCCIUSNewsletterSubscribe($input: CustomerCreateInput!) {
     customerCreate(input: $input) {
       customer {
         id
@@ -83,7 +83,7 @@ export async function subscribeNewsletter(email: string) {
 
     return {
       ok: true as const,
-      message: "Inscrição confirmada! Em breve você receberá novidades da ROUHI.",
+      message: "Inscrição confirmada! Em breve você receberá novidades da ROCCIUS.",
     };
   } catch {
     return {

@@ -20,6 +20,7 @@ import {
   readCheckoutSuccessSnapshot,
   type CheckoutSuccessSnapshot,
 } from "@/lib/checkout-success-snapshot";
+import { SITE_NAME } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 type CheckoutSuccessPageProps = {
@@ -122,7 +123,7 @@ export function CheckoutSuccessPage({
             to="/store"
             className="text-2xl font-semibold tracking-[0.28em] text-foreground uppercase transition-opacity hover:opacity-80"
           >
-            ROUHI
+            {SITE_NAME}
           </Link>
           <span className="hidden items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-4 py-1.5 text-[10px] font-semibold tracking-[0.18em] text-emerald-700 uppercase sm:inline-flex">
             <Sparkles className="size-3.5" />

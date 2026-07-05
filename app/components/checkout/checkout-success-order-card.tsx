@@ -19,7 +19,7 @@ function formatBRL(value: number) {
 const TRUST_ITEMS = [
   { icon: Lock, text: "Pagamento protegido pelo Mercado Pago" },
   { icon: Truck, text: "Envio com rastreio após confirmação" },
-  { icon: ShieldCheck, text: "Checkout exclusivo ROUHI" },
+  { icon: ShieldCheck, text: "Checkout exclusivo ROCCIUS" },
 ] as const;
 
 type CheckoutSuccessOrderCardProps = {

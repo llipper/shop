@@ -82,7 +82,7 @@ const HEADER_COPY: Record<
     eyebrow: "Checkout seguro",
     title: "Seu pedido",
     description:
-      "Revise cada peça com calma. Pagamento e entrega ficam 100% no site ROUHI, com proteção Mercado Pago.",
+      "Revise cada peça com calma. Pagamento e entrega ficam 100% no site ROCCIUS, com proteção Mercado Pago.",
   },
   shipping: {
     eyebrow: "Entrega",

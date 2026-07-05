@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { footerStoreLinks } from "@/lib/menu-data";
 import { NewsletterForm } from "@/components/layout/newsletter-form";
+import { SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
 
 function IconInstagram() {
   return (
@@ -37,10 +38,10 @@ export function Footer() {
       <div className="max-w-[1440px] mx-auto px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
         <div className="flex flex-col">
           <Link to="/store" className="text-2xl font-semibold tracking-widest uppercase mb-6 text-foreground">
-            ROUHI
+            {SITE_NAME}
           </Link>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-            Roupas minimalistas, essenciais e projetadas para durar. Feito com cuidado para o seu dia a dia.
+            {SITE_TAGLINE} Feito com cuidado para o seu dia a dia.
           </p>
           <div className="flex gap-4 text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors"><IconInstagram /></a>
@@ -84,7 +85,7 @@ export function Footer() {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} ROUHI. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} {SITE_NAME}. Todos os direitos reservados.</p>
         <div className="flex gap-6">
           <Link to="/termos" className="hover:text-foreground transition-colors">Termos de Serviço</Link>
           <Link to="/privacidade" className="hover:text-foreground transition-colors">Política de Privacidade</Link>

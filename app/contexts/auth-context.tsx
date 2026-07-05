@@ -54,7 +54,7 @@ interface AuthContextType {
   logout: () => void;
 }
 
-const STORAGE_KEY = "rouhi-session";
+const STORAGE_KEY = "roccius-session";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

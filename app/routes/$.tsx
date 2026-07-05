@@ -8,7 +8,7 @@ export const loader = async () => {
 };
 
 export const meta: MetaFunction = () => [
-  { title: "Página não encontrada | ROUHI" },
+  { title: "Página não encontrada | ROCCIUS" },
   { name: "robots", content: "noindex" },
 ];
 

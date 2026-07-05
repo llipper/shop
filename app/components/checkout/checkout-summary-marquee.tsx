@@ -9,7 +9,7 @@ type CheckoutSummaryMarqueeProps = {
 };
 
 const BRAND_TICKER = [
-  "ROUHI",
+  "ROCCIUS",
   "Moda minimalista",
   "Curadoria exclusiva",
   "Frete grátis acima de R$ 200",

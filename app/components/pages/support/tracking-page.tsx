@@ -54,7 +54,7 @@ export function TrackingPage() {
       <div>
         <h1 className="text-3xl font-medium text-foreground mb-2">Rastrear Pedido</h1>
         <p className="text-muted-foreground">
-          Consulte o rastreio pelos Correios ou veja seus pedidos na conta ROUHI.
+          Consulte o rastreio pelos Correios ou veja seus pedidos na conta ROCCIUS.
         </p>
       </div>
 
@@ -131,7 +131,7 @@ export function TrackingPage() {
           <div className="flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
             <div>
-              <p className="text-sm font-medium text-foreground">Tem conta ROUHI?</p>
+              <p className="text-sm font-medium text-foreground">Tem conta ROCCIUS?</p>
               <p className="text-sm text-muted-foreground">
                 Entre para ver pedidos e rastreios sincronizados com a Shopify.
               </p>

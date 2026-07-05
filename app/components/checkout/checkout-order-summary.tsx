@@ -135,7 +135,7 @@ export function CheckoutOrderSummary({
             : [
                 { icon: Lock, text: "Pagamento protegido pelo Mercado Pago" },
                 { icon: Truck, text: "Frete grátis em compras acima de R$ 200" },
-                { icon: ShieldCheck, text: "Checkout exclusivo no site ROUHI" },
+                { icon: ShieldCheck, text: "Checkout exclusivo no site ROCCIUS" },
               ]
           ).map(({ icon: Icon, text }, index) => (
             <motion.div

@@ -41,7 +41,7 @@ type ShopifyProductNode = {
 };
 
 const PRODUCTS_QUERY = `#graphql
-  query RouhiStoreProducts($first: Int!) {
+  query ROCCIUSStoreProducts($first: Int!) {
     products(first: $first) {
       edges {
         node {
@@ -82,7 +82,7 @@ const PRODUCTS_QUERY = `#graphql
 `;
 
 const PRODUCT_BY_HANDLE_QUERY = `#graphql
-  query RouhiStoreProduct($handle: String!) {
+  query ROCCIUSStoreProduct($handle: String!) {
     product(handle: $handle) {
       id
       title

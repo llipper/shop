@@ -42,7 +42,7 @@ interface CartContextType {
   totalPrice: number;
 }
 
-const STORAGE_KEY = "rouhi-cart";
+const STORAGE_KEY = "roccius-cart";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 

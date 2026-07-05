@@ -53,7 +53,7 @@ export function NewsletterForm() {
           className="mt-0.5"
         />
         <span>
-          Concordo em receber comunicações da ROUHI e aceito a{" "}
+          Concordo em receber comunicações da ROCCIUS e aceito a{" "}
           <Link to="/privacidade" className="underline underline-offset-4 hover:text-foreground">
             Política de Privacidade
           </Link>{" "}

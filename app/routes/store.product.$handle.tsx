@@ -21,7 +21,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
   const pageUrl = toAbsoluteUrl(location.pathname, origin);
 
   if (!product) {
-    return [{ title: "Produto | ROUHI" }];
+    return [{ title: "Produto | ROCCIUS" }];
   }
 
   const image = toAbsoluteUrl(product.image, origin);
@@ -31,9 +31,9 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
     getProductShareDescription(product.title, product.category, priceLabel);
 
   return [
-    { title: `${product.title} | ROUHI` },
+    { title: `${product.title} | ROCCIUS` },
     { name: "description", content: description },
-    { property: "og:site_name", content: "ROUHI" },
+    { property: "og:site_name", content: "ROCCIUS" },
     { property: "og:title", content: product.title },
     { property: "og:description", content: description },
     { property: "og:image", content: image },

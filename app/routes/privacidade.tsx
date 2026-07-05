@@ -7,7 +7,7 @@ export const meta: MetaFunction = ({ matches }) =>
   buildMetaTags({
     title: "Política de Privacidade",
     description:
-      "Saiba como a ROUHI coleta, usa e protege seus dados pessoais em conformidade com a LGPD.",
+      "Saiba como a ROCCIUS coleta, usa e protege seus dados pessoais em conformidade com a LGPD.",
     path: "/privacidade",
     noIndex: true,
     matches,
@@ -18,7 +18,7 @@ export default function PrivacidadeRoute() {
     <StorefrontShell>
       <LegalPage
         title="Política de Privacidade"
-        intro="Esta política explica como a ROUHI trata dados pessoais em nosso site e em comunicações de marketing, em conformidade com a Lei Geral de Proteção de Dados (LGPD)."
+        intro="Esta política explica como a ROCCIUS trata dados pessoais em nosso site e em comunicações de marketing, em conformidade com a Lei Geral de Proteção de Dados (LGPD)."
         sections={[
           {
             title: "1. Dados que coletamos",
@@ -43,7 +43,7 @@ export default function PrivacidadeRoute() {
           {
             title: "4. Seus direitos (LGPD)",
             paragraphs: [
-              "Você pode solicitar acesso, correção, exclusão, portabilidade, revogação de consentimento ou informações sobre o uso dos seus dados pelo e-mail suporte@rouhi.com.br.",
+              "Você pode solicitar acesso, correção, exclusão, portabilidade, revogação de consentimento ou informações sobre o uso dos seus dados pelo e-mail suporte@roccius.com.br.",
               "Responderemos às solicitações dentro dos prazos previstos em lei.",
             ],
           },
@@ -56,7 +56,7 @@ export default function PrivacidadeRoute() {
           {
             title: "6. Contato",
             paragraphs: [
-              "Encarregado/DPO: suporte@rouhi.com.br",
+              "Encarregado/DPO: suporte@roccius.com.br",
               "Última atualização: julho de 2026.",
             ],
           },

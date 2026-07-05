@@ -57,7 +57,7 @@ export function ProductShareDialog({
     try {
       return new URL(shareUrl).host;
     } catch {
-      return "rouhi.com";
+      return "roccius.com";
     }
   }, [shareUrl]);
 
@@ -80,7 +80,7 @@ export function ProductShareDialog({
 
     try {
       await navigator.share({
-        title: `${product.title} | ROUHI`,
+        title: `${product.title} | ROCCIUS`,
         text: shareDescription,
         url: shareUrl,
       });
