@@ -1,7 +1,39 @@
 import { getCpfDigits, getPhoneDigits } from "./br-format";
+import { getMercadoPagoWebhookUrl } from "./mercadopago-webhook.server";
 import { getPublicStorefrontOrigin } from "./storefront-url.server";
 
 const MP_API = "https://api.mercadopago.com/v1";
+
+type MercadoPagoOrderItem = {
+  title: string;
+  unit_price: string;
+  quantity: number;
+};
+
+type MercadoPagoOrderPaymentMethod =
+  | { id: "pix"; type: "bank_transfer" }
+  | { id: "bolbradesco"; type: "ticket" }
+  | {
+      id: string;
+      type: "credit_card";
+      token: string;
+      installments: number;
+    };
+
+type MercadoPagoOrderCreateBody = {
+  type: "online";
+  external_reference: string;
+  processing_mode: "automatic";
+  total_amount: string;
+  payer: Record<string, unknown>;
+  items: MercadoPagoOrderItem[];
+  transactions: {
+    payments: Array<{
+      amount: string;
+      payment_method: MercadoPagoOrderPaymentMethod;
+    }>;
+  };
+};
 
 export function getMercadoPagoPublicKey(): string | null {
   return process.env.MERCADOPAGO_PUBLIC_KEY?.trim() || null;
@@ -36,7 +68,18 @@ export function getMercadoPagoConfigError(): string | null {
   if (!getMercadoPagoPublicKey()) {
     return "Defina MERCADOPAGO_PUBLIC_KEY no .env.";
   }
+  if (!getPublicStorefrontOrigin()) {
+    return "Defina PUBLIC_STOREFRONT_URL no .env (necessário para webhooks).";
+  }
   return null;
+}
+
+export function getMercadoPagoIntegrationMeta() {
+  return {
+    webhookUrl: getMercadoPagoWebhookUrl(),
+    notifications: "panel_webhook" as const,
+    webhookEvent: "order",
+  };
 }
 
 function extractDraftOrderNumericId(draftOrderId: string) {
@@ -197,13 +240,13 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
     return { ok: false as const, message: "Mercado Pago não configurado." };
   }
 
-  const origin = getPublicStorefrontOrigin();
-  const notificationUrl = origin ? `${origin}/api/mercadopago/webhook` : undefined;
   const amount = formatOrderAmount(input.amount);
 
   const externalReference = normalizeExternalReference(input.reference);
 
-  const body = {
+  // API Orders: notificações são configuradas no painel MP (Webhook → Order).
+  // Campos como notification_url, description e unit_measure não são aceitos aqui.
+  const body: MercadoPagoOrderCreateBody = {
     type: "online",
     external_reference: externalReference,
     processing_mode: "automatic",
@@ -222,7 +265,6 @@ export async function createMercadoPagoOrder(input: CreateMercadoPagoOrderInput)
         },
       ],
     },
-    ...(notificationUrl ? { notification_url: notificationUrl } : {}),
   };
 
   try {

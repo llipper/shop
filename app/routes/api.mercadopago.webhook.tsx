@@ -5,6 +5,11 @@ import {
   isOrderPaymentApproved,
   parsePaymentReference,
 } from "@/lib/mercadopago.server";
+import {
+  extractMercadoPagoOrderId,
+  readMercadoPagoWebhookBody,
+  verifyMercadoPagoWebhookSignature,
+} from "@/lib/mercadopago-webhook.server";
 import { completeDraftOrder } from "@/lib/shopify-order.server";
 
 async function processOrderNotification(orderId: string) {
@@ -18,47 +23,23 @@ async function processOrderNotification(orderId: string) {
   await completeDraftOrder(draftOrderId);
 }
 
-function extractOrderId(request: Request): string | null {
-  const url = new URL(request.url);
-  const topic = url.searchParams.get("topic") ?? url.searchParams.get("type");
-  const id = url.searchParams.get("id") ?? url.searchParams.get("data.id");
-
-  if (id && (!topic || topic.includes("order"))) {
-    return id;
-  }
-
-  return null;
-}
-
-async function extractOrderIdFromBody(request: Request): Promise<string | null> {
-  try {
-    const body = (await request.json()) as {
-      type?: string;
-      topic?: string;
-      action?: string;
-      data?: { id?: string | number };
-      id?: string | number;
-    };
-
-    const type = body.type ?? body.topic ?? body.action ?? "";
-    const id = body.data?.id ?? body.id;
-
-    if (id == null) return null;
-    if (type.includes("order")) return String(id);
-
-    return null;
-  } catch {
-    return null;
-  }
-}
-
 async function handleNotification(request: Request) {
-  let orderId = extractOrderId(request);
+  const url = new URL(request.url);
+  const queryDataId = url.searchParams.get("data.id") ?? url.searchParams.get("id");
+  const body = request.method === "POST" ? await readMercadoPagoWebhookBody(request) : null;
+  const dataId = queryDataId ?? (body?.data?.id != null ? String(body.data.id) : null);
 
-  if (!orderId && request.method === "POST") {
-    orderId = await extractOrderIdFromBody(request);
+  const signature = verifyMercadoPagoWebhookSignature({
+    signatureHeader: request.headers.get("x-signature"),
+    requestIdHeader: request.headers.get("x-request-id"),
+    dataId,
+  });
+
+  if (!signature.ok && !signature.skipped) {
+    return data({ ok: false, message: "Assinatura do webhook inválida." }, { status: 401 });
   }
 
+  const orderId = extractMercadoPagoOrderId(request, body);
   if (orderId) {
     await processOrderNotification(orderId);
   }
